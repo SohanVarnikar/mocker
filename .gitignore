@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+admin-ui/dist/
+
+# Mock data generated at runtime (seed config in server/data/config is tracked,
+# but the generated store/*.json "database" files are local dev state)
+server/data/store/*.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Portable app build (npm run package)
+dist-app/
+api-mocker.zip

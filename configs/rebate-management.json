@@ -1,0 +1,862 @@
+{
+  "entities": [
+    {
+      "name": "rebates",
+      "idField": "id",
+      "idParam": "rebateId",
+      "idStrategy": "uuid",
+      "seedData": [
+        {
+          "id": "TEST1234",
+          "name": "Active Rebate - Happy Path",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-90d}}",
+          "endDate": "{{today+270d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-3d}}"
+          }
+        },
+        {
+          "id": "PENDING01",
+          "name": "Pending Rebate - Starts In The Future",
+          "programTypeId": 2,
+          "customerCategoryId": 20,
+          "frequencyType": "Quarterly",
+          "effectiveDate": "{{today+30d}}",
+          "endDate": "{{today+395d}}",
+          "pastDueMax": 0,
+          "closeToTarget": 0,
+          "shareable": true,
+          "status": "pending",
+          "priceMods": false,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-2d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "HISTORY01",
+          "name": "Historical Rebate - Read Only",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-400d}}",
+          "endDate": "{{today-35d}}",
+          "pastDueMax": 250,
+          "closeToTarget": 100,
+          "shareable": false,
+          "status": "historical",
+          "priceMods": true,
+          "outsidePurchases": true,
+          "generalExclusions": true,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-400d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-40d}}"
+          }
+        },
+        {
+          "id": "EDGECASE1",
+          "name": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+          "programTypeId": 3,
+          "customerCategoryId": 30,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today}}",
+          "endDate": "{{today}}",
+          "pastDueMax": 999999,
+          "closeToTarget": 999999,
+          "shareable": true,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": true,
+          "generalExclusions": true,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "notes",
+      "idField": "id",
+      "idParam": "noteId",
+      "idStrategy": "increment",
+      "scope": { "rebateId": "rebateId" },
+      "defaults": {
+        "trackingInfo": {
+          "createdBy": "mock-user",
+          "createdAt": "{{now}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      },
+      "seedData": [
+        {
+          "id": 1,
+          "rebateId": "TEST1234",
+          "note": "Confirmed the annual rebate terms with the customer.",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-3d}}"
+          }
+        },
+        {
+          "id": 2,
+          "rebateId": "TEST1234",
+          "note": "Never edited note.",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-10d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": 3,
+          "rebateId": "TEST1234",
+          "note": "Very long note: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-5d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": 4,
+          "rebateId": "TEST1234",
+          "note": "Special chars: <b>bold</b> & \"quotes\" 'single' \\ backslash\nSecond line \u00e9\u00e8 \u2713 \ud83d\ude80",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": 5,
+          "rebateId": "HISTORY01",
+          "note": "Rebate closed out after final payout.",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-40d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "accounts",
+      "idField": "id",
+      "idParam": "accountId",
+      "idStrategy": "increment",
+      "scope": { "rebateId": "rebateId" },
+      "defaults": {
+        "customerName": "New Mock Customer",
+        "customerType": "S",
+        "inactive": false,
+        "groupCode": "1224",
+        "vendorNumber": null,
+        "parentPortfolio": null,
+        "onChildOrGenericPortfolio": false,
+        "endDate": null,
+        "trackingInfo": { "createdBy": "mock-user", "updatedBy": null }
+      },
+      "seedData": [
+        {
+          "id": 123445,
+          "rebateId": "TEST1234",
+          "customerNumber": 10001,
+          "customerName": "Standard S - Future Start (deletable)",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": 45678,
+          "paymentType": "check",
+          "parentPortfolio": "Portfolio Name (1234)",
+          "onChildOrGenericPortfolio": false,
+          "effectiveDate": "{{today+30d}}",
+          "endDate": "{{today+395d}}",
+          "trackingInfo": { "createdBy": "jdoe", "updatedBy": "asmith" }
+        },
+        {
+          "id": 123446,
+          "rebateId": "TEST1234",
+          "customerNumber": 10002,
+          "customerName": "Standard R - Already Started (not deletable)",
+          "customerType": "R",
+          "inactive": false,
+          "groupCode": "1225",
+          "vendorNumber": 45679,
+          "paymentType": "credit",
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "effectiveDate": "{{today-60d}}",
+          "endDate": "{{today+300d}}",
+          "trackingInfo": { "createdBy": "jdoe", "updatedBy": null }
+        },
+        {
+          "id": 123447,
+          "rebateId": "TEST1234",
+          "customerNumber": 10003,
+          "customerName": "Unknown Type - Warning Row",
+          "customerType": "Z",
+          "inactive": false,
+          "groupCode": "1226",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "effectiveDate": "{{today+10d}}",
+          "endDate": null,
+          "trackingInfo": { "createdBy": "jdoe", "updatedBy": null }
+        },
+        {
+          "id": 123448,
+          "rebateId": "TEST1234",
+          "customerNumber": 10004,
+          "customerName": "Inactive - Warning Row",
+          "customerType": "S",
+          "inactive": true,
+          "groupCode": "1227",
+          "vendorNumber": 45680,
+          "paymentType": "check",
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "effectiveDate": "{{today-200d}}",
+          "endDate": "{{today-20d}}",
+          "trackingInfo": { "createdBy": "jdoe", "updatedBy": "asmith" }
+        },
+        {
+          "id": 123449,
+          "rebateId": "TEST1234",
+          "customerNumber": 10005,
+          "customerName": "On Child/Generic Portfolio",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1228",
+          "vendorNumber": null,
+          "paymentType": "check",
+          "parentPortfolio": "Generic Portfolio (0)",
+          "onChildOrGenericPortfolio": true,
+          "effectiveDate": "{{today+60d}}",
+          "endDate": null,
+          "trackingInfo": { "createdBy": "jdoe", "updatedBy": null }
+        },
+        {
+          "id": 123450,
+          "rebateId": "HISTORY01",
+          "customerNumber": 20001,
+          "customerName": "Historical Customer",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "2001",
+          "vendorNumber": 9001,
+          "paymentType": "credit",
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "effectiveDate": "{{today-400d}}",
+          "endDate": "{{today-35d}}",
+          "trackingInfo": { "createdBy": "asmith", "updatedBy": null }
+        }
+      ]
+    },
+    {
+      "name": "program-types",
+      "idField": "id",
+      "idParam": "id",
+      "idStrategy": "increment",
+      "seedData": [
+        { "id": 1, "name": "Sales Support Rebate" },
+        { "id": 2, "name": "Category Rebate" },
+        {
+          "id": 3,
+          "name": "An Extremely Long Program Type Name To Test Dropdown Overflow And Truncation Behaviour"
+        }
+      ]
+    },
+    {
+      "name": "customer-categories",
+      "idField": "id",
+      "idParam": "id",
+      "idStrategy": "increment",
+      "seedData": [
+        { "id": 10, "name": "Retail" },
+        { "id": 20, "name": "Wholesale" },
+        {
+          "id": 30,
+          "name": "An Extremely Long Customer Category Name To Test Dropdown Overflow"
+        }
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "id": "ep-auth-check",
+      "method": "GET",
+      "path": "/RebateManagement/teamnet/checkAuthentication",
+      "description": "Check authentication",
+      "tag": "auth",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Authenticated",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "true",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-no",
+          "name": "Not authenticated",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "false",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-program-types",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/program-types",
+      "description": "List program types",
+      "tag": "lookups",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": { "entityName": "program-types", "operation": "list" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load program types\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-customer-categories",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/customer-categories",
+      "description": "List customer categories",
+      "tag": "lookups",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": {
+        "entityName": "customer-categories",
+        "operation": "list"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load customer categories\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-frequency-types",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/frequency-types",
+      "description": "List frequency types",
+      "tag": "lookups",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "[\"Monthly\", \"Quarterly\"]",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load frequency types\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-rebate-get",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId",
+      "description": "Get rebate (rebateId ERROR500 -> 500, GATEWAY504 -> 504, unknown id -> 404)",
+      "tag": "rebate",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": { "entityName": "rebates", "operation": "getById" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-500",
+          "name": "ERROR500 -> Server Error",
+          "match": { "params.rebateId": "ERROR500" },
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unexpected server error\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-504",
+          "name": "GATEWAY504 -> Gateway Timeout",
+          "match": { "params.rebateId": "GATEWAY504" },
+          "statusCode": 504,
+          "delayMs": 1000,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Gateway Timeout\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unexpected server error\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-rebate-put",
+      "method": "PUT",
+      "path": "/api/rms/crs/rebates/:rebateId",
+      "description": "Edit rebate (name FAIL -> 400)",
+      "tag": "rebate",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"name\": \"string\", \"programTypeId\": \"number\", \"customerCategoryId\": \"number\", \"frequencyType\": \"string\", \"effectiveDate\": \"date\", \"endDate\": \"date\", \"pastDueMax\": \"number\", \"closeToTarget\": \"number\", \"shareable\": \"boolean\", \"status\": \"string\" }"
+      },
+      "entityLink": { "entityName": "rebates", "operation": "update" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-fail",
+          "name": "name FAIL -> Validation Error",
+          "match": { "request.body.name": "FAIL" },
+          "statusCode": 400,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Rebate name is not allowed\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-bad",
+          "name": "Always Validation Error",
+          "statusCode": 400,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"endDate must be on or after effectiveDate\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-rebate-flags",
+      "method": "PATCH",
+      "path": "/api/rms/crs/rebates/:rebateId/invoice-item-flags",
+      "description": "Update a single invoice item flag",
+      "tag": "rebate",
+      "enabled": true,
+      "requestShape": { "body": "{ \"priceMods\": \"boolean\" }" },
+      "entityLink": { "entityName": "rebates", "operation": "update" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error (UI rolls back)",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to update flag\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-group-codes",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId/group-codes",
+      "description": "List group codes (path assumed)",
+      "tag": "group-code",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "[{ \"groupCode\": \"GC001\" }, { \"groupCode\": \"GC002\" }]",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-empty",
+          "name": "Empty",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "[]",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load group codes\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-notes-list",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId/notes",
+      "description": "List notes (PENDING01 has none)",
+      "tag": "note",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": { "entityName": "notes", "operation": "list" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load notes\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-notes-create",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates/:rebateId/notes",
+      "description": "Add note (note text FAIL -> 500)",
+      "tag": "note",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"note\": \"string\", \"createdBy\": \"string\" }"
+      },
+      "entityLink": { "entityName": "notes", "operation": "create" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-fail",
+          "name": "note FAIL -> Server Error",
+          "match": { "request.body.note": "FAIL" },
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to save note\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 201,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to save note\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-notes-update",
+      "method": "PUT",
+      "path": "/api/rms/crs/rebates/:rebateId/notes/:noteId",
+      "description": "Edit note",
+      "tag": "note",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"note\": \"string\", \"updatedBy\": \"string\" }"
+      },
+      "entityLink": { "entityName": "notes", "operation": "update" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to update note\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-list",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId/accounts",
+      "description": "List customer accounts (PENDING01 has none)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": { "entityName": "accounts", "operation": "list" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load customers\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-create",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates/:rebateId/accounts",
+      "description": "Add customer account (customerNumber 99999 -> 409, 88888 -> 422)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"customerNumber\": \"number\", \"vendorNumber\": \"number\", \"paymentType\": \"credit|check\", \"effectiveDate\": \"date\" }"
+      },
+      "entityLink": { "entityName": "accounts", "operation": "create" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-dup",
+          "name": "customerNumber 99999 -> Duplicate",
+          "match": { "request.body.customerNumber": 99999 },
+          "statusCode": 409,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Customer already exists on this rebate\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-unknown",
+          "name": "customerNumber 88888 -> Unknown Customer",
+          "match": { "request.body.customerNumber": 88888 },
+          "statusCode": 422,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "\"Customer 88888 does not exist\"",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 201,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to add customer\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-update",
+      "method": "PUT",
+      "path": "/api/rms/crs/rebates/:rebateId/accounts/:accountId",
+      "description": "Edit customer account (planned)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"customerNumber\": \"number\", \"vendorNumber\": \"number|null\", \"paymentType\": \"string\", \"effectiveDate\": \"date\", \"endDate\": \"date|null\" }"
+      },
+      "entityLink": { "entityName": "accounts", "operation": "update" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to update customer\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-delete",
+      "method": "DELETE",
+      "path": "/api/rms/crs/rebates/:rebateId/accounts/:accountId",
+      "description": "Delete customer account",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": { "query": "none", "body": "none" },
+      "entityLink": { "entityName": "accounts", "operation": "delete" },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to delete customer\" }",
+          "usesEntity": false
+        }
+      ]
+    }
+  ]
+}

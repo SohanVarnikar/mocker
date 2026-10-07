@@ -1,0 +1,407 @@
+[
+  {
+    "name": "products",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 1,
+        "name": "Wireless Mouse",
+        "price": 24.99,
+        "inStock": true,
+        "createdAt": "2026-01-01T09:00:00.000Z"
+      },
+      {
+        "id": 2,
+        "name": "Mechanical Keyboard",
+        "price": 89,
+        "inStock": true,
+        "createdAt": "2026-01-01T09:01:00.000Z"
+      },
+      {
+        "id": 3,
+        "name": "USB-C Hub",
+        "price": 34.5,
+        "inStock": false,
+        "createdAt": "2026-01-01T09:02:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 1,
+        "name": "Ava Patel",
+        "email": "ava@example.com",
+        "role": "admin"
+      },
+      {
+        "id": 2,
+        "name": "Liam Chen",
+        "email": "liam@example.com",
+        "role": "member"
+      }
+    ]
+  },
+  {
+    "name": "orders",
+    "idField": "orderId",
+    "idParam": "orderId",
+    "idStrategy": "uuid",
+    "seedData": []
+  },
+  {
+    "name": "rebates",
+    "idField": "id",
+    "idParam": "rebateId",
+    "idStrategy": "uuid",
+    "seedData": [
+      {
+        "id": "TEST1234",
+        "name": "Active Rebate - Happy Path",
+        "programTypeId": 1,
+        "customerCategoryId": 10,
+        "frequencyType": "Monthly",
+        "effectiveDate": "{{today-90d}}",
+        "endDate": "{{today+270d}}",
+        "pastDueMax": 500,
+        "closeToTarget": 750,
+        "shareable": false,
+        "status": "active",
+        "priceMods": true,
+        "outsidePurchases": false,
+        "generalExclusions": false,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-90d}}",
+          "updatedBy": "asmith",
+          "updatedAt": "{{now-3d}}"
+        }
+      },
+      {
+        "id": "PENDING01",
+        "name": "Pending Rebate - Starts In The Future",
+        "programTypeId": 2,
+        "customerCategoryId": 20,
+        "frequencyType": "Quarterly",
+        "effectiveDate": "{{today+30d}}",
+        "endDate": "{{today+395d}}",
+        "pastDueMax": 0,
+        "closeToTarget": 0,
+        "shareable": true,
+        "status": "pending",
+        "priceMods": false,
+        "outsidePurchases": false,
+        "generalExclusions": false,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-2d}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      },
+      {
+        "id": "HISTORY01",
+        "name": "Historical Rebate - Read Only",
+        "programTypeId": 1,
+        "customerCategoryId": 10,
+        "frequencyType": "Monthly",
+        "effectiveDate": "{{today-400d}}",
+        "endDate": "{{today-35d}}",
+        "pastDueMax": 250,
+        "closeToTarget": 100,
+        "shareable": false,
+        "status": "historical",
+        "priceMods": true,
+        "outsidePurchases": true,
+        "generalExclusions": true,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-400d}}",
+          "updatedBy": "asmith",
+          "updatedAt": "{{now-40d}}"
+        }
+      },
+      {
+        "id": "EDGECASE1",
+        "name": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+        "programTypeId": 3,
+        "customerCategoryId": 30,
+        "frequencyType": "Monthly",
+        "effectiveDate": "{{today}}",
+        "endDate": "{{today}}",
+        "pastDueMax": 999999,
+        "closeToTarget": 999999,
+        "shareable": true,
+        "status": "active",
+        "priceMods": true,
+        "outsidePurchases": true,
+        "generalExclusions": true,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      }
+    ]
+  },
+  {
+    "name": "notes",
+    "idField": "id",
+    "idParam": "noteId",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 1,
+        "rebateId": "TEST1234",
+        "note": "Confirmed the annual rebate terms with the customer.",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-30d}}",
+          "updatedBy": "asmith",
+          "updatedAt": "{{now-3d}}"
+        }
+      },
+      {
+        "id": 2,
+        "rebateId": "TEST1234",
+        "note": "Never edited note.",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-10d}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      },
+      {
+        "id": 3,
+        "rebateId": "TEST1234",
+        "note": "Very long note: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-5d}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      },
+      {
+        "id": 4,
+        "rebateId": "TEST1234",
+        "note": "Special chars: <b>bold</b> & \"quotes\" 'single' \\ backslash\nSecond line éè ✓ 🚀",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "createdAt": "{{now-1d}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      },
+      {
+        "id": 5,
+        "rebateId": "HISTORY01",
+        "note": "Rebate closed out after final payout.",
+        "trackingInfo": {
+          "createdBy": "asmith",
+          "createdAt": "{{now-40d}}",
+          "updatedBy": null,
+          "updatedAt": null
+        }
+      }
+    ],
+    "scope": {
+      "rebateId": "rebateId"
+    },
+    "defaults": {
+      "trackingInfo": {
+        "createdBy": "mock-user",
+        "createdAt": "{{now}}",
+        "updatedBy": null,
+        "updatedAt": null
+      }
+    }
+  },
+  {
+    "name": "accounts",
+    "idField": "id",
+    "idParam": "accountId",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 123445,
+        "rebateId": "TEST1234",
+        "customerNumber": 10001,
+        "customerName": "Standard S - Future Start (deletable)",
+        "customerType": "S",
+        "inactive": false,
+        "groupCode": "1224",
+        "vendorNumber": 45678,
+        "paymentType": "check",
+        "parentPortfolio": "Portfolio Name (1234)",
+        "onChildOrGenericPortfolio": false,
+        "effectiveDate": "{{today+30d}}",
+        "endDate": "{{today+395d}}",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "updatedBy": "asmith"
+        }
+      },
+      {
+        "id": 123446,
+        "rebateId": "TEST1234",
+        "customerNumber": 10002,
+        "customerName": "Standard R - Already Started (not deletable)",
+        "customerType": "R",
+        "inactive": false,
+        "groupCode": "1225",
+        "vendorNumber": 45679,
+        "paymentType": "credit",
+        "parentPortfolio": null,
+        "onChildOrGenericPortfolio": false,
+        "effectiveDate": "{{today-60d}}",
+        "endDate": "{{today+300d}}",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "updatedBy": null
+        }
+      },
+      {
+        "id": 123447,
+        "rebateId": "TEST1234",
+        "customerNumber": 10003,
+        "customerName": "Unknown Type - Warning Row",
+        "customerType": "Z",
+        "inactive": false,
+        "groupCode": "1226",
+        "vendorNumber": null,
+        "paymentType": "credit",
+        "parentPortfolio": null,
+        "onChildOrGenericPortfolio": false,
+        "effectiveDate": "{{today+10d}}",
+        "endDate": null,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "updatedBy": null
+        }
+      },
+      {
+        "id": 123448,
+        "rebateId": "TEST1234",
+        "customerNumber": 10004,
+        "customerName": "Inactive - Warning Row",
+        "customerType": "S",
+        "inactive": true,
+        "groupCode": "1227",
+        "vendorNumber": 45680,
+        "paymentType": "check",
+        "parentPortfolio": null,
+        "onChildOrGenericPortfolio": false,
+        "effectiveDate": "{{today-200d}}",
+        "endDate": "{{today-20d}}",
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "updatedBy": "asmith"
+        }
+      },
+      {
+        "id": 123449,
+        "rebateId": "TEST1234",
+        "customerNumber": 10005,
+        "customerName": "On Child/Generic Portfolio",
+        "customerType": "S",
+        "inactive": false,
+        "groupCode": "1228",
+        "vendorNumber": null,
+        "paymentType": "check",
+        "parentPortfolio": "Generic Portfolio (0)",
+        "onChildOrGenericPortfolio": true,
+        "effectiveDate": "{{today+60d}}",
+        "endDate": null,
+        "trackingInfo": {
+          "createdBy": "jdoe",
+          "updatedBy": null
+        }
+      },
+      {
+        "id": 123450,
+        "rebateId": "HISTORY01",
+        "customerNumber": 20001,
+        "customerName": "Historical Customer",
+        "customerType": "S",
+        "inactive": false,
+        "groupCode": "2001",
+        "vendorNumber": 9001,
+        "paymentType": "credit",
+        "parentPortfolio": null,
+        "onChildOrGenericPortfolio": false,
+        "effectiveDate": "{{today-400d}}",
+        "endDate": "{{today-35d}}",
+        "trackingInfo": {
+          "createdBy": "asmith",
+          "updatedBy": null
+        }
+      }
+    ],
+    "scope": {
+      "rebateId": "rebateId"
+    },
+    "defaults": {
+      "customerName": "New Mock Customer",
+      "customerType": "S",
+      "inactive": false,
+      "groupCode": "1224",
+      "vendorNumber": null,
+      "parentPortfolio": null,
+      "onChildOrGenericPortfolio": false,
+      "endDate": null,
+      "trackingInfo": {
+        "createdBy": "mock-user",
+        "updatedBy": null
+      }
+    }
+  },
+  {
+    "name": "program-types",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 1,
+        "name": "Sales Support Rebate"
+      },
+      {
+        "id": 2,
+        "name": "Category Rebate"
+      },
+      {
+        "id": 3,
+        "name": "An Extremely Long Program Type Name To Test Dropdown Overflow And Truncation Behaviour"
+      }
+    ]
+  },
+  {
+    "name": "customer-categories",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment",
+    "seedData": [
+      {
+        "id": 10,
+        "name": "Retail"
+      },
+      {
+        "id": 20,
+        "name": "Wholesale"
+      },
+      {
+        "id": 30,
+        "name": "An Extremely Long Customer Category Name To Test Dropdown Overflow"
+      }
+    ]
+  }
+]

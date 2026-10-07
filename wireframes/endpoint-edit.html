@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Edit Endpoint</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item active">Endpoints</a>
+      <a href="entities.html" class="nav-item">Entities</a>
+      <a href="logs.html" class="nav-item">Request Log</a>
+      <a href="settings.html" class="nav-item">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <a href="index.html" class="back-link">← Back to Endpoints</a>
+    <div class="topbar">
+      <div>
+        <h1>Edit Endpoint</h1>
+        <p class="subtitle mono">PUT /api/products/:id</p>
+      </div>
+      <div class="topbar-actions">
+        <a href="index.html" class="btn">Cancel</a>
+        <button class="btn btn-primary">Save Endpoint</button>
+      </div>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="card">
+      <div class="card-header"><h2>Basic Info</h2></div>
+      <div class="field-row">
+        <div class="field" style="max-width:140px">
+          <label>Method</label>
+          <select>
+            <option>GET</option>
+            <option>POST</option>
+            <option selected>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+          </select>
+        </div>
+        <div class="field" style="flex:2">
+          <label>Path</label>
+          <input type="text" value="/api/products/:id">
+          <div class="hint">Use :param syntax for path parameters, e.g. /api/products/:id</div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Description</label>
+          <input type="text" value="Update an existing product by id">
+        </div>
+        <div class="field" style="max-width:180px">
+          <label>Tag / Group</label>
+          <input type="text" value="products">
+        </div>
+      </div>
+      <div class="field" style="flex-direction:row; align-items:center; gap:10px;">
+        <span class="toggle on"><span class="knob"></span></span>
+        <label style="margin:0">Endpoint enabled</label>
+        <span class="hint" style="margin:0">Disabled endpoints return 404 on the mock server</span>
+      </div>
+    </div>
+
+    <!-- Request Shape -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Request Shape <span class="text-faint" style="font-weight:400">(optional, for reference)</span></h2>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Path Params</label>
+          <textarea rows="2">id (number) — from :id</textarea>
+        </div>
+        <div class="field">
+          <label>Query Params</label>
+          <textarea rows="2">none</textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label>Example Request Body</label>
+        <textarea rows="6" class="mono">{
+  "name": "Wireless Mouse",
+  "price": 24.99,
+  "inStock": true
+}</textarea>
+      </div>
+    </div>
+
+    <!-- Entity Link -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Entity Link <span class="text-faint" style="font-weight:400">(optional)</span></h2>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Entity</label>
+          <select>
+            <option>— none —</option>
+            <option selected>products</option>
+            <option>users</option>
+            <option>orders</option>
+          </select>
+        </div>
+        <div class="field" style="flex:2">
+          <label>Operation</label>
+          <select>
+            <option>list — GET collection</option>
+            <option>getById — GET single record</option>
+            <option>create — POST new record</option>
+            <option selected>update — PUT/PATCH modify record by id</option>
+            <option>delete — DELETE record by id</option>
+          </select>
+        </div>
+      </div>
+      <div class="hint">When the active scenario below is "Success", this endpoint reads/writes <span class="mono">data/store/products.json</span> automatically using the <span class="mono">:id</span> path param. Non-success scenarios override this and leave stored data untouched.</div>
+    </div>
+
+    <!-- Response Scenarios -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Response Scenarios</h2>
+        <button class="btn btn-sm">+ Add Scenario</button>
+      </div>
+
+      <div class="scenarios-list">
+        <div class="scenario-card is-active">
+          <div class="scenario-head">
+            <label class="radio-active"><input type="radio" name="active-scenario" checked> Active</label>
+            <input type="text" value="Success">
+            <select style="width:110px">
+              <option selected>200 OK</option>
+              <option>201 Created</option>
+              <option>204 No Content</option>
+            </select>
+            <input type="number" value="0" style="width:80px" title="Delay (ms)">
+            <span class="hint" style="margin:0">ms delay</span>
+            <button class="btn-icon" title="Delete scenario">✕</button>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Headers</label>
+              <textarea rows="2" class="mono">Content-Type: application/json</textarea>
+            </div>
+            <div class="field" style="flex:2">
+              <label>Response Body <span class="text-faint">(supports :id, {{request.body.field}} templates)</span></label>
+              <textarea rows="4" class="mono">{
+  "id": ":id",
+  "name": "{{request.body.name}}",
+  "price": "{{request.body.price}}",
+  "updatedAt": "{{now}}"
+}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-head">
+            <label class="radio-active"><input type="radio" name="active-scenario"> Active</label>
+            <input type="text" value="Not Found">
+            <select style="width:110px">
+              <option>400 Bad Request</option>
+              <option selected>404 Not Found</option>
+              <option>409 Conflict</option>
+            </select>
+            <input type="number" value="300" style="width:80px" title="Delay (ms)">
+            <span class="hint" style="margin:0">ms delay</span>
+            <button class="btn-icon" title="Delete scenario">✕</button>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Headers</label>
+              <textarea rows="2" class="mono">Content-Type: application/json</textarea>
+            </div>
+            <div class="field" style="flex:2">
+              <label>Response Body</label>
+              <textarea rows="4" class="mono">{
+  "error": "Product with id :id was not found"
+}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-head">
+            <label class="radio-active"><input type="radio" name="active-scenario"> Active</label>
+            <input type="text" value="Server Error">
+            <select style="width:110px">
+              <option selected>500 Internal Error</option>
+              <option>503 Unavailable</option>
+            </select>
+            <input type="number" value="800" style="width:80px" title="Delay (ms)">
+            <span class="hint" style="margin:0">ms delay</span>
+            <button class="btn-icon" title="Delete scenario">✕</button>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Headers</label>
+              <textarea rows="2" class="mono">Content-Type: application/json</textarea>
+            </div>
+            <div class="field" style="flex:2">
+              <label>Response Body</label>
+              <textarea rows="4" class="mono">{
+  "error": "Unexpected server error"
+}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

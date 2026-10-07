@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Import / Export</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item">Endpoints</a>
+      <a href="entities.html" class="nav-item">Entities</a>
+      <a href="logs.html" class="nav-item">Request Log</a>
+      <a href="settings.html" class="nav-item active">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <h1>Import / Export</h1>
+        <p class="subtitle">Backup, share, or restore your mock configuration</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Export Configuration</h2></div>
+      <p class="text-muted" style="margin-top:0">Download all endpoints, scenarios, and entity definitions (not stored data) as a single JSON file.</p>
+      <button class="btn btn-primary">⭳ Export config.json</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Import Configuration</h2></div>
+      <div class="drop-zone">
+        <p>Drop <span class="mono">config.json</span> here, or click to browse</p>
+        <p class="text-faint" style="font-size:11.5px">Only endpoint / entity definitions are imported — stored data is untouched</p>
+      </div>
+      <div class="field-row" style="margin-top:14px">
+        <div class="field">
+          <label><input type="radio" name="import-mode" checked> Merge with existing endpoints</label>
+        </div>
+        <div class="field">
+          <label><input type="radio" name="import-mode"> Overwrite all endpoints</label>
+        </div>
+      </div>
+      <button class="btn">Import</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Server Settings</h2></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Mock Server Port</label>
+          <input type="number" value="4000">
+        </div>
+        <div class="field">
+          <label>Admin UI Port</label>
+          <input type="number" value="4001">
+        </div>
+      </div>
+      <div class="field" style="flex-direction:row; align-items:center; gap:10px;">
+        <span class="toggle on"><span class="knob"></span></span>
+        <label style="margin:0">Enable CORS on mock server</label>
+      </div>
+      <hr class="divider">
+      <button class="btn btn-primary">Save Settings</button>
+    </div>
+
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

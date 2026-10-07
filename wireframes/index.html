@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Endpoints</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item active">Endpoints</a>
+      <a href="entities.html" class="nav-item">Entities</a>
+      <a href="logs.html" class="nav-item">Request Log</a>
+      <a href="settings.html" class="nav-item">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <h1>Endpoints</h1>
+        <p class="subtitle">Define and manage mocked API routes</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-box">
+          <span>⌕</span>
+          <input type="text" placeholder="Search method or path…">
+        </div>
+        <a href="endpoint-edit.html" class="btn btn-primary">+ New Endpoint</a>
+      </div>
+    </div>
+
+    <div class="chip-row">
+      <span class="chip active">All · 6</span>
+      <span class="chip">products · 3</span>
+      <span class="chip">users · 1</span>
+      <span class="chip">auth · 1</span>
+      <span class="chip">orders · 1</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Tag</th>
+          <th>Active Scenario</th>
+          <th>Entity Link</th>
+          <th>Enabled</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-get">GET</span></td>
+          <td class="path-cell">/api/products</td>
+          <td class="text-muted">products</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>Success · 200</span></td>
+          <td class="mono text-muted">products <span class="text-faint">(list)</span></td>
+          <td><span class="toggle on"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-post">POST</span></td>
+          <td class="path-cell">/api/products</td>
+          <td class="text-muted">products</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>Success · 201</span></td>
+          <td class="mono text-muted">products <span class="text-faint">(create)</span></td>
+          <td><span class="toggle on"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-put">PUT</span></td>
+          <td class="path-cell">/api/products/:id</td>
+          <td class="text-muted">products</td>
+          <td><span class="status-pill"><span class="dot dot-red"></span>Not Found · 404</span></td>
+          <td class="mono text-muted">products <span class="text-faint">(update)</span></td>
+          <td><span class="toggle on"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr class="row-disabled" onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-delete">DELETE</span></td>
+          <td class="path-cell">/api/products/:id</td>
+          <td class="text-muted">products</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>Success · 200</span></td>
+          <td class="mono text-muted">products <span class="text-faint">(delete)</span></td>
+          <td><span class="toggle"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-get">GET</span></td>
+          <td class="path-cell">/api/users</td>
+          <td class="text-muted">users</td>
+          <td><span class="status-pill"><span class="dot dot-amber"></span>Server Error · 500</span></td>
+          <td class="mono text-faint">— none —</td>
+          <td><span class="toggle on"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='endpoint-edit.html'" style="cursor:pointer">
+          <td><span class="badge-method m-post">POST</span></td>
+          <td class="path-cell">/api/auth/login</td>
+          <td class="text-muted">auth</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>Success · 200</span></td>
+          <td class="mono text-faint">— none —</td>
+          <td><span class="toggle on"><span class="knob"></span></span></td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="Duplicate">⧉</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

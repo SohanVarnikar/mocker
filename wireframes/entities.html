@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Entities</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item">Endpoints</a>
+      <a href="entities.html" class="nav-item active">Entities</a>
+      <a href="logs.html" class="nav-item">Request Log</a>
+      <a href="settings.html" class="nav-item">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <h1>Entities</h1>
+        <p class="subtitle">File-backed data stores shared across linked endpoints</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-primary">+ New Entity</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>ID Field</th>
+          <th>Records</th>
+          <th>Linked Endpoints</th>
+          <th>Store File</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr onclick="location.href='entity-detail.html'" style="cursor:pointer">
+          <td class="mono">products</td>
+          <td class="mono text-muted">id</td>
+          <td>24</td>
+          <td>
+            <span class="badge-method m-get" style="margin-right:4px">GET</span>
+            <span class="badge-method m-post" style="margin-right:4px">POST</span>
+            <span class="badge-method m-put" style="margin-right:4px">PUT</span>
+            <span class="badge-method m-delete">DEL</span>
+          </td>
+          <td class="mono text-faint">store/products.json</td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="View data">▤</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='entity-detail.html'" style="cursor:pointer">
+          <td class="mono">users</td>
+          <td class="mono text-muted">id</td>
+          <td>8</td>
+          <td>
+            <span class="badge-method m-get" style="margin-right:4px">GET</span>
+            <span class="badge-method m-post">POST</span>
+          </td>
+          <td class="mono text-faint">store/users.json</td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="View data">▤</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+        <tr onclick="location.href='entity-detail.html'" style="cursor:pointer">
+          <td class="mono">orders</td>
+          <td class="mono text-muted">orderId</td>
+          <td class="text-faint">0</td>
+          <td class="text-faint">— not linked yet —</td>
+          <td class="mono text-faint">store/orders.json</td>
+          <td class="icon-btn-row">
+            <button class="btn-icon" title="View data">▤</button>
+            <button class="btn-icon" title="Delete">✕</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

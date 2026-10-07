@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Entity: products</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item">Endpoints</a>
+      <a href="entities.html" class="nav-item active">Entities</a>
+      <a href="logs.html" class="nav-item">Request Log</a>
+      <a href="settings.html" class="nav-item">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <a href="entities.html" class="back-link">← Back to Entities</a>
+    <div class="topbar">
+      <div>
+        <h1 class="mono">products</h1>
+        <p class="subtitle">24 records · id field: <span class="mono">id</span> · store/products.json</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn">Export JSON</button>
+        <button class="btn btn-danger-ghost">Clear All</button>
+        <button class="btn">Reseed</button>
+        <button class="btn btn-primary">+ Add Record</button>
+      </div>
+    </div>
+
+    <div class="tabs-wrap">
+      <div class="tabs">
+        <div class="tab active" data-tab-target="panel-table">Table</div>
+        <div class="tab" data-tab-target="panel-json">Raw JSON</div>
+      </div>
+
+      <div class="tab-panel active" id="panel-table">
+        <table>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>price</th>
+              <th>inStock</th>
+              <th>createdAt</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">1</td>
+              <td>Wireless Mouse</td>
+              <td class="mono">24.99</td>
+              <td>true</td>
+              <td class="mono text-faint">2026-09-01T10:03:00Z</td>
+              <td class="icon-btn-row"><button class="btn-icon">✎</button><button class="btn-icon">✕</button></td>
+            </tr>
+            <tr>
+              <td class="mono">2</td>
+              <td>Mechanical Keyboard</td>
+              <td class="mono">89.00</td>
+              <td>true</td>
+              <td class="mono text-faint">2026-09-01T10:04:12Z</td>
+              <td class="icon-btn-row"><button class="btn-icon">✎</button><button class="btn-icon">✕</button></td>
+            </tr>
+            <tr>
+              <td class="mono">3</td>
+              <td>USB-C Hub</td>
+              <td class="mono">34.50</td>
+              <td>false</td>
+              <td class="mono text-faint">2026-09-02T09:11:44Z</td>
+              <td class="icon-btn-row"><button class="btn-icon">✎</button><button class="btn-icon">✕</button></td>
+            </tr>
+            <tr>
+              <td class="mono">4</td>
+              <td>27" Monitor</td>
+              <td class="mono">210.00</td>
+              <td>true</td>
+              <td class="mono text-faint">2026-09-03T14:22:09Z</td>
+              <td class="icon-btn-row"><button class="btn-icon">✎</button><button class="btn-icon">✕</button></td>
+            </tr>
+            <tr>
+              <td class="mono">5</td>
+              <td>Webcam 1080p</td>
+              <td class="mono">45.25</td>
+              <td>true</td>
+              <td class="mono text-faint">2026-09-04T08:47:31Z</td>
+              <td class="icon-btn-row"><button class="btn-icon">✎</button><button class="btn-icon">✕</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="footnote">Showing 5 of 24 records · newest first</p>
+      </div>
+
+      <div class="tab-panel" id="panel-json">
+        <pre class="code-block">[
+  {
+    <span class="kv-key">"id"</span>: <span class="kv-num">1</span>,
+    <span class="kv-key">"name"</span>: <span class="kv-str">"Wireless Mouse"</span>,
+    <span class="kv-key">"price"</span>: <span class="kv-num">24.99</span>,
+    <span class="kv-key">"inStock"</span>: true,
+    <span class="kv-key">"createdAt"</span>: <span class="kv-str">"2026-09-01T10:03:00Z"</span>
+  },
+  {
+    <span class="kv-key">"id"</span>: <span class="kv-num">2</span>,
+    <span class="kv-key">"name"</span>: <span class="kv-str">"Mechanical Keyboard"</span>,
+    <span class="kv-key">"price"</span>: <span class="kv-num">89.00</span>,
+    <span class="kv-key">"inStock"</span>: true,
+    <span class="kv-key">"createdAt"</span>: <span class="kv-str">"2026-09-01T10:04:12Z"</span>
+  }
+  <span class="kv-muted">// … 22 more records</span>
+]</pre>
+        <p class="footnote">Editing here and saving overwrites store/products.json directly.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

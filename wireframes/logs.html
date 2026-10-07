@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>API Mocker — Request Log</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">◆</span> API Mocker</div>
+    <nav>
+      <a href="index.html" class="nav-item">Endpoints</a>
+      <a href="entities.html" class="nav-item">Entities</a>
+      <a href="logs.html" class="nav-item active">Request Log</a>
+      <a href="settings.html" class="nav-item">Import / Export</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="server-status"><span class="dot dot-green"></span> Mock server :4000</div>
+      <div class="server-status muted"><span class="dot dot-gray"></span> Admin UI :4001</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <h1>Request Log</h1>
+        <p class="subtitle">Recent requests handled by the mock server · click a row for details</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-box">
+          <span>⌕</span>
+          <input type="text" placeholder="Filter by path…">
+        </div>
+        <button class="btn btn-danger-ghost">Clear Log</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Matched Endpoint</th>
+          <th>Scenario</th>
+          <th>Status</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-log-row
+            data-method="GET" data-path="/api/products"
+            data-endpoint="GET /api/products" data-scenario="Success"
+            data-reqbody="{}"
+            data-resbody='[
+  { "id": 1, "name": "Wireless Mouse", "price": 24.99 },
+  { "id": 2, "name": "Mechanical Keyboard", "price": 89.00 }
+]'>
+          <td class="mono text-faint">10:42:03</td>
+          <td><span class="badge-method m-get">GET</span></td>
+          <td class="path-cell">/api/products</td>
+          <td class="mono text-muted">GET /api/products</td>
+          <td class="text-muted">Success</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>200</span></td>
+          <td class="mono text-faint">4ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="POST" data-path="/api/products"
+            data-endpoint="POST /api/products" data-scenario="Success"
+            data-reqbody='{
+  "name": "Desk Lamp",
+  "price": 19.99,
+  "inStock": true
+}'
+            data-resbody='{
+  "id": 25,
+  "name": "Desk Lamp",
+  "price": 19.99,
+  "inStock": true,
+  "createdAt": "2026-09-22T10:42:11Z"
+}'
+            class="row-selected">
+          <td class="mono text-faint">10:42:11</td>
+          <td><span class="badge-method m-post">POST</span></td>
+          <td class="path-cell">/api/products</td>
+          <td class="mono text-muted">POST /api/products</td>
+          <td class="text-muted">Success</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>201</span></td>
+          <td class="mono text-faint">6ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="PUT" data-path="/api/products/25"
+            data-endpoint="PUT /api/products/:id" data-scenario="Success"
+            data-reqbody='{
+  "name": "Desk Lamp",
+  "price": 17.50
+}'
+            data-resbody='{
+  "id": 25,
+  "name": "Desk Lamp",
+  "price": 17.50,
+  "updatedAt": "2026-09-22T10:43:02Z"
+}'>
+          <td class="mono text-faint">10:43:02</td>
+          <td><span class="badge-method m-put">PUT</span></td>
+          <td class="path-cell">/api/products/25</td>
+          <td class="mono text-muted">PUT /api/products/:id</td>
+          <td class="text-muted">Success</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>200</span></td>
+          <td class="mono text-faint">303ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="PUT" data-path="/api/products/999"
+            data-endpoint="PUT /api/products/:id" data-scenario="Not Found"
+            data-reqbody='{
+  "name": "Ghost Product"
+}'
+            data-resbody='{
+  "error": "Product with id 999 was not found"
+}'>
+          <td class="mono text-faint">10:44:18</td>
+          <td><span class="badge-method m-put">PUT</span></td>
+          <td class="path-cell">/api/products/999</td>
+          <td class="mono text-muted">PUT /api/products/:id</td>
+          <td class="text-muted">Not Found</td>
+          <td><span class="status-pill"><span class="dot dot-red"></span>404</span></td>
+          <td class="mono text-faint">301ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="GET" data-path="/api/users"
+            data-endpoint="GET /api/users" data-scenario="Server Error"
+            data-reqbody="{}"
+            data-resbody='{
+  "error": "Unexpected server error"
+}'>
+          <td class="mono text-faint">10:45:37</td>
+          <td><span class="badge-method m-get">GET</span></td>
+          <td class="path-cell">/api/users</td>
+          <td class="mono text-muted">GET /api/users</td>
+          <td class="text-muted">Server Error</td>
+          <td><span class="status-pill"><span class="dot dot-amber"></span>500</span></td>
+          <td class="mono text-faint">802ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="DELETE" data-path="/api/products/12"
+            data-endpoint="DELETE /api/products/:id" data-scenario="Success"
+            data-reqbody="{}"
+            data-resbody='{
+  "deleted": true,
+  "id": 12
+}'>
+          <td class="mono text-faint">10:46:02</td>
+          <td><span class="badge-method m-delete">DELETE</span></td>
+          <td class="path-cell">/api/products/12</td>
+          <td class="mono text-muted">DELETE /api/products/:id</td>
+          <td class="text-muted">Success</td>
+          <td><span class="status-pill"><span class="dot dot-green"></span>200</span></td>
+          <td class="mono text-faint">5ms</td>
+        </tr>
+        <tr data-log-row
+            data-method="GET" data-path="/api/does-not-exist"
+            data-endpoint="— unmatched —" data-scenario="—"
+            data-reqbody="{}"
+            data-resbody='{
+  "error": "No mock defined for GET /api/does-not-exist"
+}'>
+          <td class="mono text-faint">10:47:55</td>
+          <td><span class="badge-method m-get">GET</span></td>
+          <td class="path-cell">/api/does-not-exist</td>
+          <td class="mono text-faint">— unmatched —</td>
+          <td class="text-faint">—</td>
+          <td><span class="status-pill"><span class="dot dot-red"></span>404</span></td>
+          <td class="mono text-faint">1ms</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="logDrawer">
+  <div class="drawer-header">
+    <div>
+      <h3 id="drawerTitle" class="mono">POST /api/products</h3>
+      <p class="subtitle" id="drawerSub">POST /api/products · scenario: Success</p>
+    </div>
+    <button class="close-x" id="drawerClose">✕</button>
+  </div>
+
+  <div class="status-pill" id="drawerStatus"><span class="dot dot-green"></span>201</div>
+
+  <div class="section-label">Request Body</div>
+  <pre class="code-block" id="drawerReqBody">{}</pre>
+
+  <div class="section-label">Response Body</div>
+  <pre class="code-block" id="drawerResBody">{}</pre>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
