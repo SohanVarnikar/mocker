@@ -58,7 +58,8 @@ npm run package
 ```
 
 Builds `dist-app/` and `api-mocker.zip` containing `mocker.js` (the whole server in one file), the
-built admin UI (`ui/`), `configs/`, and `start.bat` / `start.sh`. Teammates only need Node.js 18+:
+built admin UI (`ui/`), `configs/`, `start.bat` / `start.sh`, and a user `README.md` (source:
+`scripts/package-readme.md`). Teammates only need Node.js 18+:
 
 1. Unzip anywhere and run `start.bat` (Windows) or `./start.sh` (Mac/Linux).
 2. Open http://localhost:4001 and import a file from `configs/` (Import / Export).

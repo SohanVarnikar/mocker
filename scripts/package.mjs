@@ -1,5 +1,6 @@
 // Builds a portable, zip-able app in dist-app/: one bundled server file + built UI + launchers.
 import { build } from "esbuild";
+import AdmZip from "adm-zip";
 import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -38,6 +39,10 @@ fs.writeFileSync(
   path.join(out, "package.json"),
   JSON.stringify({ type: "module" }, null, 2),
 );
+fs.copyFileSync(
+  path.join(root, "scripts", "package-readme.md"),
+  path.join(out, "README.md"),
+);
 
 const bat = [
   "@echo off",
@@ -61,13 +66,12 @@ const sh = [
 ].join("\n");
 fs.writeFileSync(path.join(out, "start.sh"), sh, { mode: 0o755 });
 
-const zip = path.join(root, "api-mocker.zip");
-fs.rmSync(zip, { force: true });
-try {
-  execSync(`tar -a -c -f "${zip}" -C "${out}" .`, { stdio: "ignore" });
-  console.log(`Created ${zip}`);
-} catch {
-  console.log(
-    `Created ${out} (zip it manually; "tar -a" is not available here)`,
-  );
-}
+const zipPath = path.join(root, "api-mocker.zip");
+fs.rmSync(zipPath, { force: true });
+// Pure-JS zip so the result is identical in any shell (GNU tar would write a non-zip file).
+const zip = new AdmZip();
+zip.addLocalFolder(out, "api-mocker");
+const startSh = zip.getEntry("api-mocker/start.sh");
+if (startSh) startSh.attr = (0o755 << 16) >>> 0;
+zip.writeZip(zipPath);
+console.log(`Created ${zipPath}`);
