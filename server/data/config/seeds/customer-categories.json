@@ -1,0 +1,14 @@
+[
+  {
+    "id": 10,
+    "name": "Retail"
+  },
+  {
+    "id": 20,
+    "name": "Wholesale"
+  },
+  {
+    "id": 30,
+    "name": "An Extremely Long Customer Category Name To Test Dropdown Overflow"
+  }
+]

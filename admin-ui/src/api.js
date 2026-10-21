@@ -1,10 +1,15 @@
 const BASE = "/api";
 
 async function request(path, options = {}) {
-  const res = await fetch(`${BASE}${path}`, {
-    headers: { "Content-Type": "application/json" },
-    ...options,
-  });
+  let res;
+  try {
+    res = await fetch(`${BASE}${path}`, {
+      headers: { "Content-Type": "application/json" },
+      ...options,
+    });
+  } catch {
+    throw new Error("Cannot reach the API Mocker admin server. Is it running?");
+  }
   if (!res.ok) {
     let message = `${res.status} ${res.statusText}`;
     try {
@@ -42,6 +47,12 @@ export const api = {
 
   // Entity records
   listRecords: (name) => request(`/entities/${name}/records`),
+  queryRecords: (name, params = {}) => {
+    const qs = new URLSearchParams(
+      Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== ''),
+    );
+    return request(`/entities/${name}/query?${qs}`);
+  },
   replaceRecords: (name, records) =>
     request(`/entities/${name}/records`, {
       method: "PUT",
@@ -62,6 +73,8 @@ export const api = {
   reseedEntity: (name) =>
     request(`/entities/${name}/reseed`, { method: "POST" }),
   clearEntity: (name) => request(`/entities/${name}/clear`, { method: "POST" }),
+  seedFromRecords: (name) =>
+    request(`/entities/${name}/seed-from-records`, { method: "POST" }),
 
   // Logs
   listLogs: () => request("/logs"),

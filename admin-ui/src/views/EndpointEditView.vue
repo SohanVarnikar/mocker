@@ -61,6 +61,8 @@ const endpoint = ref(blankEndpoint());
 const entityLinkEnabled = ref(false);
 const selectedEntityName = ref('');
 const selectedOperation = ref('list');
+const expandText = ref('');
+const embedText = ref('');
 
 onMounted(async () => {
   try {
@@ -78,6 +80,8 @@ onMounted(async () => {
         entityLinkEnabled.value = true;
         selectedEntityName.value = loaded.entityLink.entityName;
         selectedOperation.value = loaded.entityLink.operation;
+        expandText.value = (loaded.entityLink.expand || []).join(', ');
+        embedText.value = (loaded.entityLink.embed || []).join(', ');
       }
     } catch (err) {
       errorMsg.value = err.message;
@@ -100,13 +104,27 @@ function removeScenario(index) {
 
 const entityOptions = computed(() => entities.value.map((e) => e.name));
 
+const selectedEntity = computed(() => entities.value.find((e) => e.name === selectedEntityName.value));
+const expandOptions = computed(() => (selectedEntity.value?.relations || []).map((r) => r.as));
+const embedOptions = computed(() =>
+  entities.value
+    .filter((e) => (e.relations || []).some((r) => r.entity === selectedEntityName.value))
+    .map((e) => e.name),
+);
+const splitNames = (text) => text.split(',').map((s) => s.trim()).filter(Boolean);
+
 async function save() {
   saving.value = true;
   errorMsg.value = '';
   try {
     const payload = { ...endpoint.value };
     payload.entityLink = entityLinkEnabled.value && selectedEntityName.value
-      ? { entityName: selectedEntityName.value, operation: selectedOperation.value }
+      ? {
+          entityName: selectedEntityName.value,
+          operation: selectedOperation.value,
+          expand: splitNames(expandText.value),
+          embed: splitNames(embedText.value),
+        }
       : null;
 
     if (props.mode === 'edit') {
@@ -220,6 +238,24 @@ async function save() {
         <select v-model="selectedOperation">
           <option v-for="op in OPERATIONS" :key="op.value" :value="op.value">{{ op.label }}</option>
         </select>
+      </div>
+    </div>
+    <div class="field-row" v-if="entityLinkEnabled && selectedEntityName && selectedOperation !== 'delete'">
+      <div class="field">
+        <label>Expand related records</label>
+        <input type="text" v-model="expandText" :placeholder="expandOptions.join(', ') || 'no relations declared'" />
+        <div class="hint">
+          Adds the referenced record under its alias.
+          <template v-if="expandOptions.length">Available: <span class="mono">{{ expandOptions.join(', ') }}</span></template>
+        </div>
+      </div>
+      <div class="field">
+        <label>Embed child records</label>
+        <input type="text" v-model="embedText" :placeholder="embedOptions.join(', ') || 'no entity references this one'" />
+        <div class="hint">
+          Adds arrays of records that point at this one.
+          <template v-if="embedOptions.length">Available: <span class="mono">{{ embedOptions.join(', ') }}</span></template>
+        </div>
       </div>
     </div>
     <div class="hint" v-if="entityLinkEnabled">

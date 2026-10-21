@@ -1,0 +1,116 @@
+[
+  {
+    "id": 123445,
+    "rebateId": "TEST1234",
+    "customerNumber": 10001,
+    "customerName": "Standard S - Future Start (deletable)",
+    "customerType": "S",
+    "inactive": false,
+    "groupCode": "1224",
+    "vendorNumber": 45678,
+    "paymentType": "check",
+    "parentPortfolio": "Portfolio Name (1234)",
+    "onChildOrGenericPortfolio": false,
+    "effectiveDate": "{{today+30d}}",
+    "endDate": "{{today+395d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "updatedBy": "asmith"
+    }
+  },
+  {
+    "id": 123446,
+    "rebateId": "TEST1234",
+    "customerNumber": 10002,
+    "customerName": "Standard R - Already Started (not deletable)",
+    "customerType": "R",
+    "inactive": false,
+    "groupCode": "1225",
+    "vendorNumber": 45679,
+    "paymentType": "credit",
+    "parentPortfolio": null,
+    "onChildOrGenericPortfolio": false,
+    "effectiveDate": "{{today-60d}}",
+    "endDate": "{{today+300d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "updatedBy": null
+    }
+  },
+  {
+    "id": 123447,
+    "rebateId": "TEST1234",
+    "customerNumber": 10003,
+    "customerName": "Unknown Type - Warning Row",
+    "customerType": "Z",
+    "inactive": false,
+    "groupCode": "1226",
+    "vendorNumber": null,
+    "paymentType": "credit",
+    "parentPortfolio": null,
+    "onChildOrGenericPortfolio": false,
+    "effectiveDate": "{{today+10d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "updatedBy": null
+    }
+  },
+  {
+    "id": 123448,
+    "rebateId": "TEST1234",
+    "customerNumber": 10004,
+    "customerName": "Inactive - Warning Row",
+    "customerType": "S",
+    "inactive": true,
+    "groupCode": "1227",
+    "vendorNumber": 45680,
+    "paymentType": "check",
+    "parentPortfolio": null,
+    "onChildOrGenericPortfolio": false,
+    "effectiveDate": "{{today-200d}}",
+    "endDate": "{{today-20d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "updatedBy": "asmith"
+    }
+  },
+  {
+    "id": 123449,
+    "rebateId": "TEST1234",
+    "customerNumber": 10005,
+    "customerName": "On Child/Generic Portfolio",
+    "customerType": "S",
+    "inactive": false,
+    "groupCode": "1228",
+    "vendorNumber": null,
+    "paymentType": "check",
+    "parentPortfolio": "Generic Portfolio (0)",
+    "onChildOrGenericPortfolio": true,
+    "effectiveDate": "{{today+60d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "updatedBy": null
+    }
+  },
+  {
+    "id": 123450,
+    "rebateId": "HISTORY01",
+    "customerNumber": 20001,
+    "customerName": "Historical Customer",
+    "customerType": "S",
+    "inactive": false,
+    "groupCode": "2001",
+    "vendorNumber": 9001,
+    "paymentType": "credit",
+    "parentPortfolio": null,
+    "onChildOrGenericPortfolio": false,
+    "effectiveDate": "{{today-400d}}",
+    "endDate": "{{today-35d}}",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "updatedBy": null
+    }
+  }
+]

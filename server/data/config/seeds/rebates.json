@@ -1,0 +1,90 @@
+[
+  {
+    "id": "TEST1234",
+    "name": "Active Rebate - Happy Path",
+    "programTypeId": 1,
+    "customerCategoryId": 10,
+    "frequencyType": "Monthly",
+    "effectiveDate": "{{today-90d}}",
+    "endDate": "{{today+270d}}",
+    "pastDueMax": 500,
+    "closeToTarget": 750,
+    "shareable": false,
+    "status": "active",
+    "priceMods": true,
+    "outsidePurchases": false,
+    "generalExclusions": false,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-90d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-3d}}"
+    }
+  },
+  {
+    "id": "PENDING01",
+    "name": "Pending Rebate - Starts In The Future",
+    "programTypeId": 2,
+    "customerCategoryId": 20,
+    "frequencyType": "Quarterly",
+    "effectiveDate": "{{today+30d}}",
+    "endDate": "{{today+395d}}",
+    "pastDueMax": 0,
+    "closeToTarget": 0,
+    "shareable": true,
+    "status": "pending",
+    "priceMods": false,
+    "outsidePurchases": false,
+    "generalExclusions": false,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-2d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "HISTORY01",
+    "name": "Historical Rebate - Read Only",
+    "programTypeId": 1,
+    "customerCategoryId": 10,
+    "frequencyType": "Monthly",
+    "effectiveDate": "{{today-400d}}",
+    "endDate": "{{today-35d}}",
+    "pastDueMax": 250,
+    "closeToTarget": 100,
+    "shareable": false,
+    "status": "historical",
+    "priceMods": true,
+    "outsidePurchases": true,
+    "generalExclusions": true,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-400d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-40d}}"
+    }
+  },
+  {
+    "id": "EDGECASE1",
+    "name": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+    "programTypeId": 3,
+    "customerCategoryId": 30,
+    "frequencyType": "Monthly",
+    "effectiveDate": "{{today}}",
+    "endDate": "{{today}}",
+    "pastDueMax": 999999,
+    "closeToTarget": 999999,
+    "shareable": true,
+    "status": "active",
+    "priceMods": true,
+    "outsidePurchases": true,
+    "generalExclusions": true,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  }
+]

@@ -35,15 +35,24 @@ function openCreate() {
 
 async function createEntity() {
   if (!newEntity.value.name.trim()) return;
-  const created = await api.createEntity({ ...newEntity.value, seedData: [] });
-  entities.value.push({ ...created, recordCount: 0 });
-  showCreate.value = false;
+  try {
+    const created = await api.createEntity({ ...newEntity.value, name: newEntity.value.name.trim() });
+    entities.value.push({ ...created, recordCount: 0 });
+    showCreate.value = false;
+    errorMsg.value = '';
+  } catch (err) {
+    alert(`Could not create entity: ${err.message}`);
+  }
 }
 
 async function removeEntity(entity) {
   if (!confirm(`Delete entity "${entity.name}" and all its stored data?`)) return;
-  await api.deleteEntity(entity.name);
-  entities.value = entities.value.filter((e) => e.name !== entity.name);
+  try {
+    await api.deleteEntity(entity.name);
+    entities.value = entities.value.filter((e) => e.name !== entity.name);
+  } catch (err) {
+    errorMsg.value = `Could not delete ${entity.name}: ${err.message}`;
+  }
 }
 </script>
 
@@ -71,6 +80,7 @@ async function removeEntity(entity) {
         <th>Name</th>
         <th>ID Field</th>
         <th>Records</th>
+        <th>References</th>
         <th>Store File</th>
         <th></th>
       </tr>
@@ -79,7 +89,11 @@ async function removeEntity(entity) {
       <tr v-for="entity in entities" :key="entity.name" style="cursor: pointer" @click="openEntity(entity.name)">
         <td class="mono">{{ entity.name }}</td>
         <td class="mono text-muted">{{ entity.idField }}</td>
-        <td :class="{ 'text-faint': entity.recordCount === 0 }">{{ entity.recordCount }}</td>
+        <td :class="{ 'text-faint': entity.recordCount === 0 }">{{ entity.recordCount.toLocaleString() }}</td>
+        <td class="mono text-muted">
+          <template v-if="entity.relations?.length">{{ entity.relations.map((r) => `${r.field} → ${r.entity}`).join(', ') }}</template>
+          <span v-else class="text-faint">—</span>
+        </td>
         <td class="mono text-faint">store/{{ entity.name }}.json</td>
         <td class="icon-btn-row" @click.stop>
           <button class="btn-icon" title="View data" @click="openEntity(entity.name)">▤</button>

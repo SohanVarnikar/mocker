@@ -85,6 +85,8 @@ Existing solutions (hand-written mock servers, browser network-tab overrides, ad
 - FR15: An endpoint linked to an Entity still supports overriding with a non-success Response Scenario (e.g., force a 500 error) — in that case the entity store is untouched and the overriding scenario response is returned instead of performing the entity operation.
 - FR15a: An Entity can declare a `scope` mapping record fields to path params (e.g. `rebateId`), so nested routes (`/rebates/:rebateId/notes`) only list/modify that parent's records, and `create` stamps the parent value on the new record.
 - FR15b: An Entity can declare `defaults` applied to records made by `create`, and its seed data can use date tokens (`{{today+30d}}`, `{{now-1d}}`) that are resolved each time it is seeded, so date-dependent edge cases stay valid.
+- FR15c: An Entity can declare `relations` (a field referencing another entity's id). Linked endpoints can expand referenced records (`?_expand=` or `entityLink.expand`) and embed referencing records (`?_embed=` or `entityLink.embed`); relations can validate that references exist and define what happens on delete (`none`, `cascade`, `setNull`, `restrict`).
+- FR15d: The entity data view pages, searches and sorts records on the server, and the Raw JSON editor asks before loading very large datasets.
 
 ### 7.3 Response/Status Simulation
 
@@ -101,6 +103,7 @@ Existing solutions (hand-written mock servers, browser network-tab overrides, ad
 - FR22: As a developer, I can import/export the full mock configuration (endpoints + entities) as JSON, to share a mock setup with teammates or back it up.
 - FR22a: Entity seed data is part of the shared configuration. Importing can reset stored data to the file's seed data (always on Overwrite, optional on Merge), and exporting can snapshot the current stored data as seed data.
 - FR22b: Imports are validated and normalized; endpoints without an `id` update the existing endpoint with the same method + path instead of duplicating it.
+- FR22c: The UI shows clear progress while an import runs and a success summary (added/updated/reseeded counts) or the failure reason afterwards. A file that fails validation changes nothing.
 
 ### 7.5 Mock Server Runtime
 
@@ -113,7 +116,7 @@ Existing solutions (hand-written mock servers, browser network-tab overrides, ad
 
 - NFR1: **Simplicity** — setup should be `npm install` + one start command; no external services (DB, cloud, Docker) required.
 - NFR2: **Runtime** — must run on Node.js (LTS versions), cross-platform (Windows/macOS/Linux).
-- NFR3: **Performance** — response times dominated by configured artificial delay only; file I/O for entities should comfortably handle typical dev datasets (up to a few thousand records) without noticeable lag.
+- NFR3: **Performance** — response times dominated by configured artificial delay only; entity records are cached in memory and indexed, and writes are coalesced, so datasets of 100k+ records stay responsive.
 - NFR4: **Reliability of local state** — entity file writes should be atomic enough to avoid corruption on concurrent requests (basic write queue/lock per entity file is acceptable).
 - NFR5: **Portability of config** — all mock definitions and entity data are plain human-readable JSON files on disk, so they can be manually inspected, edited, version-controlled, or reset by deleting files.
 - NFR6: **No production hardening required** — no need for auth, rate limiting, HTTPS, horizontal scaling, or high availability.

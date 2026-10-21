@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Wireless Mouse",
+    "price": 24.99,
+    "inStock": true,
+    "createdAt": "2026-01-01T09:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Mechanical Keyboard",
+    "price": 89,
+    "inStock": true,
+    "createdAt": "2026-01-01T09:01:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "USB-C Hub",
+    "price": 34.5,
+    "inStock": false,
+    "createdAt": "2026-01-01T09:02:00.000Z"
+  }
+]

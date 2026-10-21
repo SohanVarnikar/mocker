@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import { asyncRouter } from '../asyncRouter.js';
 import { configStore } from '../config.js';
 
-const router = Router();
+const router = asyncRouter();
 
 router.get('/', (req, res) => {
   res.json(configStore.getSettings());

@@ -2,30 +2,219 @@ import fs from "node:fs";
 import fs_promises from "node:fs/promises";
 import path from "node:path";
 import { nanoid } from "nanoid";
-import { STORE_DIR } from "./config.js";
+import { STORE_DIR, configStore, writeJsonAtomic } from "./config.js";
+import { httpError } from "./asyncRouter.js";
 
-// Serializes writes per-entity file so overlapping requests (e.g. a create and
-// an update firing close together) can never interleave and corrupt the file.
-const writeQueues = new Map();
-
-function queueWrite(name, task) {
-  const prev = writeQueues.get(name) || Promise.resolve();
-  const next = prev.then(task, task);
-  writeQueues.set(
-    name,
-    next.catch(() => {}),
-  );
-  return next;
-}
+/**
+ * Entity records live in data/store/<entity>.json. They are cached in memory so
+ * mock requests don't re-read and re-parse the file each time; the cache is
+ * reloaded automatically when the file is edited outside the app.
+ *
+ * Arrays returned by readEntityRecords() are shared with the cache and must be
+ * treated as read-only: build a new array and pass it to writeEntityRecords().
+ */
+const cache = new Map(); // name -> { records, version, persistedVersion, mtimeMs, size, derived }
+const writeChains = new Map(); // name -> promise of the latest queued flush
 
 function storeFile(name) {
   return path.join(STORE_DIR, `${name}.json`);
 }
 
+function statOrNull(file) {
+  try {
+    return fs.statSync(file);
+  } catch {
+    return null;
+  }
+}
+
+function newEntry(records, stat) {
+  return {
+    records,
+    version: 0,
+    persistedVersion: 0,
+    mtimeMs: stat?.mtimeMs ?? null,
+    size: stat?.size ?? null,
+    derived: new Map(),
+  };
+}
+
+function loadFromDisk(name) {
+  const file = storeFile(name);
+  const stat = statOrNull(file);
+  let records = [];
+  if (stat) {
+    const raw = fs.readFileSync(file, "utf-8");
+    if (raw.trim()) {
+      try {
+        records = JSON.parse(raw);
+      } catch (err) {
+        throw httpError(500, `store/${name}.json is not valid JSON: ${err.message}`);
+      }
+    }
+    if (!Array.isArray(records)) {
+      throw httpError(500, `store/${name}.json must contain a JSON array`);
+    }
+  }
+  const entry = newEntry(records, stat);
+  cache.set(name, entry);
+  return entry;
+}
+
+function getEntry(name) {
+  const entry = cache.get(name);
+  if (entry) {
+    // Unsaved in-memory changes win; otherwise reload if the file changed on disk.
+    if (entry.persistedVersion < entry.version) return entry;
+    const stat = statOrNull(storeFile(name));
+    if ((stat?.mtimeMs ?? null) === entry.mtimeMs && (stat?.size ?? null) === entry.size) {
+      return entry;
+    }
+  }
+  return loadFromDisk(name);
+}
+
+export function readEntityRecords(name) {
+  return getEntry(name).records;
+}
+
+async function flush(name, entry, targetVersion) {
+  if (entry.failed) throw entry.failed; // changes queued on an entry whose write failed are lost too
+  if (cache.get(name) !== entry) return; // entity was dropped meanwhile
+  if (entry.persistedVersion >= targetVersion) return; // a later flush already wrote this
+  const version = entry.version;
+  const file = storeFile(name);
+  try {
+    await writeJsonAtomic(file, entry.records);
+  } catch (err) {
+    // Discard the unsaved in-memory state so reads fall back to what is actually on disk.
+    entry.failed = err;
+    if (cache.get(name) === entry) cache.delete(name);
+    throw err;
+  }
+  const stat = statOrNull(file);
+  entry.persistedVersion = Math.max(entry.persistedVersion, version);
+  entry.mtimeMs = stat?.mtimeMs ?? null;
+  entry.size = stat?.size ?? null;
+}
+
+/**
+ * Replaces an entity's records. The cache is updated immediately; disk writes are
+ * serialized per entity and coalesced, so a burst of saves results in one write
+ * of the latest data rather than one full-file rewrite per save.
+ */
+export function writeEntityRecords(name, records) {
+  if (!Array.isArray(records)) throw httpError(400, "Records must be an array");
+  let entry = cache.get(name);
+  if (!entry) {
+    entry = newEntry(records, null);
+    cache.set(name, entry);
+  }
+  entry.records = records;
+  entry.version++;
+  entry.derived = new Map();
+  const target = entry.version;
+
+  const prev = writeChains.get(name) || Promise.resolve();
+  const task = prev.catch(() => {}).then(() => flush(name, entry, target));
+  writeChains.set(name, task);
+  task
+    .finally(() => {
+      if (writeChains.get(name) === task) writeChains.delete(name);
+    })
+    .catch(() => {});
+  return task.then(() => records);
+}
+
+/** Forgets an entity's cached records and deletes its store file. */
+export async function dropEntityStore(name) {
+  const pending = writeChains.get(name);
+  cache.delete(name);
+  if (pending) await pending.catch(() => {});
+  await fs_promises.rm(storeFile(name), { force: true });
+}
+
+function derived(name, key, compute) {
+  const entry = getEntry(name);
+  if (!entry.derived.has(key)) entry.derived.set(key, compute(entry.records));
+  return entry.derived.get(key);
+}
+
+/** Map of String(record[field]) -> records, rebuilt lazily after each write. */
+export function indexBy(name, field) {
+  return derived(name, `index:${field}`, (records) => {
+    const index = new Map();
+    for (const record of records) {
+      const value = record?.[field];
+      if (value == null) continue;
+      const key = String(value);
+      const bucket = index.get(key);
+      if (bucket) bucket.push(record);
+      else index.set(key, [record]);
+    }
+    return index;
+  });
+}
+
+export function recordColumns(name) {
+  return derived(name, "columns", (records) => {
+    const keys = new Set();
+    for (const record of records) {
+      if (record && typeof record === "object") for (const k of Object.keys(record)) keys.add(k);
+    }
+    return [...keys];
+  });
+}
+
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+
+function compareValues(a, b) {
+  if (a == null && b == null) return 0;
+  if (a == null) return 1;
+  if (b == null) return -1;
+  if (typeof a === "number" && typeof b === "number") return a - b;
+  const sa = typeof a === "object" ? JSON.stringify(a) : String(a);
+  const sb = typeof b === "object" ? JSON.stringify(b) : String(b);
+  return collator.compare(sa, sb);
+}
+
+function matchesText(record, needle) {
+  if (!record || typeof record !== "object") return false;
+  for (const value of Object.values(record)) {
+    if (value == null) continue;
+    const text = typeof value === "object" ? JSON.stringify(value) : String(value);
+    if (text.toLowerCase().includes(needle)) return true;
+  }
+  return false;
+}
+
+/** Server-side filtering, sorting and paging so the UI never has to load a whole store. */
+export function queryRecords(name, { q, field, value, sortBy, sortDir, offset = 0, limit = 50 } = {}) {
+  let rows = readEntityRecords(name);
+  if (field) rows = indexBy(name, field).get(String(value ?? "")) || [];
+  if (q) {
+    const needle = String(q).toLowerCase();
+    rows = rows.filter((r) => matchesText(r, needle));
+  }
+  if (sortBy) {
+    const dir = sortDir === "desc" ? -1 : 1;
+    rows = [...rows].sort((a, b) => dir * compareValues(a?.[sortBy], b?.[sortBy]));
+  }
+  const start = Math.max(0, Number(offset) || 0);
+  const size = Math.min(1000, Math.max(1, Number(limit) || 50));
+  return {
+    total: rows.length,
+    offset: start,
+    limit: size,
+    items: rows.slice(start, start + size),
+    columns: recordColumns(name),
+  };
+}
+
 // Whole-string tokens only, e.g. "{{today+30d}}" (YYYY-MM-DD) or "{{now-1d}}" (ISO timestamp).
 const SEED_DATE_TOKEN = /^\{\{\s*(today|now)\s*(?:([+-])\s*(\d+)\s*d)?\s*\}\}$/;
 
-function resolveSeedTokens(value) {
+export function resolveSeedTokens(value) {
   if (Array.isArray(value)) return value.map(resolveSeedTokens);
   if (value && typeof value === "object") {
     return Object.fromEntries(
@@ -43,158 +232,38 @@ function resolveSeedTokens(value) {
     : date.toISOString();
 }
 
+/** Seed data comes from `entity.seedData` when provided, else from config/seeds/<name>.json. */
 export function seedRecords(entity) {
-  return resolveSeedTokens(
-    Array.isArray(entity.seedData) ? entity.seedData : [],
-  );
-}
-
-// entity.scope maps record field -> path param, so nested routes only see their parent's records.
-function scopeValues(entity, params) {
-  const values = {};
-  for (const [field, param] of Object.entries(entity.scope || {})) {
-    if (params[param] !== undefined) values[field] = params[param];
-  }
-  return values;
-}
-
-function inScope(record, scope) {
-  return Object.entries(scope).every(
-    ([field, value]) => String(record[field]) === String(value),
-  );
-}
-
-export function readEntityRecords(name) {
-  const file = storeFile(name);
-  if (!fs.existsSync(file)) return [];
-  const raw = fs.readFileSync(file, "utf-8");
-  if (!raw.trim()) return [];
-  return JSON.parse(raw);
-}
-
-export async function writeEntityRecords(name, records) {
-  return queueWrite(name, async () => {
-    const file = storeFile(name);
-    const tmp = `${file}.${nanoid(6)}.tmp`;
-    await fs_promises.writeFile(tmp, JSON.stringify(records, null, 2), "utf-8");
-    await fs_promises.rename(tmp, file);
-    return records;
-  });
+  const seed = Array.isArray(entity.seedData)
+    ? entity.seedData
+    : configStore.getSeedData(entity.name);
+  return resolveSeedTokens(Array.isArray(seed) ? seed : []);
 }
 
 export async function reseedEntity(entity) {
-  await writeEntityRecords(entity.name, seedRecords(entity));
-  return readEntityRecords(entity.name);
+  return writeEntityRecords(entity.name, seedRecords(entity));
 }
 
 export async function ensureEntityStoresInitialized(entities) {
   for (const entity of entities) {
-    const file = storeFile(entity.name);
-    if (!fs.existsSync(file)) {
+    if (!cache.has(entity.name) && !fs.existsSync(storeFile(entity.name))) {
       await writeEntityRecords(entity.name, seedRecords(entity));
     }
   }
 }
 
 export async function clearEntity(name) {
-  await writeEntityRecords(name, []);
-  return [];
+  return writeEntityRecords(name, []);
 }
 
 export function nextEntityId(entity, records) {
   if (entity.idStrategy === "uuid") return nanoid(10);
-  const numericIds = records
-    .map((r) => Number(r[entity.idField]))
-    .filter((n) => Number.isFinite(n));
-  const max = numericIds.length ? Math.max(...numericIds) : 0;
-  return max + 1;
-}
-
-/**
- * Performs a CRUD-style operation against an entity's local JSON file store,
- * mimicking a real backend so multiple linked endpoints (e.g. POST + PUT)
- * observe each other's changes.
- */
-export async function performEntityOperation(
-  entity,
-  operation,
-  params,
-  requestBody,
-) {
   const idField = entity.idField || "id";
-  const idParam = entity.idParam || "id";
-  const records = readEntityRecords(entity.name);
-  const scope = scopeValues(entity, params);
-  const matchesRecord = (r, id) =>
-    String(r[idField]) === String(id) && inScope(r, scope);
-
-  switch (operation) {
-    case "list": {
-      return records.filter((r) => inScope(r, scope));
-    }
-    case "getById": {
-      const id = params[idParam];
-      const record = records.find((r) => matchesRecord(r, id));
-      if (!record) {
-        const err = new Error(
-          `${entity.name} with ${idField} ${id} was not found`,
-        );
-        err.status = 404;
-        throw err;
-      }
-      return record;
-    }
-    case "create": {
-      const id = nextEntityId(entity, records);
-      const record = {
-        [idField]: id,
-        ...resolveSeedTokens(entity.defaults || {}),
-        ...(requestBody || {}),
-        ...scope,
-        createdAt: new Date().toISOString(),
-      };
-      records.push(record);
-      await writeEntityRecords(entity.name, records);
-      return record;
-    }
-    case "update": {
-      const id = params[idParam];
-      const idx = records.findIndex((r) => matchesRecord(r, id));
-      if (idx < 0) {
-        const err = new Error(
-          `${entity.name} with ${idField} ${id} was not found`,
-        );
-        err.status = 404;
-        throw err;
-      }
-      records[idx] = {
-        ...records[idx],
-        ...(requestBody || {}),
-        ...scope,
-        [idField]: records[idx][idField],
-        updatedAt: new Date().toISOString(),
-      };
-      await writeEntityRecords(entity.name, records);
-      return records[idx];
-    }
-    case "delete": {
-      const id = params[idParam];
-      const idx = records.findIndex((r) => matchesRecord(r, id));
-      if (idx < 0) {
-        const err = new Error(
-          `${entity.name} with ${idField} ${id} was not found`,
-        );
-        err.status = 404;
-        throw err;
-      }
-      const [removed] = records.splice(idx, 1);
-      await writeEntityRecords(entity.name, records);
-      return { deleted: true, [idField]: removed[idField] };
-    }
-    default: {
-      const err = new Error(`Unknown entity operation "${operation}"`);
-      err.status = 500;
-      throw err;
-    }
+  // A loop rather than Math.max(...ids), which overflows the call stack on large stores.
+  let max = 0;
+  for (const record of records) {
+    const n = Number(record?.[idField]);
+    if (Number.isFinite(n) && n > max) max = n;
   }
+  return max + 1;
 }
