@@ -86,6 +86,7 @@ Existing solutions (hand-written mock servers, browser network-tab overrides, ad
 - FR15a: An Entity can declare a `scope` mapping record fields to path params (e.g. `rebateId`), so nested routes (`/rebates/:rebateId/notes`) only list/modify that parent's records, and `create` stamps the parent value on the new record.
 - FR15b: An Entity can declare `defaults` applied to records made by `create`, and its seed data can use date tokens (`{{today+30d}}`, `{{now-1d}}`) that are resolved each time it is seeded, so date-dependent edge cases stay valid.
 - FR15c: An Entity can declare `relations` (a field referencing another entity's id). Linked endpoints can expand referenced records (`?_expand=` or `entityLink.expand`) and embed referencing records (`?_embed=` or `entityLink.embed`); relations can validate that references exist and define what happens on delete (`none`, `cascade`, `setNull`, `restrict`).
+- FR15e: `create`/`update` merge nested objects of the request body into the stored record (e.g. sending `trackingInfo.updatedBy` keeps `trackingInfo.createdBy`). An entity link can set `bodyTemplate` to reshape the request body before it is stored, and `nested` to list/create/update/delete items of an array field inside a record (e.g. a tier's `versions`), optionally ending the item a new one supersedes.
 - FR15d: The entity data view pages, searches and sorts records on the server, and the Raw JSON editor asks before loading very large datasets.
 
 ### 7.3 Response/Status Simulation

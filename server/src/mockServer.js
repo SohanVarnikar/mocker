@@ -94,15 +94,21 @@ async function handleMockRequest(req, res) {
           new Error(`Entity "${endpoint.entityLink.entityName}" not found`),
           { status: 500 },
         );
+      // bodyTemplate reshapes the request body (rendered like a response body) before it is stored.
+      const entityBody = endpoint.entityLink.bodyTemplate
+        ? renderTemplate(endpoint.entityLink.bodyTemplate, matchCtx)
+        : req.body;
       result = await performEntityOperation(
         entity,
         endpoint.entityLink.operation,
         params,
-        req.body,
+        entityBody,
         {
           // Configured on the endpoint, or requested ad hoc via ?_expand=a,b&_embed=c
           expand: toNameSet(endpoint.entityLink.expand, req.query._expand),
           embed: toNameSet(endpoint.entityLink.embed, req.query._embed),
+          nested: endpoint.entityLink.nested,
+          rawBody: req.body,
         },
       );
     } catch (err) {

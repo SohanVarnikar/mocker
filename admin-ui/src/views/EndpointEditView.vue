@@ -120,6 +120,8 @@ async function save() {
     const payload = { ...endpoint.value };
     payload.entityLink = entityLinkEnabled.value && selectedEntityName.value
       ? {
+          // Keeps config-only settings (nested, bodyTemplate) that this form doesn't edit.
+          ...(endpoint.value.entityLink || {}),
           entityName: selectedEntityName.value,
           operation: selectedOperation.value,
           expand: splitNames(expandText.value),

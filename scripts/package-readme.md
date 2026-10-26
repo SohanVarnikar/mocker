@@ -34,25 +34,31 @@ For the rebate app, add this to `.env.local` and restart `npm run dev`:
 
 ```
 VITE_REBATE_API_BASE=http://localhost:4000/api/rms/crs/rebates
+VITE_REBATE_BFF_API_BASE=http://localhost:4000/api/rms/crs/rebates-bff
 VITE_BYPASS_AUTH=true
 ```
 
-Do not add a trailing slash to the base URL.
+Do not add a trailing slash to the base URL. Without `VITE_REBATE_BFF_API_BASE`, the customer list, add and
+delete calls go to the app's own dev server instead of the mock and fail.
 
 ## Try the edge cases
 
 Open an endpoint and make a different scenario active to force an error (for example "Server Error").
 Switch back to "Success" afterwards. Some requests trigger errors on their own; for the rebate config:
 
-| Request                          | Result                      |
-| -------------------------------- | --------------------------- |
-| Rebate `ERROR500`                | 500                         |
-| Rebate `GATEWAY504`              | 504                         |
-| Unknown rebate ID                | 404                         |
-| Rebate `PENDING01` / `HISTORY01` | Pending / historical rebate |
-| Add customer `99999` / `88888`   | 409 / 422                   |
-| Save a rebate named `FAIL`       | 400                         |
-| Add a note `FAIL`                | 500                         |
+| Request                                     | Result                      |
+| ------------------------------------------- | --------------------------- |
+| Rebate `ERROR500`                           | 500                         |
+| Rebate `GATEWAY504`                         | 504                         |
+| Unknown rebate ID                           | 404                         |
+| Rebate `PENDING01` / `HISTORY01`            | Pending / historical rebate |
+| Add customer `99999` / `88888`              | 409 / 422                   |
+| Edit customer with vendor `99999` / `88888` | 422 / 409                   |
+| Delete customer `123457` (`TEST1234`)       | 409                         |
+| Delete tier `386` (`TEST1234`)              | 409                         |
+| Edit tier `387` / `388` (`TEST1234`)        | 409 / 422                   |
+| Save a rebate named `FAIL`                  | 400                         |
+| Add a note `FAIL`                           | 500                         |
 
 To reset the sample data, use **Reseed** on an entity (Entities screen) or import the config again.
 

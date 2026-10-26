@@ -216,8 +216,34 @@ the existing endpoint with the same method + path, so re-importing never duplica
 - **`scope`** makes nested routes like `/rebates/:rebateId/notes` list/modify only that parent's
   records, and `create` stamps the parent value on the new record.
 - **`defaults`** (date tokens allowed) fill fields the request body doesn't send on `create`.
+  `create` and `update` merge nested objects, so a body with `{ "trackingInfo": { "updatedBy": "x" } }`
+  keeps the stored `trackingInfo.createdBy`. Arrays and other values are replaced.
 - **`relations`** link records to other entities; see [Entity relations](#entity-relations).
   `entityLink.expand` / `entityLink.embed` include related records in that endpoint's result.
+- **`entityLink.bodyTemplate`** (config only) reshapes the request body before the entity operation
+  stores it. It uses the same tokens as response bodies, e.g.
+  `"{ \"amount\": {{request.body.amount}}, \"trackingInfo\": { \"createdBy\": \"{{request.body.user}}\", \"createdAt\": \"{{now}}\" } }"`.
+- **`entityLink.nested`** (config only) makes the operation work on the items of an array field inside a
+  record, e.g. the `versions` of a tier. The record is found by the entity's `idParam` (and `scope`):
+
+  ```jsonc
+  "entityLink": {
+    "entityName": "tiers",
+    "operation": "create",              // list | getById | create | update | delete
+    "nested": {
+      "field": "versions",              // array field holding the items
+      "idParam": "versionId",           // path param with the item id (getById/update/delete)
+      "idField": "id",                  // default "id"; new ids are unique across all records
+      "defaults": {},                   // fields for items made by `create`
+      "deleteParentWhenEmpty": true,    // `delete` of the last item removes the whole record
+      // `create` only: ends the item named by request.body.baseVersionId the day before the
+      // new item's effectiveDate, or removes it when the new item starts on or before it.
+      "supersede": { "idFrom": "baseVersionId", "startField": "effectiveDate", "endField": "endDate" }
+    }
+  }
+  ```
+
+  The admin UI keeps `nested` and `bodyTemplate` when you save the endpoint, but doesn't edit them yet.
 - **`match`** on a scenario maps a dotted path (`request.body.*`, `request.query.*`, `params.*`) to an
   expected value. A scenario whose conditions all match wins over the active scenario, so edge
   cases trigger from the request itself. It is preserved on save but not yet editable in the UI.
@@ -230,19 +256,54 @@ Call `http://localhost:4000` directly (CORS is on by default). For a Vite app, p
 `.env.local` (not `.env.production`) and restart its dev server. Example for the rebate app:
 
 ```
-VITE_REBATE_API_BASE=http://localhost:4000/api/rms/crs/rebates   # no trailing slash
-VITE_BYPASS_AUTH=true                                            # skip the auth check
+VITE_REBATE_API_BASE=http://localhost:4000/api/rms/crs/rebates             # no trailing slash
+VITE_REBATE_BFF_API_BASE=http://localhost:4000/api/rms/crs/rebates-bff     # customer list/add/delete
+VITE_BYPASS_AUTH=true                                                      # skip the auth check
 ```
 
+Without `VITE_REBATE_BFF_API_BASE` the rebate app sends the customer list, add and delete calls to
+`/RebateManagement/rebates-bff/...` on its own dev server (proxied to `localhost:8080`), not to the mock.
+Customer edit uses `VITE_REBATE_API_BASE` (`PUT .../rebates/{rebateId}/accounts/{accountId}`).
+
 `configs/rebate-management.json` mocks the rebate UI's APIs. Rebate IDs to try: `TEST1234` (active),
-`PENDING01` (pending, no notes/customers), `HISTORY01` (historical, read-only), `EDGECASE1`
-(boundary values), `ERROR500` (500), `GATEWAY504` (504), any other ID (404). Other triggers: add a
-customer `99999` (409) or `88888` (422); save a rebate named `FAIL` (400); add a note `FAIL` (500).
+`PENDING01` (pending, no notes/customers/tiers), `PENDING02` (pending, with customers and percentage tiers),
+`HISTORY01` (historical, read-only), `EDGECASE1` (boundary values, starts and ends today), `NOEND01`
+(active, no End Date, two open-ended tiers), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
+Other triggers: add a customer `99999` (409) or `88888` (422); save a rebate named `FAIL` (400); add a
+note `FAIL` (500); add a tier with percentage `77` (500).
 For client-side pagination, `PAGE01`, `PAGE24`, `PAGE25`, `PAGE26`, `PAGE50`, `PAGE51`, `PAGE100` and
-`PAGE101` each have that many customers and that many tiers (`PENDING01` has none).
-Tier delete (`TEST1234`): 5% has two future rows (duplicate), 8% starts today and 2% has started
-(trash disabled), 10% starts tomorrow (enabled), deleting the 12% tier (`tierId` 386) returns 409.
-Each mock tier has one version; the DELETE removes the tier when `tierId` and `versionId` match, else 404.
+`PAGE101` each have that many customers and that many single-version tiers.
+
+**Customers** (`TEST1234`, rebate runs today-90d to today+270d): the customer name says which case it
+covers: future start (deletable), started / starts today (Effective Date locked, not deletable), starts
+tomorrow, unknown type and inactive (warning rows), Check without a vendor, a 3-digit vendor, End before
+Effective, Effective after the rebate end, End after the rebate end, and long values. `PENDING02` adds
+customers that start before the rebate and one exactly on its bounds. Edit with vendor `99999` returns
+422 (plain-string body) and `88888` returns 409; deleting customer `123457` returns 409.
+
+**Tiers** hold a `versions` array (one table row per version, deliberately not sorted). `TEST1234`
+uses rebate amounts and `PENDING02` rebate percentages, both increasing with the tier percentage:
+
+| `TEST1234` tier | Versions                                                              | Cases                               |
+| --------------- | --------------------------------------------------------------------- | ----------------------------------- |
+| 2% (`1`)        | ended (today-90d) + current (today-30d)                               | trash disabled, past Effective Date |
+| 5% (`2`, `383`) | one future version each, overlapping                                  | duplicate percentage, deletable     |
+| 8% (`384`)      | starts today                                                          | trash disabled                      |
+| 10% (`385`)     | current (ends today) + starts tomorrow                                | delete one version, tier remains    |
+| 12% (`386`)     | future                                                                | delete returns 409                  |
+| 15% (`387`)     | future                                                                | edit returns 409                    |
+| 20% (`388`)     | current, decimal values                                               | edit returns 422                    |
+| 25% (`389`)     | ended + current + future                                              | three versions                      |
+
+`NOEND01` has 5% (`394`) and 10% (`395`) tiers, both starting today+10d with no End Date.
+
+Add tier (`POST .../tiers`) stores the tier with one version built from the request body as sent
+(the UI sends strings, so they come back as strings) and does no tier validation. Deleting a tier's
+last version removes the tier; a `tierId` / `versionId` pair that doesn't match returns
+404. Edit tier (`POST .../tiers/{tierId}/changes`) ends `baseVersionId` the day before the new
+`effectiveDate` and adds the new version, created by `user`. When the new version starts on or before
+the base version, it replaces the base version (backend behaviour for this case is still open).
+`includeHistorical` is ignored: ended versions are always returned.
 
 ## Demo data
 

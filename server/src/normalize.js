@@ -18,6 +18,20 @@ function normalizeEntityLink(link) {
     if (names.length) out[key] = names;
     else delete out[key];
   }
+  if (link.nested == null) {
+    delete out.nested;
+  } else if (
+    typeof link.nested !== "object" ||
+    typeof link.nested.field !== "string" ||
+    !link.nested.field.trim()
+  ) {
+    throw httpError(400, 'entityLink.nested must be an object with a "field" (the array field name)');
+  }
+  if (link.bodyTemplate == null || link.bodyTemplate === "") {
+    delete out.bodyTemplate;
+  } else if (typeof link.bodyTemplate !== "string") {
+    throw httpError(400, "entityLink.bodyTemplate must be a string (a JSON template like a response body)");
+  }
   return out;
 }
 
