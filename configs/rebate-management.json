@@ -9,6 +9,8 @@
         {
           "id": "TEST1234",
           "name": "Active Rebate - Happy Path",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -31,6 +33,8 @@
         {
           "id": "PENDING01",
           "name": "Pending Rebate - Starts In The Future",
+          "salesType": "eligible",
+          "valueType": "amount",
           "programTypeId": 2,
           "customerCategoryId": 20,
           "frequencyType": "Quarterly",
@@ -53,6 +57,8 @@
         {
           "id": "PENDING02",
           "name": "Pending Rebate - With Customers And Percent Tiers",
+          "salesType": "eligible",
+          "valueType": "percent",
           "programTypeId": 2,
           "customerCategoryId": 20,
           "frequencyType": "Quarterly",
@@ -75,6 +81,8 @@
         {
           "id": "NOEND01",
           "name": "Active Rebate - No End Date",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -97,6 +105,8 @@
         {
           "id": "HISTORY01",
           "name": "Historical Rebate - Read Only",
+          "salesType": "net",
+          "valueType": "percent",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -119,6 +129,8 @@
         {
           "id": "EDGECASE1",
           "name": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 3,
           "customerCategoryId": 30,
           "frequencyType": "Monthly",
@@ -141,6 +153,8 @@
         {
           "id": "PAGE01",
           "name": "Pagination - 1 Customers / 1 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -163,6 +177,8 @@
         {
           "id": "PAGE24",
           "name": "Pagination - 24 Customers / 24 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -185,6 +201,8 @@
         {
           "id": "PAGE25",
           "name": "Pagination - 25 Customers / 25 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -207,6 +225,8 @@
         {
           "id": "PAGE26",
           "name": "Pagination - 26 Customers / 26 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -229,6 +249,8 @@
         {
           "id": "PAGE50",
           "name": "Pagination - 50 Customers / 50 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -251,6 +273,8 @@
         {
           "id": "PAGE51",
           "name": "Pagination - 51 Customers / 51 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -273,6 +297,8 @@
         {
           "id": "PAGE100",
           "name": "Pagination - 100 Customers / 100 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",
@@ -295,6 +321,8 @@
         {
           "id": "PAGE101",
           "name": "Pagination - 101 Customers / 101 Tiers",
+          "salesType": "net",
+          "valueType": "amount",
           "programTypeId": 1,
           "customerCategoryId": 10,
           "frequencyType": "Monthly",

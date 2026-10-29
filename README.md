@@ -271,6 +271,9 @@ Customer edit uses `VITE_REBATE_API_BASE` (`PUT .../rebates/{rebateId}/accounts/
 (active, no End Date, two open-ended tiers), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
 Other triggers: add a customer `99999` (409) or `88888` (422); save a rebate named `FAIL` (400); add a
 note `FAIL` (500); add a tier with percentage `77` (500).
+Rebates carry the tier labels' `salesType` (`net` | `eligible`) and `valueType` (`amount` | `percent`):
+`TEST1234` net/amount, `PENDING01` eligible/amount, `PENDING02` eligible/percent, `HISTORY01` net/percent,
+all others net/amount (each matches its tiers' rebate values).
 For client-side pagination, `PAGE01`, `PAGE24`, `PAGE25`, `PAGE26`, `PAGE50`, `PAGE51`, `PAGE100` and
 `PAGE101` each have that many customers and that many single-version tiers.
 
