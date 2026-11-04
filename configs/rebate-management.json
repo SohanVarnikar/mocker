@@ -151,6 +151,270 @@
           }
         },
         {
+          "id": "ENDALL01",
+          "name": "End All - Mixed: ended, active and future tiers",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-365d}}",
+          "endDate": "{{today+365d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-365d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL02",
+          "name": "End All - Active Tiers Only, Narrow Rebate Dates",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-20d}}",
+          "endDate": "{{today+20d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-20d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL03",
+          "name": "End All - Future Tiers Only (Pending Rebate)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today+10d}}",
+          "endDate": "{{today+370d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "pending",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL04",
+          "name": "End All - Every Tier Already Ended (Disabled)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-200d}}",
+          "endDate": "{{today+100d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-200d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL05",
+          "name": "End All - Last Tier Ends Today (Enabled)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-100d}}",
+          "endDate": "{{today+100d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-100d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL06",
+          "name": "End All - Rebate Without End Date",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-60d}}",
+          "endDate": null,
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-60d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL07",
+          "name": "End All - Historical Rebate (Disabled)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-400d}}",
+          "endDate": "{{today-35d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "historical",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-400d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL08",
+          "name": "End All - Server Rejects With A Message (422)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-90d}}",
+          "endDate": "{{today+270d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL09",
+          "name": "End All - Server Error Without A Message (500)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-90d}}",
+          "endDate": "{{today+270d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL10",
+          "name": "End All - Slow Response (3s busy overlay)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-90d}}",
+          "endDate": "{{today+270d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "ENDALL11",
+          "name": "End All - Cancels Every Tier (Pending Rebate)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today+5d}}",
+          "endDate": "{{today+365d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "pending",
+          "priceMods": true,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
           "id": "PAGE01",
           "name": "Pagination - 1 Customers / 1 Tiers",
           "salesType": "net",
@@ -17169,6 +17433,734 @@
               }
             }
           ]
+        },
+        {
+          "id": 500,
+          "rebateId": "ENDALL01",
+          "percentage": 2,
+          "versions": [
+            {
+              "id": 5000,
+              "salesAmount": 2000,
+              "rebateAmount": 20,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-300d}}",
+              "endDate": "{{today-200d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-300d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 501,
+          "rebateId": "ENDALL01",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5001,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-120d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-120d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 502,
+          "rebateId": "ENDALL01",
+          "percentage": 8,
+          "versions": [
+            {
+              "id": 5002,
+              "salesAmount": 8000,
+              "rebateAmount": 80,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-60d}}",
+              "endDate": "{{today+200d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-60d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 503,
+          "rebateId": "ENDALL01",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5003,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+21d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            },
+            {
+              "id": 5004,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-90d}}",
+              "endDate": "{{today+20d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-90d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 504,
+          "rebateId": "ENDALL01",
+          "percentage": 12,
+          "versions": [
+            {
+              "id": 5005,
+              "salesAmount": 12000,
+              "rebateAmount": 120,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+30d}}",
+              "endDate": "{{today+120d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 505,
+          "rebateId": "ENDALL01",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5006,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+90d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 506,
+          "rebateId": "ENDALL01",
+          "percentage": 20,
+          "versions": [
+            {
+              "id": 5007,
+              "salesAmount": 20000,
+              "rebateAmount": 200,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+150d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 507,
+          "rebateId": "ENDALL02",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5008,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-15d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-15d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 508,
+          "rebateId": "ENDALL02",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5009,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-10d}}",
+              "endDate": "{{today+20d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-10d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 509,
+          "rebateId": "ENDALL02",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5010,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-5d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-5d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 510,
+          "rebateId": "ENDALL03",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5011,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+10d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 511,
+          "rebateId": "ENDALL03",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5012,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+10d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 512,
+          "rebateId": "ENDALL03",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5013,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+40d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 513,
+          "rebateId": "ENDALL03",
+          "percentage": 20,
+          "versions": [
+            {
+              "id": 5014,
+              "salesAmount": 20000,
+              "rebateAmount": 200,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+70d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 514,
+          "rebateId": "ENDALL04",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5015,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-150d}}",
+              "endDate": "{{today-10d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-150d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 515,
+          "rebateId": "ENDALL04",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5016,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-120d}}",
+              "endDate": "{{today-1d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-120d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 516,
+          "rebateId": "ENDALL05",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5017,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-90d}}",
+              "endDate": "{{today-1d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-90d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 517,
+          "rebateId": "ENDALL05",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5018,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-60d}}",
+              "endDate": "{{today}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-60d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 518,
+          "rebateId": "ENDALL06",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5019,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-50d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-50d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 519,
+          "rebateId": "ENDALL06",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5020,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-30d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 520,
+          "rebateId": "ENDALL06",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5021,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 521,
+          "rebateId": "ENDALL07",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5022,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-390d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-390d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 522,
+          "rebateId": "ENDALL07",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5023,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-300d}}",
+              "endDate": "{{today-35d}}",
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-300d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 523,
+          "rebateId": "ENDALL08",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5024,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-60d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-60d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 524,
+          "rebateId": "ENDALL08",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5025,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-30d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 525,
+          "rebateId": "ENDALL08",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5026,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 526,
+          "rebateId": "ENDALL09",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5027,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-60d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-60d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 527,
+          "rebateId": "ENDALL09",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5028,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-30d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 528,
+          "rebateId": "ENDALL09",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5029,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 529,
+          "rebateId": "ENDALL10",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5030,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-60d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-60d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 530,
+          "rebateId": "ENDALL10",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5031,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today-30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now-30d}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 531,
+          "rebateId": "ENDALL10",
+          "percentage": 15,
+          "versions": [
+            {
+              "id": 5032,
+              "salesAmount": 15000,
+              "rebateAmount": 150,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+30d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 532,
+          "rebateId": "ENDALL11",
+          "percentage": 5,
+          "versions": [
+            {
+              "id": 5033,
+              "salesAmount": 5000,
+              "rebateAmount": 50,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+20d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
+        },
+        {
+          "id": 533,
+          "rebateId": "ENDALL11",
+          "percentage": 10,
+          "versions": [
+            {
+              "id": 5034,
+              "salesAmount": 10000,
+              "rebateAmount": 100,
+              "rebatePercent": null,
+              "effectiveDate": "{{today+40d}}",
+              "endDate": null,
+              "trackingInfo": {
+                "createdBy": "jdoe",
+                "createdAt": "{{now}}",
+                "updatedBy": null,
+                "updatedAt": null
+              }
+            }
+          ]
         }
       ]
     },
@@ -17518,7 +18510,49 @@
           "statusCode": 200,
           "delayMs": 0,
           "headers": "Content-Type: application/json",
-          "body": "[{ \"groupCode\": \"GC001\" }, { \"groupCode\": \"GC002\" }]",
+          "body": "[\"GC001\", \"GC002\"]",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-empty",
+          "name": "Empty",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "[]",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load group codes\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-group-codes-bff",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates-bff/:rebateId/group-codes",
+      "description": "List group codes (BFF path, as the UI calls it; path assumed)",
+      "tag": "group-code",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "none"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "[\"GC001\", \"GC002\"]",
           "usesEntity": false
         },
         {
@@ -18074,6 +19108,91 @@
           "delayMs": 200,
           "headers": "Content-Type: application/json",
           "body": "{ \"message\": \"Unable to update tier\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-tiers-end-all",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates/:rebateId/tiers/endAll",
+      "description": "End all tiers: versions active on endDate are ended on it, versions starting after it are cancelled, versions already ended are untouched; endDate outside the rebate dates -> 400. ENDALL08 -> 422, ENDALL09 -> 500, ENDALL10 -> 3s delay",
+      "tag": "tier",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"endDate\": \"date\", \"user\": \"string\" }"
+      },
+      "entityLink": {
+        "entityName": "tiers",
+        "operation": "endAll",
+        "nested": {
+          "field": "versions",
+          "startField": "effectiveDate",
+          "endField": "endDate",
+          "dateFrom": "endDate",
+          "userFrom": "user",
+          "bounds": {
+            "entity": "rebates",
+            "idParam": "rebateId",
+            "startField": "effectiveDate",
+            "endField": "endDate"
+          }
+        }
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-rejected",
+          "name": "ENDALL08 -> Unprocessable (with message)",
+          "match": {
+            "params.rebateId": "ENDALL08"
+          },
+          "statusCode": 422,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Tiers cannot be ended while a rebate calculation is running. Try again later.\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-server-error",
+          "name": "ENDALL09 -> Server Error (no message)",
+          "match": {
+            "params.rebateId": "ENDALL09"
+          },
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"error\": \"Internal Server Error\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-slow",
+          "name": "ENDALL10 -> Success after 3s",
+          "match": {
+            "params.rebateId": "ENDALL10"
+          },
+          "statusCode": 200,
+          "delayMs": 3000,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to end tiers\" }",
           "usesEntity": false
         }
       ]

@@ -22,6 +22,7 @@ const OPERATIONS = [
   { value: 'create', label: 'create — POST new record' },
   { value: 'update', label: 'update — PUT/PATCH modify record by id' },
   { value: 'delete', label: 'delete — DELETE record by id' },
+  { value: 'endAll', label: 'endAll — POST end all items of a nested array (config only)' },
 ];
 
 function tempId() {

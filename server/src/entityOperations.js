@@ -158,6 +158,76 @@ async function performNestedOperation(ctx, operation, params, requestBody, rawBo
 }
 
 /**
+ * `endAll`: ends every item of an array field (e.g. the `versions` of all tiers of a rebate) as of the
+ * date in the request body, mimicking the real "end all tiers" backend. Configured by `entityLink.nested`:
+ *   field                  array field holding the items
+ *   startField / endField  item date fields (default "effectiveDate" / "endDate")
+ *   dateFrom               request body field with the date (default "endDate")
+ *   userFrom               request body field with the user, stamped on ended items (default "user")
+ *   bounds                 { entity, idParam, startField, endField }: the date must fall within the
+ *                          dates of the record named by the path param, else 400
+ * Items starting after the date are cancelled (removed), items active on it get the date as their end
+ * date, and items that already ended on or before it are left alone. Records left without items are
+ * removed.
+ */
+async function performEndAll(entity, nested, params, requestBody, scope) {
+  const field = nested.field;
+  const startField = nested.startField || "effectiveDate";
+  const endField = nested.endField || "endDate";
+  const dateField = nested.dateFrom || "endDate";
+  const body = bodyObject(requestBody);
+  const date = dateOnly(body[dateField]);
+  if (!date) throw httpError(400, `${dateField} must be a YYYY-MM-DD date`);
+
+  const bounds = nested.bounds;
+  if (bounds) {
+    const parentId = params[bounds.idParam];
+    const boundsIdField = bounds.idField || "id";
+    const parent = readEntityRecords(bounds.entity).find((r) => String(r?.[boundsIdField]) === String(parentId));
+    if (!parent) throw httpError(404, `${bounds.entity} with ${boundsIdField} ${parentId} was not found`);
+    const from = dateOnly(parent[bounds.startField || "effectiveDate"]);
+    const to = dateOnly(parent[bounds.endField || "endDate"]);
+    if ((from && date < from) || (to && date > to)) {
+      throw httpError(400, `${dateField} must be between ${from ?? "the start"} and ${to ?? "the end"} of the ${bounds.entity} record`);
+    }
+  }
+
+  const user = body[nested.userFrom || "user"] ?? null;
+  const now = new Date().toISOString();
+  const counts = { ended: 0, cancelled: 0, unchanged: 0 };
+  const emptied = [];
+  const records = readEntityRecords(entity.name).map((record) => {
+    if (!inScope(record, scope) || !Array.isArray(record[field]) || !record[field].length) return record;
+    const kept = [];
+    for (const item of record[field]) {
+      const start = dateOnly(item?.[startField]);
+      const end = dateOnly(item?.[endField]);
+      if (start && start > date) {
+        counts.cancelled += 1;
+      } else if (!end || end > date) {
+        counts.ended += 1;
+        kept.push({
+          ...item,
+          [endField]: date,
+          trackingInfo: { ...(item.trackingInfo || {}), updatedBy: user, updatedAt: now },
+        });
+      } else {
+        counts.unchanged += 1;
+        kept.push(item);
+      }
+    }
+    if (!kept.length) {
+      emptied.push(record);
+      return record;
+    }
+    return { ...record, [field]: kept };
+  });
+  await writeEntityRecords(entity.name, records);
+  if (emptied.length) await deleteRecords(entity, emptied);
+  return { endDate: date, ...counts, removedRecords: emptied.length };
+}
+
+/**
  * Performs a CRUD-style operation against an entity's store, mimicking a real
  * backend so multiple linked endpoints (e.g. POST + PUT) observe each other's
  * changes. `options.expand` / `options.embed` add related records to the result;
@@ -176,6 +246,13 @@ export async function performEntityOperation(
   const notFound = (id) => httpError(404, `${entity.name} with ${idField} ${id} was not found`);
   const findRecord = (id) =>
     (indexBy(entity.name, idField).get(String(id)) || []).find((r) => inScope(r, scope));
+
+  if (operation === "endAll") {
+    if (!options.nested?.field) {
+      throw httpError(500, 'The "endAll" operation needs entityLink.nested with the array "field"');
+    }
+    return performEndAll(entity, options.nested, params, requestBody, scope);
+  }
 
   if (options.nested?.field) {
     return performNestedOperation(

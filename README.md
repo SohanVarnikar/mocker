@@ -229,7 +229,7 @@ the existing endpoint with the same method + path, so re-importing never duplica
   ```jsonc
   "entityLink": {
     "entityName": "tiers",
-    "operation": "create",              // list | getById | create | update | delete
+    "operation": "create",              // list | getById | create | update | delete | endAll
     "nested": {
       "field": "versions",              // array field holding the items
       "idParam": "versionId",           // path param with the item id (getById/update/delete)
@@ -240,6 +240,25 @@ the existing endpoint with the same method + path, so re-importing never duplica
       // new item's effectiveDate, or removes it when the new item starts on or before it.
       "supersede": { "idFrom": "baseVersionId", "startField": "effectiveDate", "endField": "endDate" }
     }
+  }
+  ```
+
+  `operation: "endAll"` works on the items of **every** in-scope record at once (no item id in the path),
+  e.g. to end all the tiers of a rebate. It reads the date from the request body and applies it to each item:
+  items starting after the date are cancelled (removed), items still running on it get it as their end
+  date (and `trackingInfo.updatedBy` / `updatedAt`), and items that already ended on or before it are left
+  alone. Records left without items are removed. It returns `{ endDate, ended, cancelled, unchanged,
+  removedRecords }`.
+
+  ```jsonc
+  "nested": {
+    "field": "versions",
+    "startField": "effectiveDate",       // default
+    "endField": "endDate",              // default
+    "dateFrom": "endDate",              // request body field with the date (default "endDate")
+    "userFrom": "user",                 // request body field stamped as updatedBy (default "user")
+    // optional: the date must fall within the dates of the record named by the path param, else 400
+    "bounds": { "entity": "rebates", "idParam": "rebateId", "startField": "effectiveDate", "endField": "endDate" }
   }
   ```
 
@@ -268,7 +287,7 @@ Customer edit uses `VITE_REBATE_API_BASE` (`PUT .../rebates/{rebateId}/accounts/
 `configs/rebate-management.json` mocks the rebate UI's APIs. Rebate IDs to try: `TEST1234` (active),
 `PENDING01` (pending, no notes/customers/tiers), `PENDING02` (pending, with customers and percentage tiers),
 `HISTORY01` (historical, read-only), `EDGECASE1` (boundary values, starts and ends today), `NOEND01`
-(active, no End Date, two open-ended tiers), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
+(active, no End Date, two open-ended tiers), `ENDALL01` ... `ENDALL11` (End All tiers cases, see below), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
 Other triggers: add a customer `99999` (409) or `88888` (422); save a rebate named `FAIL` (400); add a
 note `FAIL` (500); add a tier with percentage `77` (500).
 Rebates carry the tier labels' `salesType` (`net` | `eligible`) and `valueType` (`amount` | `percent`):
@@ -299,6 +318,28 @@ uses rebate amounts and `PENDING02` rebate percentages, both increasing with the
 | 25% (`389`)     | ended + current + future                                              | three versions                      |
 
 `NOEND01` has 5% (`394`) and 10% (`395`) tiers, both starting today+10d with no End Date.
+
+**End All tiers** (`POST .../tiers/endAll`, body `{ "endDate": "YYYY-MM-DD", "user": "..." }`): ends the
+tiers as described under `endAll` above; an `endDate` outside the rebate's dates, a missing or invalid one
+returns 400, and an unknown rebate 404. Each `ENDALL*` rebate is one case for the End All button and dialog
+(they run net/amount, tiers rise with the percentage). End All changes the stored tiers, so re-import the
+config with "Reset stored data" ticked (or **Reseed** the `tiers` entity) to get them back.
+
+| Rebate     | Rebate dates (today +)    | Tiers (version dates, today +)                                        | What it shows                                                                                                  |
+| ---------- | ------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ENDALL01` | -365d .. +365d            | 2% ended; 5% open; 8% to +200d; 10% two versions; 12% +30d..+120d; 15% from +90d; 20% from +150d | Everything at once. With End Date today+45d: 4 versions ended, 2 untouched, the 15% / 20% tiers cancelled. "Future dates" banner for dates before +150d; wide range for the 3-month past / future warnings |
+| `ENDALL02` | -20d .. +20d              | 5% open since -15d; 10% -10d..+20d; 15% open since -5d                | Narrow range: before-start / after-end errors, start and end day valid. Every tier has started: no banner for today |
+| `ENDALL03` | +10d .. +370d (pending)   | 5% and 10% from +10d; 15% from +40d; 20% from +70d                    | Only future tiers: End All is enabled. End Date = rebate start makes the first two one-day tiers and cancels the rest |
+| `ENDALL04` | -200d .. +100d            | 5% ended -10d; 10% ended yesterday                                    | Every tier ended: End All **disabled**                                                                          |
+| `ENDALL05` | -100d .. +100d            | 5% ended yesterday; 10% ends **today**                                | A tier ending today is still active: End All enabled; End Date today changes nothing                            |
+| `ENDALL06` | -60d .. no End Date       | 5% and 10% open; 15% from +30d                                        | Open-ended rebate: no upper limit on the End Date                                                               |
+| `ENDALL07` | -400d .. -35d (historical) | 5% open-ended (legacy); 10% ended -35d                                | Historical rebate: End All **disabled** by the status, although a tier is open                                  |
+| `ENDALL08` | -90d .. +270d             | 5%, 10% open; 15% from +30d                                           | End All returns **422** with a message: error toast, dialog stays open                                          |
+| `ENDALL09` | -90d .. +270d             | same as `ENDALL08`                                                    | End All returns **500** without a message: fallback "Failed to end Tiers"                                       |
+| `ENDALL10` | -90d .. +270d             | same as `ENDALL08`                                                    | End All succeeds after **3 s**: busy overlay                                                                    |
+| `ENDALL11` | +5d .. +365d (pending)    | 5% from +20d; 10% from +40d                                           | End Date = rebate start cancels every tier: empty table, End All and Export disabled                            |
+
+Also useful: `PENDING01` (no tiers: End All disabled) and `EDGECASE1` (single-day rebate: only today is a valid End Date).
 
 Add tier (`POST .../tiers`) stores the tier with one version built from the request body as sent
 (the UI sends strings, so they come back as strings) and does no tier validation. Deleting a tier's
