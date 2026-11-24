@@ -5,6 +5,12 @@
       "idField": "id",
       "idParam": "rebateId",
       "idStrategy": "uuid",
+      "defaults": {
+        "shareable": false,
+        "priceMods": false,
+        "outsidePurchases": false,
+        "generalExclusions": false
+      },
       "seedData": [
         {
           "id": "TEST1234",
@@ -605,6 +611,78 @@
             "updatedBy": null,
             "updatedAt": null
           }
+        },
+        {
+          "id": "UPLOAD01",
+          "name": "Upload - Uploaded Today (revert available)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": "{{today+335d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": false,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "UPLOAD02",
+          "name": "Upload - Last Upload Yesterday (revert disabled)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": "{{today+335d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": false,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
+        },
+        {
+          "id": "UPLOAD03",
+          "name": "Upload - Uploaded Today (revert fails)",
+          "salesType": "net",
+          "valueType": "amount",
+          "programTypeId": 1,
+          "customerCategoryId": 10,
+          "frequencyType": "Monthly",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": "{{today+335d}}",
+          "pastDueMax": 500,
+          "closeToTarget": 750,
+          "shareable": false,
+          "status": "active",
+          "priceMods": false,
+          "outsidePurchases": false,
+          "generalExclusions": false,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          }
         }
       ]
     },
@@ -703,10 +781,55 @@
         "endDate": null,
         "trackingInfo": {
           "createdBy": "mock-user",
+          "createdAt": "{{now}}",
           "updatedBy": null
         }
       },
       "seedData": [
+        {
+          "id": 123459,
+          "rebateId": "TEST1234",
+          "customerNumber": 10014,
+          "customerName": "Added Today - Highlighted Blue",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": 45678,
+          "paymentType": "check",
+          "parentPortfolioName": "Portfolio Name",
+          "parentPortfolio": 1234,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "Rick Sanchez",
+          "effectiveDate": "{{today+14d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null
+          }
+        },
+        {
+          "id": 123461,
+          "rebateId": "TEST1234",
+          "customerNumber": 10015,
+          "customerName": "Unknown Type Added Today - Blue Over Warning",
+          "customerType": "Z",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": 45678,
+          "paymentType": "check",
+          "parentPortfolioName": "Portfolio Name",
+          "parentPortfolio": 1234,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "Rick Sanchez",
+          "effectiveDate": "{{today+14d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null
+          }
+        },
         {
           "id": 123445,
           "rebateId": "TEST1234",
@@ -725,6 +848,7 @@
           "endDate": "{{today+240d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -746,6 +870,7 @@
           "endDate": "{{today+200d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -767,6 +892,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -788,6 +914,7 @@
           "endDate": "{{today-20d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -809,6 +936,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -830,6 +958,7 @@
           "endDate": "{{today+180d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -851,6 +980,7 @@
           "endDate": "{{today+270d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -872,6 +1002,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -893,6 +1024,7 @@
           "endDate": "{{today+35d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -914,6 +1046,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -935,6 +1068,7 @@
           "endDate": "{{today+300d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -956,6 +1090,7 @@
           "endDate": "{{today+200d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -977,6 +1112,7 @@
           "endDate": "{{today+91d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -998,6 +1134,7 @@
           "endDate": "{{today+20d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1019,6 +1156,7 @@
           "endDate": "{{today+395d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1040,6 +1178,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1061,6 +1200,7 @@
           "endDate": "{{today-35d}}",
           "trackingInfo": {
             "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1082,6 +1222,7 @@
           "endDate": "{{today-100d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1103,6 +1244,7 @@
           "endDate": "{{today}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1124,6 +1266,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1145,6 +1288,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1166,6 +1310,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1187,6 +1332,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1208,6 +1354,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1229,6 +1376,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1250,6 +1398,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1271,6 +1420,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1292,6 +1442,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1313,6 +1464,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1334,6 +1486,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1355,6 +1508,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1376,6 +1530,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1397,6 +1552,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1418,6 +1574,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1439,6 +1596,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1460,6 +1618,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1481,6 +1640,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1502,6 +1662,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1523,6 +1684,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1544,6 +1706,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1565,6 +1728,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1586,6 +1750,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1607,6 +1772,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1628,6 +1794,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1649,6 +1816,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1670,6 +1838,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1691,6 +1860,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1712,6 +1882,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1733,6 +1904,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1754,6 +1926,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1775,6 +1948,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1796,6 +1970,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1817,6 +1992,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1838,6 +2014,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1859,6 +2036,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1880,6 +2058,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1901,6 +2080,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1922,6 +2102,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1943,6 +2124,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -1964,6 +2146,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -1985,6 +2168,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2006,6 +2190,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2027,6 +2212,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2048,6 +2234,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2069,6 +2256,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2090,6 +2278,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2111,6 +2300,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2132,6 +2322,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2153,6 +2344,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2174,6 +2366,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2195,6 +2388,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2216,6 +2410,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2237,6 +2432,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2258,6 +2454,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2279,6 +2476,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2300,6 +2498,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2321,6 +2520,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2342,6 +2542,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2363,6 +2564,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2384,6 +2586,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2405,6 +2608,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2426,6 +2630,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2447,6 +2652,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2468,6 +2674,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2489,6 +2696,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2510,6 +2718,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2531,6 +2740,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2552,6 +2762,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2573,6 +2784,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2594,6 +2806,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2615,6 +2828,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2636,6 +2850,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2657,6 +2872,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2678,6 +2894,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2699,6 +2916,7 @@
           "endDate": "{{today+391d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2720,6 +2938,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2741,6 +2960,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2762,6 +2982,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2783,6 +3004,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2804,6 +3026,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2825,6 +3048,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2846,6 +3070,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2867,6 +3092,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2888,6 +3114,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2909,6 +3136,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2930,6 +3158,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2951,6 +3180,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -2972,6 +3202,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -2993,6 +3224,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3014,6 +3246,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3035,6 +3268,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3056,6 +3290,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3077,6 +3312,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3098,6 +3334,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3119,6 +3356,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3140,6 +3378,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3161,6 +3400,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3182,6 +3422,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3203,6 +3444,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3224,6 +3466,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3245,6 +3488,7 @@
           "endDate": "{{today+391d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3266,6 +3510,7 @@
           "endDate": "{{today+392d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3287,6 +3532,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3308,6 +3554,7 @@
           "endDate": "{{today+394d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3329,6 +3576,7 @@
           "endDate": "{{today+395d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3350,6 +3598,7 @@
           "endDate": "{{today+396d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3371,6 +3620,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3392,6 +3642,7 @@
           "endDate": "{{today+398d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3413,6 +3664,7 @@
           "endDate": "{{today+399d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3434,6 +3686,7 @@
           "endDate": "{{today+400d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3455,6 +3708,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3476,6 +3730,7 @@
           "endDate": "{{today+402d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3497,6 +3752,7 @@
           "endDate": "{{today+403d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3518,6 +3774,7 @@
           "endDate": "{{today+404d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3539,6 +3796,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3560,6 +3818,7 @@
           "endDate": "{{today+406d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3581,6 +3840,7 @@
           "endDate": "{{today+407d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3602,6 +3862,7 @@
           "endDate": "{{today+408d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3623,6 +3884,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3644,6 +3906,7 @@
           "endDate": "{{today+410d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3665,6 +3928,7 @@
           "endDate": "{{today+411d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3686,6 +3950,7 @@
           "endDate": "{{today+412d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3707,6 +3972,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3728,6 +3994,7 @@
           "endDate": "{{today+414d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3749,6 +4016,7 @@
           "endDate": "{{today+415d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3770,6 +4038,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3791,6 +4060,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3812,6 +4082,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3833,6 +4104,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3854,6 +4126,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3875,6 +4148,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3896,6 +4170,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3917,6 +4192,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3938,6 +4214,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -3959,6 +4236,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -3980,6 +4258,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4001,6 +4280,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4022,6 +4302,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4043,6 +4324,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4064,6 +4346,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4085,6 +4368,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4106,6 +4390,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4127,6 +4412,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4148,6 +4434,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4169,6 +4456,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4190,6 +4478,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4211,6 +4500,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4232,6 +4522,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4253,6 +4544,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4274,6 +4566,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4295,6 +4588,7 @@
           "endDate": "{{today+391d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4316,6 +4610,7 @@
           "endDate": "{{today+392d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4337,6 +4632,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4358,6 +4654,7 @@
           "endDate": "{{today+394d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4379,6 +4676,7 @@
           "endDate": "{{today+395d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4400,6 +4698,7 @@
           "endDate": "{{today+396d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4421,6 +4720,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4442,6 +4742,7 @@
           "endDate": "{{today+398d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4463,6 +4764,7 @@
           "endDate": "{{today+399d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4484,6 +4786,7 @@
           "endDate": "{{today+400d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4505,6 +4808,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4526,6 +4830,7 @@
           "endDate": "{{today+402d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4547,6 +4852,7 @@
           "endDate": "{{today+403d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4568,6 +4874,7 @@
           "endDate": "{{today+404d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4589,6 +4896,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4610,6 +4918,7 @@
           "endDate": "{{today+406d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4631,6 +4940,7 @@
           "endDate": "{{today+407d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4652,6 +4962,7 @@
           "endDate": "{{today+408d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4673,6 +4984,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4694,6 +5006,7 @@
           "endDate": "{{today+410d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4715,6 +5028,7 @@
           "endDate": "{{today+411d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4736,6 +5050,7 @@
           "endDate": "{{today+412d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4757,6 +5072,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4778,6 +5094,7 @@
           "endDate": "{{today+414d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4799,6 +5116,7 @@
           "endDate": "{{today+415d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4820,6 +5138,7 @@
           "endDate": "{{today+416d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4841,6 +5160,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4862,6 +5182,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4883,6 +5204,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4904,6 +5226,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4925,6 +5248,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4946,6 +5270,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -4967,6 +5292,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -4988,6 +5314,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5009,6 +5336,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5030,6 +5358,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5051,6 +5380,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5072,6 +5402,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5093,6 +5424,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5114,6 +5446,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5135,6 +5468,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5156,6 +5490,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5177,6 +5512,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5198,6 +5534,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5219,6 +5556,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5240,6 +5578,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5261,6 +5600,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5282,6 +5622,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5303,6 +5644,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5324,6 +5666,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5345,6 +5688,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5366,6 +5710,7 @@
           "endDate": "{{today+391d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5387,6 +5732,7 @@
           "endDate": "{{today+392d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5408,6 +5754,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5429,6 +5776,7 @@
           "endDate": "{{today+394d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5450,6 +5798,7 @@
           "endDate": "{{today+395d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5471,6 +5820,7 @@
           "endDate": "{{today+396d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5492,6 +5842,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5513,6 +5864,7 @@
           "endDate": "{{today+398d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5534,6 +5886,7 @@
           "endDate": "{{today+399d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5555,6 +5908,7 @@
           "endDate": "{{today+400d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5576,6 +5930,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5597,6 +5952,7 @@
           "endDate": "{{today+402d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5618,6 +5974,7 @@
           "endDate": "{{today+403d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5639,6 +5996,7 @@
           "endDate": "{{today+404d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5660,6 +6018,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5681,6 +6040,7 @@
           "endDate": "{{today+406d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5702,6 +6062,7 @@
           "endDate": "{{today+407d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5723,6 +6084,7 @@
           "endDate": "{{today+408d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5744,6 +6106,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5765,6 +6128,7 @@
           "endDate": "{{today+410d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5786,6 +6150,7 @@
           "endDate": "{{today+411d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5807,6 +6172,7 @@
           "endDate": "{{today+412d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5828,6 +6194,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5849,6 +6216,7 @@
           "endDate": "{{today+414d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5870,6 +6238,7 @@
           "endDate": "{{today+415d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5891,6 +6260,7 @@
           "endDate": "{{today+416d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5912,6 +6282,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5933,6 +6304,7 @@
           "endDate": "{{today+418d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5954,6 +6326,7 @@
           "endDate": "{{today+419d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -5975,6 +6348,7 @@
           "endDate": "{{today+420d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -5996,6 +6370,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6017,6 +6392,7 @@
           "endDate": "{{today+422d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6038,6 +6414,7 @@
           "endDate": "{{today+423d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6059,6 +6436,7 @@
           "endDate": "{{today+424d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6080,6 +6458,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6101,6 +6480,7 @@
           "endDate": "{{today+426d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6122,6 +6502,7 @@
           "endDate": "{{today+427d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6143,6 +6524,7 @@
           "endDate": "{{today+428d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6164,6 +6546,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6185,6 +6568,7 @@
           "endDate": "{{today+430d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6206,6 +6590,7 @@
           "endDate": "{{today+431d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6227,6 +6612,7 @@
           "endDate": "{{today+432d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6248,6 +6634,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6269,6 +6656,7 @@
           "endDate": "{{today+434d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6290,6 +6678,7 @@
           "endDate": "{{today+435d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6311,6 +6700,7 @@
           "endDate": "{{today+436d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6332,6 +6722,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6353,6 +6744,7 @@
           "endDate": "{{today+438d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6374,6 +6766,7 @@
           "endDate": "{{today+439d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6395,6 +6788,7 @@
           "endDate": "{{today+440d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6416,6 +6810,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6437,6 +6832,7 @@
           "endDate": "{{today+442d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6458,6 +6854,7 @@
           "endDate": "{{today+443d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6479,6 +6876,7 @@
           "endDate": "{{today+444d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6500,6 +6898,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6521,6 +6920,7 @@
           "endDate": "{{today+446d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6542,6 +6942,7 @@
           "endDate": "{{today+447d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6563,6 +6964,7 @@
           "endDate": "{{today+448d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6584,6 +6986,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6605,6 +7008,7 @@
           "endDate": "{{today+450d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6626,6 +7030,7 @@
           "endDate": "{{today+451d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6647,6 +7052,7 @@
           "endDate": "{{today+452d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6668,6 +7074,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6689,6 +7096,7 @@
           "endDate": "{{today+454d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6710,6 +7118,7 @@
           "endDate": "{{today+455d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6731,6 +7140,7 @@
           "endDate": "{{today+456d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6752,6 +7162,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6773,6 +7184,7 @@
           "endDate": "{{today+458d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6794,6 +7206,7 @@
           "endDate": "{{today+459d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6815,6 +7228,7 @@
           "endDate": "{{today+460d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6836,6 +7250,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6857,6 +7272,7 @@
           "endDate": "{{today+462d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6878,6 +7294,7 @@
           "endDate": "{{today+463d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6899,6 +7316,7 @@
           "endDate": "{{today+464d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -6920,6 +7338,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6941,6 +7360,7 @@
           "endDate": "{{today+366d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6962,6 +7382,7 @@
           "endDate": "{{today+367d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -6983,6 +7404,7 @@
           "endDate": "{{today+368d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7004,6 +7426,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7025,6 +7448,7 @@
           "endDate": "{{today+370d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7046,6 +7470,7 @@
           "endDate": "{{today+371d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7067,6 +7492,7 @@
           "endDate": "{{today+372d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7088,6 +7514,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7109,6 +7536,7 @@
           "endDate": "{{today+374d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7130,6 +7558,7 @@
           "endDate": "{{today+375d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7151,6 +7580,7 @@
           "endDate": "{{today+376d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7172,6 +7602,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7193,6 +7624,7 @@
           "endDate": "{{today+378d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7214,6 +7646,7 @@
           "endDate": "{{today+379d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7235,6 +7668,7 @@
           "endDate": "{{today+380d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7256,6 +7690,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7277,6 +7712,7 @@
           "endDate": "{{today+382d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7298,6 +7734,7 @@
           "endDate": "{{today+383d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7319,6 +7756,7 @@
           "endDate": "{{today+384d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7340,6 +7778,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7361,6 +7800,7 @@
           "endDate": "{{today+386d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7382,6 +7822,7 @@
           "endDate": "{{today+387d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7403,6 +7844,7 @@
           "endDate": "{{today+388d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7424,6 +7866,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7445,6 +7888,7 @@
           "endDate": "{{today+390d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7466,6 +7910,7 @@
           "endDate": "{{today+391d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7487,6 +7932,7 @@
           "endDate": "{{today+392d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7508,6 +7954,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7529,6 +7976,7 @@
           "endDate": "{{today+394d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7550,6 +7998,7 @@
           "endDate": "{{today+395d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7571,6 +8020,7 @@
           "endDate": "{{today+396d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7592,6 +8042,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7613,6 +8064,7 @@
           "endDate": "{{today+398d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7634,6 +8086,7 @@
           "endDate": "{{today+399d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7655,6 +8108,7 @@
           "endDate": "{{today+400d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7676,6 +8130,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7697,6 +8152,7 @@
           "endDate": "{{today+402d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7718,6 +8174,7 @@
           "endDate": "{{today+403d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7739,6 +8196,7 @@
           "endDate": "{{today+404d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7760,6 +8218,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7781,6 +8240,7 @@
           "endDate": "{{today+406d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7802,6 +8262,7 @@
           "endDate": "{{today+407d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7823,6 +8284,7 @@
           "endDate": "{{today+408d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7844,6 +8306,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7865,6 +8328,7 @@
           "endDate": "{{today+410d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7886,6 +8350,7 @@
           "endDate": "{{today+411d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7907,6 +8372,7 @@
           "endDate": "{{today+412d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7928,6 +8394,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -7949,6 +8416,7 @@
           "endDate": "{{today+414d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7970,6 +8438,7 @@
           "endDate": "{{today+415d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -7991,6 +8460,7 @@
           "endDate": "{{today+416d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8012,6 +8482,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8033,6 +8504,7 @@
           "endDate": "{{today+418d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8054,6 +8526,7 @@
           "endDate": "{{today+419d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8075,6 +8548,7 @@
           "endDate": "{{today+420d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8096,6 +8570,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8117,6 +8592,7 @@
           "endDate": "{{today+422d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8138,6 +8614,7 @@
           "endDate": "{{today+423d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8159,6 +8636,7 @@
           "endDate": "{{today+424d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8180,6 +8658,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8201,6 +8680,7 @@
           "endDate": "{{today+426d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8222,6 +8702,7 @@
           "endDate": "{{today+427d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8243,6 +8724,7 @@
           "endDate": "{{today+428d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8264,6 +8746,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8285,6 +8768,7 @@
           "endDate": "{{today+430d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8306,6 +8790,7 @@
           "endDate": "{{today+431d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8327,6 +8812,7 @@
           "endDate": "{{today+432d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8348,6 +8834,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8369,6 +8856,7 @@
           "endDate": "{{today+434d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8390,6 +8878,7 @@
           "endDate": "{{today+435d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8411,6 +8900,7 @@
           "endDate": "{{today+436d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8432,6 +8922,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8453,6 +8944,7 @@
           "endDate": "{{today+438d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8474,6 +8966,7 @@
           "endDate": "{{today+439d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8495,6 +8988,7 @@
           "endDate": "{{today+440d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8516,6 +9010,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8537,6 +9032,7 @@
           "endDate": "{{today+442d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8558,6 +9054,7 @@
           "endDate": "{{today+443d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8579,6 +9076,7 @@
           "endDate": "{{today+444d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8600,6 +9098,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8621,6 +9120,7 @@
           "endDate": "{{today+446d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8642,6 +9142,7 @@
           "endDate": "{{today+447d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8663,6 +9164,7 @@
           "endDate": "{{today+448d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8684,6 +9186,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8705,6 +9208,7 @@
           "endDate": "{{today+450d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8726,6 +9230,7 @@
           "endDate": "{{today+451d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8747,6 +9252,7 @@
           "endDate": "{{today+452d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8768,6 +9274,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8789,6 +9296,7 @@
           "endDate": "{{today+454d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8810,6 +9318,7 @@
           "endDate": "{{today+455d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8831,6 +9340,7 @@
           "endDate": "{{today+456d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8852,6 +9362,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8873,6 +9384,7 @@
           "endDate": "{{today+458d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8894,6 +9406,7 @@
           "endDate": "{{today+459d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8915,6 +9428,7 @@
           "endDate": "{{today+460d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8936,6 +9450,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -8957,6 +9472,7 @@
           "endDate": "{{today+462d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8978,6 +9494,7 @@
           "endDate": "{{today+463d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -8999,6 +9516,7 @@
           "endDate": "{{today+464d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": "asmith"
           }
         },
@@ -9020,6 +9538,7 @@
           "endDate": null,
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
         },
@@ -9041,8 +9560,217 @@
           "endDate": "{{today+466d}}",
           "trackingInfo": {
             "createdBy": "jdoe",
+            "createdAt": "{{now-30d}}",
             "updatedBy": null
           }
+        },
+        {
+          "id": 125003,
+          "rebateId": "UPLOAD01",
+          "customerNumber": 61003,
+          "customerName": "Upload Seed - Added by Today's Upload",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "jdoe",
+          "effectiveDate": "{{today}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": "jdoe"
+          }
+        },
+        {
+          "id": 125004,
+          "rebateId": "UPLOAD01",
+          "customerNumber": 61004,
+          "customerName": "Upload Seed - Added by Today's Upload",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": 61004,
+          "paymentType": "check",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "jdoe",
+          "effectiveDate": "{{today}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": "jdoe"
+          }
+        },
+        {
+          "id": 125005,
+          "rebateId": "UPLOAD01",
+          "customerNumber": 61001,
+          "customerName": "Upload Seed - Active (end it via upload)",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": 61001,
+          "paymentType": "check",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "asmith",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null
+          }
+        },
+        {
+          "id": 125002,
+          "rebateId": "UPLOAD01",
+          "customerNumber": 61002,
+          "customerName": "Upload Seed - Ended by Today's Upload",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "asmith",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": "{{today+14d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": "jdoe"
+          }
+        },
+        {
+          "id": 125011,
+          "rebateId": "UPLOAD02",
+          "customerNumber": 61011,
+          "customerName": "Upload Seed - Active",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "asmith",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null
+          }
+        },
+        {
+          "id": 125012,
+          "rebateId": "UPLOAD02",
+          "customerNumber": 61012,
+          "customerName": "Upload Seed - Added by Yesterday's Upload",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "asmith",
+          "effectiveDate": "{{today-1d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": "asmith"
+          }
+        },
+        {
+          "id": 125021,
+          "rebateId": "UPLOAD03",
+          "customerNumber": 61021,
+          "customerName": "Upload Seed - Added by Today's Upload",
+          "customerType": "S",
+          "inactive": false,
+          "groupCode": "1224",
+          "vendorNumber": null,
+          "paymentType": "credit",
+          "parentPortfolioName": null,
+          "parentPortfolio": null,
+          "onChildOrGenericPortfolio": false,
+          "loadUser": "mjones",
+          "effectiveDate": "{{today}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now}}",
+            "updatedBy": "mjones"
+          }
+        }
+      ]
+    },
+    {
+      "name": "account-uploads",
+      "idField": "id",
+      "idParam": "uploadId",
+      "idStrategy": "increment",
+      "scope": {
+        "rebateId": "rebateId"
+      },
+      "seedData": [
+        {
+          "id": 1,
+          "rebateId": "UPLOAD01",
+          "user": "jdoe",
+          "uploadedAt": "{{now}}",
+          "created": [
+            125003,
+            125004
+          ],
+          "updated": [
+            {
+              "id": 125002,
+              "before": {
+                "endDate": null,
+                "trackingInfo": {
+                  "createdBy": "asmith",
+                  "createdAt": "{{now-30d}}",
+                  "updatedBy": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "rebateId": "UPLOAD02",
+          "user": "asmith",
+          "uploadedAt": "{{now-1d}}",
+          "created": [
+            125012
+          ],
+          "updated": []
+        },
+        {
+          "id": 3,
+          "rebateId": "UPLOAD03",
+          "user": "mjones",
+          "uploadedAt": "{{now}}",
+          "created": [
+            125021
+          ],
+          "updated": []
         }
       ]
     },
@@ -18165,6 +18893,1062 @@
       ]
     },
     {
+      "name": "exclusions",
+      "idField": "id",
+      "idParam": "exclusionId",
+      "idStrategy": "increment",
+      "scope": {
+        "rebateId": "rebateId"
+      },
+      "seedData": [
+        {
+          "id": 1,
+          "rebateId": "TEST1234",
+          "line": "WIX",
+          "plcd": 10,
+          "subc": 5,
+          "item": "51515",
+          "effectiveDate": "{{today-60d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-60d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "rebateId": "TEST1234",
+          "line": "ACD",
+          "plcd": 3,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-85d}}",
+          "endDate": "{{today+240d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-85d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-10d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Ignition Coils"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "rebateId": "TEST1234",
+          "line": "MOT",
+          "plcd": 2,
+          "subc": 7,
+          "item": "FL820S",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "rebateId": "TEST1234",
+          "line": "VAL",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-90d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Transmission Fluid"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Brake Fluid"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "rebateId": "TEST1234",
+          "line": "WIX",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-90d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": "jdoe",
+            "updatedAt": "{{now-45d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Cabin Air Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Fuel Filters"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "rebateId": "TEST1234",
+          "line": "BOS",
+          "plcd": 15,
+          "subc": 2,
+          "item": null,
+          "effectiveDate": "{{today-40d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-40d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Wipers",
+              "subCategory": "Wiper Blades"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "rebateId": "TEST1234",
+          "line": "MOT",
+          "plcd": 2,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today+14d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-2d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "rebateId": "TEST1234",
+          "line": "WIX",
+          "plcd": 0,
+          "subc": 99,
+          "item": "33032",
+          "effectiveDate": "{{today-10d}}",
+          "endDate": "{{today+20d}}",
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-10d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Fuel Filters"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Fuel Additives"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "rebateId": "TEST1234",
+          "line": "CHA",
+          "plcd": 1,
+          "subc": 1,
+          "item": "RC12YC",
+          "effectiveDate": "{{today-45d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-45d}}",
+            "updatedBy": "mjones",
+            "updatedAt": "{{now-1d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "rebateId": "TEST1234",
+          "line": "ACD",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-75d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-75d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Batteries",
+              "subCategory": "Automotive Batteries"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Brakes",
+              "subCategory": "Brake Pads"
+            },
+            {
+              "category": "Brakes",
+              "subCategory": "Rotors"
+            },
+            {
+              "category": "Brakes",
+              "subCategory": "Brake Pads"
+            },
+            {
+              "category": "Heating, Ventilation & Air Conditioning",
+              "subCategory": "Thermostats"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "rebateId": "TEST1234",
+          "line": "MOB",
+          "plcd": 4,
+          "subc": 12,
+          "item": null,
+          "effectiveDate": "{{today-15d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-15d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "rebateId": "TEST1234",
+          "line": "STP",
+          "plcd": 6,
+          "subc": 1,
+          "item": "78575",
+          "effectiveDate": "{{today-5d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-5d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": []
+        },
+        {
+          "id": 13,
+          "rebateId": "TEST1234",
+          "line": "WIX",
+          "plcd": 10,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-60d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-60d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "rebateId": "TEST1234",
+          "line": "WIX",
+          "plcd": 10,
+          "subc": 5,
+          "item": "57356",
+          "effectiveDate": "{{today-20d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-20d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "rebateId": "TEST1234",
+          "line": "VAL",
+          "plcd": 4,
+          "subc": 12,
+          "item": "SYN5W30",
+          "effectiveDate": "{{today-25d}}",
+          "endDate": "{{today+270d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-25d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-3d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "rebateId": "TEST1234",
+          "line": "GAT",
+          "plcd": 21,
+          "subc": 4,
+          "item": null,
+          "effectiveDate": "{{today-70d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-70d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Heating, Ventilation & Air Conditioning",
+              "subCategory": "Radiator & Heater Hoses"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "rebateId": "TEST1234",
+          "line": "BOS",
+          "plcd": 15,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today+30d}}",
+          "endDate": "{{today+200d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Wipers",
+              "subCategory": "Wiper Blades"
+            },
+            {
+              "category": "Wipers",
+              "subCategory": "Wiper Blades"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "rebateId": "TEST1234",
+          "line": "ACD",
+          "plcd": 3,
+          "subc": 8,
+          "item": "41-110",
+          "effectiveDate": "{{today-50d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-50d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "rebateId": "TEST1234",
+          "line": "MOT",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-90d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-90d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Ignition Coils"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "rebateId": "TEST1234",
+          "line": "CHA",
+          "plcd": 1,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-45d}}",
+          "endDate": "{{today+10d}}",
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-45d}}",
+            "updatedBy": "jdoe",
+            "updatedAt": "{{now-7d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plug Wires"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "rebateId": "HISTORY01",
+          "line": "WIX",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-400d}}",
+          "endDate": "{{today-35d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-400d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-35d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "rebateId": "HISTORY01",
+          "line": "ACD",
+          "plcd": 3,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-380d}}",
+          "endDate": "{{today-200d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-380d}}",
+            "updatedBy": "jdoe",
+            "updatedAt": "{{now-200d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Ignition Coils"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "rebateId": "HISTORY01",
+          "line": "MOT",
+          "plcd": 2,
+          "subc": 7,
+          "item": "FL820S",
+          "effectiveDate": "{{today-300d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-300d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "rebateId": "HISTORY01",
+          "line": "VAL",
+          "plcd": 4,
+          "subc": 12,
+          "item": "SYN5W30",
+          "effectiveDate": "{{today-250d}}",
+          "endDate": "{{today-100d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-250d}}",
+            "updatedBy": "mjones",
+            "updatedAt": "{{now-100d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "customer-exclusions",
+      "idField": "id",
+      "idParam": "customerExclusionId",
+      "idStrategy": "increment",
+      "scope": {
+        "rebateId": "rebateId"
+      },
+      "seedData": [
+        {
+          "id": 101,
+          "rebateId": "TEST1234",
+          "customerNumber": 10002,
+          "customerName": "Standard R - Already Started (locked, not deletable)",
+          "line": "WIX",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-60d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-60d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 102,
+          "rebateId": "TEST1234",
+          "customerNumber": 10006,
+          "customerName": "Starts Today (locked, not deletable)",
+          "line": "ACD",
+          "plcd": 3,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today}}",
+          "endDate": "{{today+180d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Ignition Coils"
+            },
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 103,
+          "rebateId": "TEST1234",
+          "customerNumber": 10002,
+          "customerName": "Standard R - Already Started (locked, not deletable)",
+          "line": "MOT",
+          "plcd": 2,
+          "subc": 7,
+          "item": "FL820S",
+          "effectiveDate": "{{today-30d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": "jdoe",
+            "updatedAt": "{{now-5d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 104,
+          "rebateId": "TEST1234",
+          "customerNumber": 10013,
+          "customerName": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+          "line": "VAL",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today+90d}}",
+          "endDate": "{{today+91d}}",
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-3d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Transmission Fluid"
+            }
+          ]
+        },
+        {
+          "id": 105,
+          "rebateId": "TEST1234",
+          "customerNumber": 10001,
+          "customerName": "Standard S - Future Start (deletable)",
+          "line": "BOS",
+          "plcd": 15,
+          "subc": 2,
+          "item": null,
+          "effectiveDate": "{{today+30d}}",
+          "endDate": "{{today+240d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-2d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Wipers",
+              "subCategory": "Wiper Blades"
+            }
+          ]
+        },
+        {
+          "id": 106,
+          "rebateId": "TEST1234",
+          "customerNumber": 10014,
+          "customerName": "Added Today - Highlighted Blue",
+          "line": "WIX",
+          "plcd": 0,
+          "subc": 99,
+          "item": "33032",
+          "effectiveDate": "{{today+14d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Fuel Filters"
+            },
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Fuel Additives"
+            }
+          ]
+        },
+        {
+          "id": 107,
+          "rebateId": "TEST1234",
+          "customerNumber": 10006,
+          "customerName": "Starts Today (locked, not deletable)",
+          "line": "CHA",
+          "plcd": 1,
+          "subc": 1,
+          "item": "RC12YC",
+          "effectiveDate": "{{today+7d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 108,
+          "rebateId": "TEST1234",
+          "customerNumber": 10002,
+          "customerName": "Standard R - Already Started (locked, not deletable)",
+          "line": "STP",
+          "plcd": 6,
+          "subc": 1,
+          "item": "78575",
+          "effectiveDate": "{{today-20d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-20d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": []
+        },
+        {
+          "id": 109,
+          "rebateId": "TEST1234",
+          "customerNumber": 10001,
+          "customerName": "Standard S - Future Start (deletable)",
+          "line": "GAT",
+          "plcd": 21,
+          "subc": 4,
+          "item": null,
+          "effectiveDate": "{{today+30d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-2d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Heating, Ventilation & Air Conditioning",
+              "subCategory": "Radiator & Heater Hoses"
+            }
+          ]
+        },
+        {
+          "id": 110,
+          "rebateId": "TEST1234",
+          "customerNumber": 10002,
+          "customerName": "Standard R - Already Started (locked, not deletable)",
+          "line": "MOB",
+          "plcd": 4,
+          "subc": 12,
+          "item": null,
+          "effectiveDate": "{{today-50d}}",
+          "endDate": "{{today+100d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-50d}}",
+            "updatedBy": "mjones",
+            "updatedAt": "{{now-10d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Fluids & Chemicals",
+              "subCategory": "Motor Oil"
+            }
+          ]
+        },
+        {
+          "id": 111,
+          "rebateId": "TEST1234",
+          "customerNumber": 10013,
+          "customerName": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+          "line": "ACD",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today+90d}}",
+          "endDate": "{{today+91d}}",
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-3d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Brakes",
+              "subCategory": "Brake Pads"
+            },
+            {
+              "category": "Brakes",
+              "subCategory": "Rotors"
+            },
+            {
+              "category": "Brakes",
+              "subCategory": "Brake Pads"
+            }
+          ]
+        },
+        {
+          "id": 112,
+          "rebateId": "TEST1234",
+          "customerNumber": 10007,
+          "customerName": "Starts Tomorrow (editable, deletable)",
+          "line": "WIX",
+          "plcd": 10,
+          "subc": 5,
+          "item": "51515",
+          "effectiveDate": "{{today+1d}}",
+          "endDate": "{{today+270d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-1d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 113,
+          "rebateId": "HISTORY01",
+          "customerNumber": 20001,
+          "customerName": "Historical Customer",
+          "line": "WIX",
+          "plcd": null,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-400d}}",
+          "endDate": "{{today-35d}}",
+          "trackingInfo": {
+            "createdBy": "jdoe",
+            "createdAt": "{{now-400d}}",
+            "updatedBy": "asmith",
+            "updatedAt": "{{now-35d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            }
+          ]
+        },
+        {
+          "id": 114,
+          "rebateId": "HISTORY01",
+          "customerNumber": 20002,
+          "customerName": "Historical Customer - Check",
+          "line": "ACD",
+          "plcd": 3,
+          "subc": 8,
+          "item": "41-110",
+          "effectiveDate": "{{today-300d}}",
+          "endDate": "{{today-100d}}",
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-300d}}",
+            "updatedBy": "jdoe",
+            "updatedAt": "{{now-100d}}"
+          },
+          "categoryDetails": [
+            {
+              "category": "Ignition",
+              "subCategory": "Spark Plugs"
+            }
+          ]
+        },
+        {
+          "id": 115,
+          "rebateId": "HISTORY01",
+          "customerNumber": 20001,
+          "customerName": "Historical Customer",
+          "line": "MOT",
+          "plcd": 2,
+          "subc": null,
+          "item": null,
+          "effectiveDate": "{{today-200d}}",
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "mjones",
+            "createdAt": "{{now-200d}}",
+            "updatedBy": null,
+            "updatedAt": null
+          },
+          "categoryDetails": [
+            {
+              "category": "Filters",
+              "subCategory": "Oil Filters"
+            },
+            {
+              "category": "Filters",
+              "subCategory": "Air Filters"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "program-types",
       "idField": "id",
       "idParam": "id",
@@ -18347,6 +20131,39 @@
       ]
     },
     {
+      "id": "ep-rebate-config",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/config",
+      "description": "Rebate configuration enums for the create form (SALE_TYPE / REBATE_AMOUNT_TYPE)",
+      "tag": "lookups",
+      "enabled": true,
+      "requestShape": {
+        "query": "SALE_TYPE=true&REBATE_AMOUNT_TYPE=true",
+        "body": "none"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{\n  \"saleTypes\": [\n    {\n      \"code\": \"NET_SALES\",\n      \"label\": \"Net Sales\"\n    },\n    {\n      \"code\": \"ELIGIBLE_SALES\",\n      \"label\": \"Eligible Sales\"\n    }\n  ],\n  \"rebateAmountTypes\": [\n    {\n      \"code\": \"REBATE_AMOUNT\",\n      \"label\": \"Rebate Amount\"\n    },\n    {\n      \"code\": \"REBATE_PERCENTAGE\",\n      \"label\": \"Rebate Percentage\"\n    }\n  ]\n}",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load rebate configuration\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
       "id": "ep-rebate-get",
       "method": "GET",
       "path": "/api/rms/crs/rebates/:rebateId",
@@ -18403,6 +20220,97 @@
           "delayMs": 300,
           "headers": "Content-Type: application/json",
           "body": "{ \"message\": \"Unexpected server error\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-rebate-create",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates",
+      "description": "Create rebate (name FAIL -> 400); salesTargetType / rebateAmountType are stored as salesType / valueType",
+      "tag": "rebate",
+      "enabled": true,
+      "requestShape": {
+        "body": "{ \"name\": \"string\", \"effectiveDate\": \"date\", \"endDate\": \"date (omitted when blank)\", \"customerCategoryId\": \"number\", \"programTypeId\": \"number\", \"frequencyType\": \"string\", \"salesTargetType\": \"NET_SALES|ELIGIBLE_SALES\", \"rebateAmountType\": \"REBATE_AMOUNT|REBATE_PERCENTAGE\", \"description\": \"string\", \"status\": \"string\", \"pastDueMax\": \"number\", \"closeToTarget\": \"number\", \"audit\": { \"createdBy\": \"string\" } }"
+      },
+      "entityLink": {
+        "entityName": "rebates",
+        "operation": "create",
+        "bodyTemplate": "{\n  \"name\": \"{{request.body.name}}\",\n  \"salesType\": \"{{request.body.salesTargetType | map NET_SALES=net ELIGIBLE_SALES=eligible}}\",\n  \"valueType\": \"{{request.body.rebateAmountType | map REBATE_AMOUNT=amount REBATE_PERCENTAGE=percent}}\",\n  \"programTypeId\": \"{{request.body.programTypeId}}\",\n  \"customerCategoryId\": \"{{request.body.customerCategoryId}}\",\n  \"frequencyType\": \"{{request.body.frequencyType}}\",\n  \"effectiveDate\": \"{{request.body.effectiveDate}}\",\n  \"endDate\": \"{{request.body.endDate}}\",\n  \"description\": \"{{request.body.description}}\",\n  \"pastDueMax\": \"{{request.body.pastDueMax}}\",\n  \"closeToTarget\": \"{{request.body.closeToTarget}}\",\n  \"status\": \"{{request.body.status}}\",\n  \"trackingInfo\": {\n    \"createdBy\": \"{{request.body.audit.createdBy}}\",\n    \"createdAt\": \"{{now}}\",\n    \"updatedBy\": null,\n    \"updatedAt\": null\n  }\n}"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-fail",
+          "name": "name FAIL -> Validation Error",
+          "match": {
+            "request.body.name": "FAIL"
+          },
+          "statusCode": 400,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Rebate name is not allowed\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 201,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to create rebate\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-rebate-defaults",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates-bff/rebate-defaults",
+      "description": "Default pastDueMax / closeToTarget for the create form",
+      "tag": "rebate",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "none"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{\n  \"rebatePastDueMax\": 500,\n  \"rebateCloseToTarget\": 750\n}",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-empty",
+          "name": "Empty response (UI defaults both to 0)",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load rebate defaults\" }",
           "usesEntity": false
         }
       ]
@@ -18700,7 +20608,7 @@
       "id": "ep-accounts-list",
       "method": "GET",
       "path": "/api/rms/crs/rebates-bff/:rebateId/accounts",
-      "description": "List customer accounts (PENDING01 has none)",
+      "description": "List customer accounts with today's upload info (PENDING01 has none; UPLOAD01-03 have uploads)",
       "tag": "customer",
       "enabled": true,
       "requestShape": {
@@ -18709,13 +20617,26 @@
       },
       "entityLink": {
         "entityName": "accounts",
-        "operation": "list"
+        "operation": "list",
+        "batches": {
+          "entity": "account-uploads",
+          "timeZone": "America/Chicago"
+        }
       },
       "activeScenarioId": "sc-ok",
       "scenarios": [
         {
           "id": "sc-ok",
-          "name": "Success",
+          "name": "Success (with upload info)",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{\n  \"updatedByUploadToday\": {{lastImport.today}},\n  \"lastUploadUser\": {{lastImport.user}},\n  \"lastUploadTime\": {{lastImport.time}},\n  \"accounts\": {{result}}\n}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-array",
+          "name": "Success (plain array, current backend)",
           "statusCode": 200,
           "delayMs": 0,
           "headers": "Content-Type: application/json",
@@ -18903,6 +20824,304 @@
       ]
     },
     {
+      "id": "ep-accounts-delete-ms",
+      "method": "DELETE",
+      "path": "/api/rms/crs/rebates/:rebateId/accounts/:accountId",
+      "description": "Delete customer account, ?user=<name> (accountId 123457 -> 409)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "query": "user=string",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "accounts",
+        "operation": "delete"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-conflict",
+          "name": "accountId 123457 -> Conflict",
+          "match": {
+            "params.accountId": 123457
+          },
+          "statusCode": 409,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Customer has pending payments and cannot be removed\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 200,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to delete customer\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-export",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates-bff/:rebateId/accounts/export",
+      "description": "Export customers as CSV (empty body when the rebate has none, e.g. PENDING01)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "accounts",
+        "operation": "export",
+        "export": {
+          "sortBy": "customerNumber",
+          "columns": [
+            {
+              "header": "Customer Number",
+              "field": "customerNumber"
+            },
+            {
+              "header": "Customer Name",
+              "field": "customerName"
+            },
+            {
+              "header": "Customer Type",
+              "field": "customerType"
+            },
+            {
+              "header": "Inactive",
+              "field": "inactive",
+              "format": "yesno"
+            },
+            {
+              "header": "Group Code",
+              "field": "groupCode"
+            },
+            {
+              "header": "Vendor Number",
+              "field": "vendorNumber"
+            },
+            {
+              "header": "Payment Type",
+              "field": "paymentType"
+            },
+            {
+              "header": "Parent Portfolio",
+              "field": "parentPortfolio"
+            },
+            {
+              "header": "Child or Generic Portfolio",
+              "field": "onChildOrGenericPortfolio",
+              "format": "yesno"
+            },
+            {
+              "header": "Effective Date",
+              "field": "effectiveDate"
+            },
+            {
+              "header": "End Date",
+              "field": "endDate"
+            }
+          ]
+        }
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-accounts.csv\"",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to export customers\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-accounts-upload",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates-bff/:rebateId/accounts/upload",
+      "description": "Upload customers CSV (multipart file + user). Valid rows are applied; invalid rows come back as an error CSV. Customer 88888 / 77777 -> row errors",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "multipart/form-data: file (CSV: Customer Number, Vendor Number, Payment Type, Effective Date, End Date), user"
+      },
+      "entityLink": {
+        "entityName": "accounts",
+        "operation": "import",
+        "batches": {
+          "entity": "account-uploads",
+          "timeZone": "America/Chicago"
+        },
+        "import": {
+          "fileField": "file",
+          "userField": "user",
+          "keyField": "customerNumber",
+          "recordLabel": "account",
+          "maxBytes": 10485760,
+          "maxRows": 10000,
+          "bounds": {
+            "entity": "rebates",
+            "idParam": "rebateId",
+            "label": "rebate"
+          },
+          "columns": [
+            {
+              "header": "Customer Number",
+              "field": "customerNumber",
+              "type": "integer",
+              "required": true,
+              "positive": true,
+              "maxDigits": 9
+            },
+            {
+              "header": "Vendor Number",
+              "field": "vendorNumber",
+              "type": "integer",
+              "minDigits": 5,
+              "requiredWhen": {
+                "paymentType": "check"
+              }
+            },
+            {
+              "header": "Payment Type",
+              "field": "paymentType",
+              "lowercase": true,
+              "requiredOnCreate": true,
+              "values": [
+                "check",
+                "credit"
+              ]
+            },
+            {
+              "header": "Effective Date",
+              "field": "effectiveDate",
+              "type": "date",
+              "requiredOnCreate": true
+            },
+            {
+              "header": "End Date",
+              "field": "endDate",
+              "type": "date"
+            }
+          ],
+          "reject": {
+            "77777": "Customer Type C customers cannot be added to a rebate",
+            "88888": "Customer 88888 does not exist"
+          },
+          "userFields": {
+            "create": [
+              "loadUser",
+              "trackingInfo.createdBy",
+              "trackingInfo.updatedBy"
+            ],
+            "update": [
+              "trackingInfo.updatedBy"
+            ]
+          }
+        }
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success (error CSV for rejected rows, empty when all rows applied)",
+          "statusCode": 201,
+          "delayMs": 300,
+          "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-account-upload-errors.csv\"\nX-Account-Upload-Created-Count: {{result.createdCount}}\nX-Account-Upload-Ended-Count: {{result.endedCount}}\nX-Account-Upload-Error-Count: {{result.errorCount}}\nAccess-Control-Expose-Headers: Content-Disposition, X-Account-Upload-Created-Count, X-Account-Upload-Ended-Count, X-Account-Upload-Error-Count",
+          "body": "{{result.errorCsv}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to upload customers\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-account-uploads-revert",
+      "method": "POST",
+      "path": "/api/rms/crs/rebates/:rebateId/account-uploads/revert-latest",
+      "description": "Revert today's latest customer upload (404 when there is none, UPLOAD03 -> 500)",
+      "tag": "customer",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "accounts",
+        "operation": "revertLatest",
+        "batches": {
+          "entity": "account-uploads",
+          "timeZone": "America/Chicago"
+        }
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-fail",
+          "name": "rebateId UPLOAD03 -> Server Error",
+          "match": {
+            "params.rebateId": "UPLOAD03"
+          },
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to revert the latest upload\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 204,
+          "delayMs": 300,
+          "headers": "",
+          "body": "",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Always Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to revert the latest upload\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
       "id": "ep-tiers-list",
       "method": "GET",
       "path": "/api/rms/crs/rebates/:rebateId/tiers",
@@ -18935,6 +21154,104 @@
           "delayMs": 300,
           "headers": "Content-Type: application/json",
           "body": "{ \"message\": \"Unable to load tiers\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-tiers-export",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates-bff/:rebateId/tiers/export",
+      "description": "Export tier versions as CSV; sales / rebate columns follow the rebate's salesType / valueType",
+      "tag": "tier",
+      "enabled": true,
+      "requestShape": {
+        "query": "none",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "tiers",
+        "operation": "export",
+        "export": {
+          "each": "versions",
+          "sortBy": [
+            "percentage",
+            "effectiveDate"
+          ],
+          "parent": {
+            "entity": "rebates",
+            "idParam": "rebateId"
+          },
+          "columns": [
+            {
+              "header": "Tier Percentage",
+              "field": "percentage"
+            },
+            {
+              "header": "Net Sales",
+              "field": "salesAmount",
+              "unless": {
+                "parent.salesType": "eligible"
+              }
+            },
+            {
+              "header": "Eligible Sales",
+              "field": "salesAmount",
+              "when": {
+                "parent.salesType": "eligible"
+              }
+            },
+            {
+              "header": "Rebate Amount",
+              "field": "rebateAmount",
+              "unless": {
+                "parent.valueType": "percent"
+              }
+            },
+            {
+              "header": "Rebate Percent",
+              "field": "rebatePercent",
+              "when": {
+                "parent.valueType": "percent"
+              }
+            },
+            {
+              "header": "Effective Date",
+              "field": "effectiveDate"
+            },
+            {
+              "header": "End Date",
+              "field": "endDate"
+            },
+            {
+              "header": "Created By",
+              "field": "trackingInfo.createdBy"
+            },
+            {
+              "header": "Edited By",
+              "field": "trackingInfo.updatedBy"
+            }
+          ]
+        }
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-tiers.csv\"",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to export tiers\" }",
           "usesEntity": false
         }
       ]
@@ -19193,6 +21510,144 @@
           "delayMs": 200,
           "headers": "Content-Type: application/json",
           "body": "{ \"message\": \"Unable to end tiers\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-exclusions-list",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId/exclusions",
+      "description": "List exclusions with their categories (TEST1234 has 20 unsorted rows for search and sort; HISTORY01 includes ended rows; other rebates have none; includeHistorical is ignored)",
+      "tag": "exclusion",
+      "enabled": true,
+      "requestShape": {
+        "query": "includeHistorical=false",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "exclusions",
+        "operation": "list"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-not-found",
+          "name": "Not Found (API not deployed: the tab shows no rows)",
+          "statusCode": 404,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Not Found\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load exclusions\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-exclusions-list-bff",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates-bff/:rebateId/exclusions",
+      "description": "BFF exclusions list (PRCREBATE-454, not called by the UI yet): the same data as GET /api/rms/crs/rebates/:rebateId/exclusions",
+      "tag": "exclusion",
+      "enabled": true,
+      "requestShape": {
+        "query": "includeHistorical=false",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "exclusions",
+        "operation": "list"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-bad-gateway",
+          "name": "Downstream Failure (502)",
+          "statusCode": 502,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to retrieve exclusions from rebate-legacy-adapter\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load exclusions\" }",
+          "usesEntity": false
+        }
+      ]
+    },
+    {
+      "id": "ep-customer-exclusions-list",
+      "method": "GET",
+      "path": "/api/rms/crs/rebates/:rebateId/customer-exclusions",
+      "description": "List customer exclusions with their categories (TEST1234 has 12 rows; HISTORY01 includes ended rows; other rebates have none; includeHistorical is ignored)",
+      "tag": "exclusion",
+      "enabled": true,
+      "requestShape": {
+        "query": "includeHistorical=false",
+        "body": "none"
+      },
+      "entityLink": {
+        "entityName": "customer-exclusions",
+        "operation": "list"
+      },
+      "activeScenarioId": "sc-ok",
+      "scenarios": [
+        {
+          "id": "sc-ok",
+          "name": "Success",
+          "statusCode": 200,
+          "delayMs": 0,
+          "headers": "Content-Type: application/json",
+          "body": "{{result}}",
+          "usesEntity": true
+        },
+        {
+          "id": "sc-not-found",
+          "name": "Not Found (API not deployed: the tab shows no rows)",
+          "statusCode": 404,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Not Found\" }",
+          "usesEntity": false
+        },
+        {
+          "id": "sc-err",
+          "name": "Server Error",
+          "statusCode": 500,
+          "delayMs": 300,
+          "headers": "Content-Type: application/json",
+          "body": "{ \"message\": \"Unable to load customer exclusions\" }",
           "usesEntity": false
         }
       ]

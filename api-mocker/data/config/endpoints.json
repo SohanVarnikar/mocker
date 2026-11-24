@@ -1,0 +1,1670 @@
+[
+  {
+    "id": "ep-auth-check",
+    "method": "GET",
+    "path": "/RebateManagement/teamnet/checkAuthentication",
+    "description": "Check authentication",
+    "tag": "auth",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Authenticated",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "true",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-no",
+        "name": "Not authenticated",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "false",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-program-types",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/program-types",
+    "description": "List program types",
+    "tag": "lookups",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "program-types",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load program types\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-customer-categories",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/customer-categories",
+    "description": "List customer categories",
+    "tag": "lookups",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "customer-categories",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load customer categories\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-frequency-types",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/frequency-types",
+    "description": "List frequency types",
+    "tag": "lookups",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "[\"Monthly\", \"Quarterly\"]",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load frequency types\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-config",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/config",
+    "description": "Rebate configuration enums for the create form (SALE_TYPE / REBATE_AMOUNT_TYPE)",
+    "tag": "lookups",
+    "enabled": true,
+    "requestShape": {
+      "query": "SALE_TYPE=true&REBATE_AMOUNT_TYPE=true",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{\n  \"saleTypes\": [\n    {\n      \"code\": \"NET_SALES\",\n      \"label\": \"Net Sales\"\n    },\n    {\n      \"code\": \"ELIGIBLE_SALES\",\n      \"label\": \"Eligible Sales\"\n    }\n  ],\n  \"rebateAmountTypes\": [\n    {\n      \"code\": \"REBATE_AMOUNT\",\n      \"label\": \"Rebate Amount\"\n    },\n    {\n      \"code\": \"REBATE_PERCENTAGE\",\n      \"label\": \"Rebate Percentage\"\n    }\n  ]\n}",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load rebate configuration\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-get",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId",
+    "description": "Get rebate (rebateId ERROR500 -> 500, GATEWAY504 -> 504, unknown id -> 404)",
+    "tag": "rebate",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "rebates",
+      "operation": "getById"
+    },
+    "scenarios": [
+      {
+        "id": "sc-500",
+        "name": "ERROR500 -> Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unexpected server error\" }",
+        "usesEntity": false,
+        "match": {
+          "params.rebateId": "ERROR500"
+        }
+      },
+      {
+        "id": "sc-504",
+        "name": "GATEWAY504 -> Gateway Timeout",
+        "statusCode": 504,
+        "delayMs": 1000,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Gateway Timeout\" }",
+        "usesEntity": false,
+        "match": {
+          "params.rebateId": "GATEWAY504"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unexpected server error\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-create",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates",
+    "description": "Create rebate (name FAIL -> 400); salesTargetType / rebateAmountType are stored as salesType / valueType",
+    "tag": "rebate",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"name\": \"string\", \"effectiveDate\": \"date\", \"endDate\": \"date (omitted when blank)\", \"customerCategoryId\": \"number\", \"programTypeId\": \"number\", \"frequencyType\": \"string\", \"salesTargetType\": \"NET_SALES|ELIGIBLE_SALES\", \"rebateAmountType\": \"REBATE_AMOUNT|REBATE_PERCENTAGE\", \"description\": \"string\", \"status\": \"string\", \"pastDueMax\": \"number\", \"closeToTarget\": \"number\", \"audit\": { \"createdBy\": \"string\" } }"
+    },
+    "entityLink": {
+      "entityName": "rebates",
+      "operation": "create",
+      "bodyTemplate": "{\n  \"name\": \"{{request.body.name}}\",\n  \"salesType\": \"{{request.body.salesTargetType | map NET_SALES=net ELIGIBLE_SALES=eligible}}\",\n  \"valueType\": \"{{request.body.rebateAmountType | map REBATE_AMOUNT=amount REBATE_PERCENTAGE=percent}}\",\n  \"programTypeId\": \"{{request.body.programTypeId}}\",\n  \"customerCategoryId\": \"{{request.body.customerCategoryId}}\",\n  \"frequencyType\": \"{{request.body.frequencyType}}\",\n  \"effectiveDate\": \"{{request.body.effectiveDate}}\",\n  \"endDate\": \"{{request.body.endDate}}\",\n  \"description\": \"{{request.body.description}}\",\n  \"pastDueMax\": \"{{request.body.pastDueMax}}\",\n  \"closeToTarget\": \"{{request.body.closeToTarget}}\",\n  \"status\": \"{{request.body.status}}\",\n  \"trackingInfo\": {\n    \"createdBy\": \"{{request.body.audit.createdBy}}\",\n    \"createdAt\": \"{{now}}\",\n    \"updatedBy\": null,\n    \"updatedAt\": null\n  }\n}"
+    },
+    "scenarios": [
+      {
+        "id": "sc-fail",
+        "name": "name FAIL -> Validation Error",
+        "statusCode": 400,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Rebate name is not allowed\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.name": "FAIL"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 201,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to create rebate\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-defaults",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/rebate-defaults",
+    "description": "Default pastDueMax / closeToTarget for the create form",
+    "tag": "rebate",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{\n  \"rebatePastDueMax\": 500,\n  \"rebateCloseToTarget\": 750\n}",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-empty",
+        "name": "Empty response (UI defaults both to 0)",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load rebate defaults\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-put",
+    "method": "PUT",
+    "path": "/api/rms/crs/rebates/:rebateId",
+    "description": "Edit rebate (name FAIL -> 400)",
+    "tag": "rebate",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"name\": \"string\", \"programTypeId\": \"number\", \"customerCategoryId\": \"number\", \"frequencyType\": \"string\", \"effectiveDate\": \"date\", \"endDate\": \"date\", \"pastDueMax\": \"number\", \"closeToTarget\": \"number\", \"shareable\": \"boolean\", \"status\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "rebates",
+      "operation": "update"
+    },
+    "scenarios": [
+      {
+        "id": "sc-fail",
+        "name": "name FAIL -> Validation Error",
+        "statusCode": 400,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Rebate name is not allowed\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.name": "FAIL"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-bad",
+        "name": "Always Validation Error",
+        "statusCode": 400,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"endDate must be on or after effectiveDate\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-rebate-flags",
+    "method": "PATCH",
+    "path": "/api/rms/crs/rebates/:rebateId/invoice-item-flags",
+    "description": "Update a single invoice item flag",
+    "tag": "rebate",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"priceMods\": \"boolean\" }"
+    },
+    "entityLink": {
+      "entityName": "rebates",
+      "operation": "update"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error (UI rolls back)",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to update flag\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-group-codes",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId/group-codes",
+    "description": "List group codes (path assumed)",
+    "tag": "group-code",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "[\"GC001\", \"GC002\"]",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-empty",
+        "name": "Empty",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "[]",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load group codes\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-group-codes-bff",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/group-codes",
+    "description": "List group codes (BFF path, as the UI calls it; path assumed)",
+    "tag": "group-code",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": null,
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "[\"GC001\", \"GC002\"]",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-empty",
+        "name": "Empty",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "[]",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load group codes\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-notes-list",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId/notes",
+    "description": "List notes (PENDING01 has none)",
+    "tag": "note",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "notes",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load notes\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-notes-create",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates/:rebateId/notes",
+    "description": "Add note (note text FAIL -> 500)",
+    "tag": "note",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"note\": \"string\", \"createdBy\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "notes",
+      "operation": "create"
+    },
+    "scenarios": [
+      {
+        "id": "sc-fail",
+        "name": "note FAIL -> Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to save note\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.note": "FAIL"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 201,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to save note\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-notes-update",
+    "method": "PUT",
+    "path": "/api/rms/crs/rebates/:rebateId/notes/:noteId",
+    "description": "Edit note",
+    "tag": "note",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"note\": \"string\", \"updatedBy\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "notes",
+      "operation": "update"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to update note\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-list",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/accounts",
+    "description": "List customer accounts with today's upload info (PENDING01 has none; UPLOAD01-03 have uploads)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "list",
+      "batches": {
+        "entity": "account-uploads",
+        "timeZone": "America/Chicago"
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success (with upload info)",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{\n  \"updatedByUploadToday\": {{lastImport.today}},\n  \"lastUploadUser\": {{lastImport.user}},\n  \"lastUploadTime\": {{lastImport.time}},\n  \"accounts\": {{result}}\n}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-array",
+        "name": "Success (plain array, current backend)",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load customers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-create",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/accounts",
+    "description": "Add customer account (customerNumber 99999 -> 409, 88888 -> 422)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"customerNumber\": \"number\", \"vendorNumber\": \"number\", \"paymentType\": \"credit|check\", \"effectiveDate\": \"date\", \"trackingInfo\": { \"createdBy\": \"string\" } }"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "create"
+    },
+    "scenarios": [
+      {
+        "id": "sc-dup",
+        "name": "customerNumber 99999 -> Duplicate",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Customer already exists on this rebate\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.customerNumber": 99999
+        }
+      },
+      {
+        "id": "sc-unknown",
+        "name": "customerNumber 88888 -> Unknown Customer",
+        "statusCode": 422,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "\"Customer 88888 does not exist\"",
+        "usesEntity": false,
+        "match": {
+          "request.body.customerNumber": 88888
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 201,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to add customer\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-update",
+    "method": "PUT",
+    "path": "/api/rms/crs/rebates/:rebateId/accounts/:accountId",
+    "description": "Edit customer account (vendorNumber 99999 -> 422, 88888 -> 409)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"customerNumber\": \"number\", \"vendorNumber\": \"number|null\", \"paymentType\": \"check|credit\", \"effectiveDate\": \"date\", \"endDate\": \"date|null\", \"trackingInfo\": { \"updatedBy\": \"string\" } }"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "update"
+    },
+    "scenarios": [
+      {
+        "id": "sc-vendor-invalid",
+        "name": "vendorNumber 99999 -> Unprocessable",
+        "statusCode": 422,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "\"Vendor 99999 is not set up for this customer\"",
+        "usesEntity": false,
+        "match": {
+          "request.body.vendorNumber": 99999
+        }
+      },
+      {
+        "id": "sc-conflict",
+        "name": "vendorNumber 88888 -> Conflict",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Customer was changed by another user. Reload and try again.\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.vendorNumber": 88888
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to update customer\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-delete",
+    "method": "DELETE",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/accounts/:accountId",
+    "description": "Delete customer account (accountId 123457 -> 409)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "delete"
+    },
+    "scenarios": [
+      {
+        "id": "sc-conflict",
+        "name": "accountId 123457 -> Conflict",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Customer has pending payments and cannot be removed\" }",
+        "usesEntity": false,
+        "match": {
+          "params.accountId": 123457
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to delete customer\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-delete-ms",
+    "method": "DELETE",
+    "path": "/api/rms/crs/rebates/:rebateId/accounts/:accountId",
+    "description": "Delete customer account, ?user=<name> (accountId 123457 -> 409)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "user=string",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "delete"
+    },
+    "scenarios": [
+      {
+        "id": "sc-conflict",
+        "name": "accountId 123457 -> Conflict",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Customer has pending payments and cannot be removed\" }",
+        "usesEntity": false,
+        "match": {
+          "params.accountId": 123457
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to delete customer\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-export",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/accounts/export",
+    "description": "Export customers as CSV (empty body when the rebate has none, e.g. PENDING01)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "export",
+      "export": {
+        "sortBy": "customerNumber",
+        "columns": [
+          {
+            "header": "Customer Number",
+            "field": "customerNumber"
+          },
+          {
+            "header": "Customer Name",
+            "field": "customerName"
+          },
+          {
+            "header": "Customer Type",
+            "field": "customerType"
+          },
+          {
+            "header": "Inactive",
+            "field": "inactive",
+            "format": "yesno"
+          },
+          {
+            "header": "Group Code",
+            "field": "groupCode"
+          },
+          {
+            "header": "Vendor Number",
+            "field": "vendorNumber"
+          },
+          {
+            "header": "Payment Type",
+            "field": "paymentType"
+          },
+          {
+            "header": "Parent Portfolio",
+            "field": "parentPortfolio"
+          },
+          {
+            "header": "Child or Generic Portfolio",
+            "field": "onChildOrGenericPortfolio",
+            "format": "yesno"
+          },
+          {
+            "header": "Effective Date",
+            "field": "effectiveDate"
+          },
+          {
+            "header": "End Date",
+            "field": "endDate"
+          }
+        ]
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-accounts.csv\"",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to export customers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-accounts-upload",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/accounts/upload",
+    "description": "Upload customers CSV (multipart file + user). Valid rows are applied; invalid rows come back as an error CSV. Customer 88888 / 77777 -> row errors",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "multipart/form-data: file (CSV: Customer Number, Vendor Number, Payment Type, Effective Date, End Date), user"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "import",
+      "batches": {
+        "entity": "account-uploads",
+        "timeZone": "America/Chicago"
+      },
+      "import": {
+        "fileField": "file",
+        "userField": "user",
+        "keyField": "customerNumber",
+        "recordLabel": "account",
+        "maxBytes": 10485760,
+        "maxRows": 10000,
+        "bounds": {
+          "entity": "rebates",
+          "idParam": "rebateId",
+          "label": "rebate"
+        },
+        "columns": [
+          {
+            "header": "Customer Number",
+            "field": "customerNumber",
+            "type": "integer",
+            "required": true,
+            "positive": true,
+            "maxDigits": 9
+          },
+          {
+            "header": "Vendor Number",
+            "field": "vendorNumber",
+            "type": "integer",
+            "minDigits": 5,
+            "requiredWhen": {
+              "paymentType": "check"
+            }
+          },
+          {
+            "header": "Payment Type",
+            "field": "paymentType",
+            "lowercase": true,
+            "requiredOnCreate": true,
+            "values": [
+              "check",
+              "credit"
+            ]
+          },
+          {
+            "header": "Effective Date",
+            "field": "effectiveDate",
+            "type": "date",
+            "requiredOnCreate": true
+          },
+          {
+            "header": "End Date",
+            "field": "endDate",
+            "type": "date"
+          }
+        ],
+        "reject": {
+          "77777": "Customer Type C customers cannot be added to a rebate",
+          "88888": "Customer 88888 does not exist"
+        },
+        "userFields": {
+          "create": [
+            "loadUser",
+            "trackingInfo.createdBy",
+            "trackingInfo.updatedBy"
+          ],
+          "update": [
+            "trackingInfo.updatedBy"
+          ]
+        }
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success (error CSV for rejected rows, empty when all rows applied)",
+        "statusCode": 201,
+        "delayMs": 300,
+        "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-account-upload-errors.csv\"\nX-Account-Upload-Created-Count: {{result.createdCount}}\nX-Account-Upload-Ended-Count: {{result.endedCount}}\nX-Account-Upload-Error-Count: {{result.errorCount}}\nAccess-Control-Expose-Headers: Content-Disposition, X-Account-Upload-Created-Count, X-Account-Upload-Ended-Count, X-Account-Upload-Error-Count",
+        "body": "{{result.errorCsv}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to upload customers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-account-uploads-revert",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates/:rebateId/account-uploads/revert-latest",
+    "description": "Revert today's latest customer upload (404 when there is none, UPLOAD03 -> 500)",
+    "tag": "customer",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "accounts",
+      "operation": "revertLatest",
+      "batches": {
+        "entity": "account-uploads",
+        "timeZone": "America/Chicago"
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-fail",
+        "name": "rebateId UPLOAD03 -> Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to revert the latest upload\" }",
+        "usesEntity": false,
+        "match": {
+          "params.rebateId": "UPLOAD03"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 204,
+        "delayMs": 300,
+        "headers": "",
+        "body": "",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to revert the latest upload\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-list",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId/tiers",
+    "description": "List tiers with their versions (PENDING01 has none; PAGE* rebates test scrolling; includeHistorical is ignored)",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "query": "includeHistorical=false",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load tiers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-export",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/tiers/export",
+    "description": "Export tier versions as CSV; sales / rebate columns follow the rebate's salesType / valueType",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "query": "none",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "export",
+      "export": {
+        "each": "versions",
+        "sortBy": [
+          "percentage",
+          "effectiveDate"
+        ],
+        "parent": {
+          "entity": "rebates",
+          "idParam": "rebateId"
+        },
+        "columns": [
+          {
+            "header": "Tier Percentage",
+            "field": "percentage"
+          },
+          {
+            "header": "Net Sales",
+            "field": "salesAmount",
+            "unless": {
+              "parent.salesType": "eligible"
+            }
+          },
+          {
+            "header": "Eligible Sales",
+            "field": "salesAmount",
+            "when": {
+              "parent.salesType": "eligible"
+            }
+          },
+          {
+            "header": "Rebate Amount",
+            "field": "rebateAmount",
+            "unless": {
+              "parent.valueType": "percent"
+            }
+          },
+          {
+            "header": "Rebate Percent",
+            "field": "rebatePercent",
+            "when": {
+              "parent.valueType": "percent"
+            }
+          },
+          {
+            "header": "Effective Date",
+            "field": "effectiveDate"
+          },
+          {
+            "header": "End Date",
+            "field": "endDate"
+          },
+          {
+            "header": "Created By",
+            "field": "trackingInfo.createdBy"
+          },
+          {
+            "header": "Edited By",
+            "field": "trackingInfo.updatedBy"
+          }
+        ]
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: text/csv; charset=UTF-8\nContent-Disposition: attachment; filename=\"rebate-{{request.params.rebateId}}-tiers.csv\"",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to export tiers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-create",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates/:rebateId/tiers",
+    "description": "Add tier: creates the tier with its first version, created by `user` (percentage 77 -> 500; no server-side tier validation)",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"percentage\": \"number\", \"salesAmount\": \"number\", \"rebateAmount\": \"number|null\", \"rebatePercent\": \"number|null\", \"effectiveDate\": \"date\", \"endDate\": \"date|null\", \"user\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "create",
+      "bodyTemplate": "{\n  \"percentage\": {{request.body.percentage}},\n  \"versions\": [\n    {\n      \"id\": \"{{uuid}}\",\n      \"salesAmount\": {{request.body.salesAmount}},\n      \"rebateAmount\": {{request.body.rebateAmount}},\n      \"rebatePercent\": {{request.body.rebatePercent}},\n      \"effectiveDate\": \"{{request.body.effectiveDate}}\",\n      \"endDate\": \"{{request.body.endDate}}\",\n      \"trackingInfo\": { \"createdBy\": \"{{request.body.user}}\", \"createdAt\": \"{{now}}\", \"updatedBy\": null, \"updatedAt\": null }\n    }\n  ]\n}"
+    },
+    "scenarios": [
+      {
+        "id": "sc-fail",
+        "name": "percentage 77 -> Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to add tier\" }",
+        "usesEntity": false,
+        "match": {
+          "request.body.percentage": 77
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 201,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to add tier\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-delete",
+    "method": "DELETE",
+    "path": "/api/rms/crs/rebates/:rebateId/tiers/:tierId/versions/:versionId",
+    "description": "Delete one tier version; deleting the last version removes the tier (unknown tierId/versionId -> 404; tierId 386 -> 409)",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "query": "user=string",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "delete",
+      "nested": {
+        "field": "versions",
+        "idParam": "versionId",
+        "deleteParentWhenEmpty": true
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-started",
+        "name": "tierId 386 -> Already Started",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Tier has already started and cannot be deleted\" }",
+        "usesEntity": false,
+        "match": {
+          "params.tierId": 386
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to delete tier\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-change",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates/:rebateId/tiers/:tierId/changes",
+    "description": "Edit tier: ends baseVersionId the day before the new effectiveDate and adds the new version (tierId 387 -> 409, 388 -> 422; unknown tierId/baseVersionId -> 404)",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"baseVersionId\": \"number\", \"salesAmount\": \"number\", \"rebateAmount\": \"number|null\", \"rebatePercent\": \"number|null\", \"effectiveDate\": \"date\", \"endDate\": \"date|null\", \"user\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "create",
+      "nested": {
+        "field": "versions",
+        "idParam": "versionId",
+        "supersede": {
+          "idFrom": "baseVersionId",
+          "startField": "effectiveDate",
+          "endField": "endDate"
+        }
+      },
+      "bodyTemplate": "{\n  \"salesAmount\": {{request.body.salesAmount}},\n  \"rebateAmount\": {{request.body.rebateAmount}},\n  \"rebatePercent\": {{request.body.rebatePercent}},\n  \"effectiveDate\": \"{{request.body.effectiveDate}}\",\n  \"endDate\": \"{{request.body.endDate}}\",\n  \"trackingInfo\": { \"createdBy\": \"{{request.body.user}}\", \"createdAt\": \"{{now}}\", \"updatedBy\": null, \"updatedAt\": null }\n}"
+    },
+    "scenarios": [
+      {
+        "id": "sc-conflict",
+        "name": "tierId 387 -> Conflict",
+        "statusCode": 409,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Tier was changed by another user. Reload and try again.\" }",
+        "usesEntity": false,
+        "match": {
+          "params.tierId": 387
+        }
+      },
+      {
+        "id": "sc-invalid",
+        "name": "tierId 388 -> Unprocessable",
+        "statusCode": 422,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Effective Date overlaps an existing 20% tier version\" }",
+        "usesEntity": false,
+        "match": {
+          "params.tierId": 388
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 201,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to update tier\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-tiers-end-all",
+    "method": "POST",
+    "path": "/api/rms/crs/rebates/:rebateId/tiers/endAll",
+    "description": "End all tiers: versions active on endDate are ended on it, versions starting after it are cancelled, versions already ended are untouched; endDate outside the rebate dates -> 400. ENDALL08 -> 422, ENDALL09 -> 500, ENDALL10 -> 3s delay",
+    "tag": "tier",
+    "enabled": true,
+    "requestShape": {
+      "body": "{ \"endDate\": \"date\", \"user\": \"string\" }"
+    },
+    "entityLink": {
+      "entityName": "tiers",
+      "operation": "endAll",
+      "nested": {
+        "field": "versions",
+        "startField": "effectiveDate",
+        "endField": "endDate",
+        "dateFrom": "endDate",
+        "userFrom": "user",
+        "bounds": {
+          "entity": "rebates",
+          "idParam": "rebateId",
+          "startField": "effectiveDate",
+          "endField": "endDate"
+        }
+      }
+    },
+    "scenarios": [
+      {
+        "id": "sc-rejected",
+        "name": "ENDALL08 -> Unprocessable (with message)",
+        "statusCode": 422,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Tiers cannot be ended while a rebate calculation is running. Try again later.\" }",
+        "usesEntity": false,
+        "match": {
+          "params.rebateId": "ENDALL08"
+        }
+      },
+      {
+        "id": "sc-server-error",
+        "name": "ENDALL09 -> Server Error (no message)",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"error\": \"Internal Server Error\" }",
+        "usesEntity": false,
+        "match": {
+          "params.rebateId": "ENDALL09"
+        }
+      },
+      {
+        "id": "sc-slow",
+        "name": "ENDALL10 -> Success after 3s",
+        "statusCode": 200,
+        "delayMs": 3000,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true,
+        "match": {
+          "params.rebateId": "ENDALL10"
+        }
+      },
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-err",
+        "name": "Always Server Error",
+        "statusCode": 500,
+        "delayMs": 200,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to end tiers\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-exclusions-list",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId/exclusions",
+    "description": "List exclusions with their categories (TEST1234 has 20 unsorted rows for search and sort; HISTORY01 includes ended rows; other rebates have none; includeHistorical is ignored)",
+    "tag": "exclusion",
+    "enabled": true,
+    "requestShape": {
+      "query": "includeHistorical=false",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "exclusions",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-not-found",
+        "name": "Not Found (API not deployed: the tab shows no rows)",
+        "statusCode": 404,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Not Found\" }",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load exclusions\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-exclusions-list-bff",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates-bff/:rebateId/exclusions",
+    "description": "BFF exclusions list (PRCREBATE-454, not called by the UI yet): the same data as GET /api/rms/crs/rebates/:rebateId/exclusions",
+    "tag": "exclusion",
+    "enabled": true,
+    "requestShape": {
+      "query": "includeHistorical=false",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "exclusions",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-bad-gateway",
+        "name": "Downstream Failure (502)",
+        "statusCode": 502,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to retrieve exclusions from rebate-legacy-adapter\" }",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load exclusions\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  },
+  {
+    "id": "ep-customer-exclusions-list",
+    "method": "GET",
+    "path": "/api/rms/crs/rebates/:rebateId/customer-exclusions",
+    "description": "List customer exclusions with their categories (TEST1234 has 12 rows; HISTORY01 includes ended rows; other rebates have none; includeHistorical is ignored)",
+    "tag": "exclusion",
+    "enabled": true,
+    "requestShape": {
+      "query": "includeHistorical=false",
+      "body": "none"
+    },
+    "entityLink": {
+      "entityName": "customer-exclusions",
+      "operation": "list"
+    },
+    "scenarios": [
+      {
+        "id": "sc-ok",
+        "name": "Success",
+        "statusCode": 200,
+        "delayMs": 0,
+        "headers": "Content-Type: application/json",
+        "body": "{{result}}",
+        "usesEntity": true
+      },
+      {
+        "id": "sc-not-found",
+        "name": "Not Found (API not deployed: the tab shows no rows)",
+        "statusCode": 404,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Not Found\" }",
+        "usesEntity": false
+      },
+      {
+        "id": "sc-err",
+        "name": "Server Error",
+        "statusCode": 500,
+        "delayMs": 300,
+        "headers": "Content-Type: application/json",
+        "body": "{ \"message\": \"Unable to load customer exclusions\" }",
+        "usesEntity": false
+      }
+    ],
+    "activeScenarioId": "sc-ok"
+  }
+]

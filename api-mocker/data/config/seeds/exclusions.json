@@ -1,0 +1,645 @@
+[
+  {
+    "id": 1,
+    "rebateId": "TEST1234",
+    "line": "WIX",
+    "plcd": 10,
+    "subc": 5,
+    "item": "51515",
+    "effectiveDate": "{{today-60d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-60d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "rebateId": "TEST1234",
+    "line": "ACD",
+    "plcd": 3,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-85d}}",
+    "endDate": "{{today+240d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-85d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-10d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Ignition Coils"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "rebateId": "TEST1234",
+    "line": "MOT",
+    "plcd": 2,
+    "subc": 7,
+    "item": "FL820S",
+    "effectiveDate": "{{today-30d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-30d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "rebateId": "TEST1234",
+    "line": "VAL",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-90d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-90d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Transmission Fluid"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Brake Fluid"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "rebateId": "TEST1234",
+    "line": "WIX",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-90d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-90d}}",
+      "updatedBy": "jdoe",
+      "updatedAt": "{{now-45d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Cabin Air Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Fuel Filters"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "rebateId": "TEST1234",
+    "line": "BOS",
+    "plcd": 15,
+    "subc": 2,
+    "item": null,
+    "effectiveDate": "{{today-40d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-40d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Wipers",
+        "subCategory": "Wiper Blades"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "rebateId": "TEST1234",
+    "line": "MOT",
+    "plcd": 2,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today+14d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-2d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "rebateId": "TEST1234",
+    "line": "WIX",
+    "plcd": 0,
+    "subc": 99,
+    "item": "33032",
+    "effectiveDate": "{{today-10d}}",
+    "endDate": "{{today+20d}}",
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-10d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Fuel Filters"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Fuel Additives"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "rebateId": "TEST1234",
+    "line": "CHA",
+    "plcd": 1,
+    "subc": 1,
+    "item": "RC12YC",
+    "effectiveDate": "{{today-45d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-45d}}",
+      "updatedBy": "mjones",
+      "updatedAt": "{{now-1d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "rebateId": "TEST1234",
+    "line": "ACD",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-75d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-75d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Batteries",
+        "subCategory": "Automotive Batteries"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Brakes",
+        "subCategory": "Brake Pads"
+      },
+      {
+        "category": "Brakes",
+        "subCategory": "Rotors"
+      },
+      {
+        "category": "Brakes",
+        "subCategory": "Brake Pads"
+      },
+      {
+        "category": "Heating, Ventilation & Air Conditioning",
+        "subCategory": "Thermostats"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "rebateId": "TEST1234",
+    "line": "MOB",
+    "plcd": 4,
+    "subc": 12,
+    "item": null,
+    "effectiveDate": "{{today-15d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-15d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "rebateId": "TEST1234",
+    "line": "STP",
+    "plcd": 6,
+    "subc": 1,
+    "item": "78575",
+    "effectiveDate": "{{today-5d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-5d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": []
+  },
+  {
+    "id": 13,
+    "rebateId": "TEST1234",
+    "line": "WIX",
+    "plcd": 10,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-60d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-60d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "rebateId": "TEST1234",
+    "line": "WIX",
+    "plcd": 10,
+    "subc": 5,
+    "item": "57356",
+    "effectiveDate": "{{today-20d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-20d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "rebateId": "TEST1234",
+    "line": "VAL",
+    "plcd": 4,
+    "subc": 12,
+    "item": "SYN5W30",
+    "effectiveDate": "{{today-25d}}",
+    "endDate": "{{today+270d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-25d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-3d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "rebateId": "TEST1234",
+    "line": "GAT",
+    "plcd": 21,
+    "subc": 4,
+    "item": null,
+    "effectiveDate": "{{today-70d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-70d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Heating, Ventilation & Air Conditioning",
+        "subCategory": "Radiator & Heater Hoses"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "rebateId": "TEST1234",
+    "line": "BOS",
+    "plcd": 15,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today+30d}}",
+    "endDate": "{{today+200d}}",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-1d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Wipers",
+        "subCategory": "Wiper Blades"
+      },
+      {
+        "category": "Wipers",
+        "subCategory": "Wiper Blades"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "rebateId": "TEST1234",
+    "line": "ACD",
+    "plcd": 3,
+    "subc": 8,
+    "item": "41-110",
+    "effectiveDate": "{{today-50d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-50d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "rebateId": "TEST1234",
+    "line": "MOT",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-90d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-90d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Ignition Coils"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "rebateId": "TEST1234",
+    "line": "CHA",
+    "plcd": 1,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-45d}}",
+    "endDate": "{{today+10d}}",
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-45d}}",
+      "updatedBy": "jdoe",
+      "updatedAt": "{{now-7d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plug Wires"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "rebateId": "HISTORY01",
+    "line": "WIX",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-400d}}",
+    "endDate": "{{today-35d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-400d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-35d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "rebateId": "HISTORY01",
+    "line": "ACD",
+    "plcd": 3,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "{{today-380d}}",
+    "endDate": "{{today-200d}}",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-380d}}",
+      "updatedBy": "jdoe",
+      "updatedAt": "{{now-200d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Ignition Coils"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "rebateId": "HISTORY01",
+    "line": "MOT",
+    "plcd": 2,
+    "subc": 7,
+    "item": "FL820S",
+    "effectiveDate": "{{today-300d}}",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "{{now-300d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "rebateId": "HISTORY01",
+    "line": "VAL",
+    "plcd": 4,
+    "subc": 12,
+    "item": "SYN5W30",
+    "effectiveDate": "{{today-250d}}",
+    "endDate": "{{today-100d}}",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-250d}}",
+      "updatedBy": "mjones",
+      "updatedAt": "{{now-100d}}"
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      }
+    ]
+  }
+]

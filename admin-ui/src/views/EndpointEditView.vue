@@ -23,6 +23,9 @@ const OPERATIONS = [
   { value: 'update', label: 'update — PUT/PATCH modify record by id' },
   { value: 'delete', label: 'delete — DELETE record by id' },
   { value: 'endAll', label: 'endAll — POST end all items of a nested array (config only)' },
+  { value: 'export', label: 'export — GET records as CSV text (config only)' },
+  { value: 'import', label: 'import — POST multipart CSV upload (config only)' },
+  { value: 'revertLatest', label: "revertLatest — POST undo today's latest import (config only)" },
 ];
 
 function tempId() {

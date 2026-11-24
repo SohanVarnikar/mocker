@@ -1,0 +1,5 @@
+{
+  "mockPort": 4000,
+  "adminPort": 4001,
+  "corsEnabled": true
+}

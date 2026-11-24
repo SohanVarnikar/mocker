@@ -13,6 +13,7 @@
     "dev": "concurrently -n server,ui -c green,cyan \"npm:dev:server\" \"npm:dev:ui\"",
     "build:ui": "npm run build --workspace admin-ui",
     "start": "npm run build:ui && npm start --workspace server",
+    "test": "node --test server/test/*.test.js",
     "package": "node scripts/package.mjs"
   },
   "devDependencies": {

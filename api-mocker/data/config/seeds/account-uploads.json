@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "rebateId": "UPLOAD01",
+    "user": "jdoe",
+    "uploadedAt": "{{now}}",
+    "created": [
+      125003,
+      125004
+    ],
+    "updated": [
+      {
+        "id": 125002,
+        "before": {
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "{{now-30d}}",
+            "updatedBy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "rebateId": "UPLOAD02",
+    "user": "asmith",
+    "uploadedAt": "{{now-1d}}",
+    "created": [
+      125012
+    ],
+    "updated": []
+  },
+  {
+    "id": 3,
+    "rebateId": "UPLOAD03",
+    "user": "mjones",
+    "uploadedAt": "{{now}}",
+    "created": [
+      125021
+    ],
+    "updated": []
+  }
+]

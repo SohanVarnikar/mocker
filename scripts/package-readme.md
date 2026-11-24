@@ -52,13 +52,21 @@ Switch back to "Success" afterwards. Some requests trigger errors on their own; 
 | Rebate `GATEWAY504`                         | 504                         |
 | Unknown rebate ID                           | 404                         |
 | Rebate `PENDING01` / `HISTORY01`            | Pending / historical rebate |
+| Customers `10014`, `10015` (`TEST1234`)     | Added today (blue rows)     |
 | Add customer `99999` / `88888`              | 409 / 422                   |
 | Edit customer with vendor `99999` / `88888` | 422 / 409                   |
 | Delete customer `123457` (`TEST1234`)       | 409                         |
 | Delete tier `386` (`TEST1234`)              | 409                         |
 | Edit tier `387` / `388` (`TEST1234`)        | 409 / 422                   |
+| Exclusions tab (`TEST1234`)                 | 20 rows: search and sort    |
+| Customer Exclusions tab (`TEST1234`)        | 12 rows                     |
+| Both exclusion tabs (`HISTORY01`)           | Includes ended rows         |
+| Both exclusion tabs (`PENDING01`)           | No rows (red 0 badge)       |
 | Save a rebate named `FAIL`                  | 400                         |
 | Add a note `FAIL`                           | 500                         |
+
+The exclusion endpoints also have a "Not Found" scenario: the tab shows no rows and no error, as when the
+API is not deployed yet.
 
 To reset the sample data, use **Reseed** on an entity (Entities screen) or import the config again.
 

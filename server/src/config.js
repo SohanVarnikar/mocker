@@ -209,9 +209,17 @@ class ConfigStore {
       summary.endpoints.added = prepared.length;
       this.endpoints = prepared;
     } else {
-      for (const ep of prepared) {
-        if (this.#upsertEndpoint(ep)) summary.endpoints.added++;
-        else summary.endpoints.updated++;
+      for (const [index, ep] of prepared.entries()) {
+        if (this.getEndpoint(ep.id)) {
+          this.#upsertEndpoint(ep);
+          summary.endpoints.updated++;
+        } else {
+          // Keep new literal routes ahead of existing parameter routes, as ordered in the import.
+          const next = prepared.slice(index + 1).find((candidate) => this.getEndpoint(candidate.id));
+          const insertAt = next ? this.endpoints.findIndex((endpoint) => endpoint.id === next.id) : this.endpoints.length;
+          this.endpoints.splice(insertAt, 0, ep);
+          summary.endpoints.added++;
+        }
       }
     }
 

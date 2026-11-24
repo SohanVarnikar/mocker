@@ -45,6 +45,13 @@ npm run dev       # runs the mock server, admin API, and Vue dev server together
 - Admin UI (dev mode, hot reload): http://localhost:5173
 - Admin API (used internally by the UI): http://localhost:4001
 
+### API regression tests
+
+Run `npm test` with Node.js 18+. The rebate integration tests import the shareable config through
+the admin API and exercise create, CSV exports, upload limits, persisted changes, revert, and existing
+JSON operations. They use temporary data and loopback servers on automatically assigned ports,
+then remove their data and stop the servers; your running mock and stored records are not touched.
+
 ## Production / single-command run
 
 ```bash
@@ -79,12 +86,19 @@ and `MOCK_PORT` / `ADMIN_PORT` to change ports.
   in the UI to simulate success, validation errors, 404s, 500s, etc.
 - **Entities** are simple named data stores backed by a JSON file under
   `server/data/store/`. Link an endpoint's scenario to an entity + operation
-  (`list`, `getById`, `create`, `update`, `delete`) so calls to that endpoint read/write
-  the entity's file — this is what makes a `POST` create data that a later `GET`/`PUT`
-  can see and modify.
+  (`list`, `getById`, `create`, `update`, `delete`; config-only `endAll`, `export`, `import`
+  and `revertLatest`) so calls to that endpoint read/write the entity's file — this is what
+  makes a `POST` create data that a later `GET`/`PUT` can see and modify.
 - Response bodies support simple templating: `:id` (path params), `{{request.body.field}}`,
   `{{request.query.field}}`, `{{result}}` / `{{result.field}}` (the entity operation's
-  result), `{{now}}`, and `{{uuid}}`.
+  result), `{{now}}`, `{{uuid}}` and `{{lastImport.*}}` (see `batches` below). A `map` filter
+  translates values: `{{request.body.type | map NET_SALES=net ELIGIBLE_SALES=eligible}}` (unlisted values pass
+  through). Header values can use the same `{{...}}` tokens.
+- A scenario whose `Content-Type` header is not JSON (e.g. `text/csv`) sends its body as plain
+  text with the tokens filled in. An empty body (or a text body that renders to `""`) sends no
+  bytes and drops the `Content-Type` / `Content-Disposition` headers, e.g. for `204` responses.
+  `multipart/form-data` requests are parsed: text parts become `request.body`, file parts are
+  available to the `import` operation (and show as `name.csv (N bytes, type)` in the request log).
 - Entities can declare **relations** to other entities (see below) so responses can include
   related records and deletes can cascade, like a real database.
 - All configuration lives in human-readable JSON under `server/data/config/` and can be
@@ -154,6 +168,9 @@ entity's **Relations** tab or in config:
 The same can be done with `POST http://localhost:4001/api/config/import` and a body of
 `{ "mode": "merge", "reseed": true, "endpoints": [...], "entities": [...] }`. It responds with
 `{ mode, endpoints: { added, updated }, entities: { added, updated }, reseeded, totals }`.
+
+Merge keeps existing endpoint order and inserts new endpoints before the next existing endpoint
+from the imported file. This keeps additions such as `/rebates/config` ahead of `/rebates/:rebateId`.
 
 ### Share your own setup
 
@@ -263,6 +280,75 @@ the existing endpoint with the same method + path, so re-importing never duplica
   ```
 
   The admin UI keeps `nested` and `bodyTemplate` when you save the endpoint, but doesn't edit them yet.
+- **`operation: "export"`** (config only) returns the in-scope records as CSV text (`""` when there are
+  none, so the response has no body). Use it with a `text/csv` scenario whose body is `{{result}}`:
+
+  ```jsonc
+  "entityLink": {
+    "entityName": "tiers",
+    "operation": "export",
+    "export": {
+      "each": "versions",                         // optional: one row per array item (item fields win)
+      "sortBy": ["percentage", "effectiveDate"],  // empty values last
+      "parent": { "entity": "rebates", "idParam": "rebateId" }, // optional; 404 when missing
+      "columns": [
+        { "header": "Tier Percentage", "field": "percentage" },
+        { "header": "Inactive", "field": "inactive", "format": "yesno" },   // true/false -> Y/N
+        // `when` / `unless`: keep / drop the column when every dotted path matches
+        { "header": "Eligible Sales", "field": "salesAmount", "when": { "parent.salesType": "eligible" } },
+        { "header": "Created By", "field": "trackingInfo.createdBy" }
+      ]
+    }
+  }
+  ```
+
+- **`operation: "import"`** (config only) applies an uploaded CSV file (`multipart/form-data`) to the
+  in-scope records, like the rebate BFF's customer upload. Each row creates a record or, when an
+  active record (no end date, or ending today or later) has the same `keyField`, sets that record's
+  end date. Invalid rows are skipped and reported; valid rows are still applied. Header names match
+  ignoring case, spaces and punctuation; extra columns and blank rows are ignored; a UTF-8 BOM is fine.
+  File problems return `400` (no `user`, no or empty file, missing columns, bad CSV), `413` (too large,
+  too many rows) or `415` (not `.csv`) with a `{ status, message, errors }` body. The result is
+  `{ createdCount, endedCount, errorCount, errors, errorCsv }`, where `errorCsv` lists the rejected
+  rows (`Line`, the columns, `Field`, `Error Message`; `""` when every row was applied):
+
+  ```jsonc
+  "entityLink": {
+    "entityName": "accounts",
+    "operation": "import",
+    "import": {
+      "fileField": "file", "userField": "user",   // multipart parts (defaults)
+      "keyField": "customerNumber",               // matches rows to records; duplicates reject all their lines
+      "recordLabel": "account",                   // used in messages
+      "maxBytes": 10485760, "maxRows": 10000,
+      "startField": "effectiveDate", "endField": "endDate",   // defaults
+      // new records must lie within this record's dates; end dates must not pass its end
+      "bounds": { "entity": "rebates", "idParam": "rebateId", "label": "rebate" },
+      "columns": [
+        { "header": "Customer Number", "field": "customerNumber", "type": "integer", "required": true, "positive": true, "maxDigits": 9 },
+        // requiredOnCreate / values / minDigits / requiredWhen apply to new records only
+        { "header": "Vendor Number", "field": "vendorNumber", "type": "integer", "minDigits": 5, "requiredWhen": { "paymentType": "check" } },
+        { "header": "Payment Type", "field": "paymentType", "lowercase": true, "requiredOnCreate": true, "values": ["check", "credit"] },
+        { "header": "Effective Date", "field": "effectiveDate", "type": "date", "requiredOnCreate": true }, // YYYY-MM-DD or M/D/YYYY
+        { "header": "End Date", "field": "endDate", "type": "date" }
+      ],
+      "reject": { "88888": "Customer 88888 does not exist" },   // key value -> row error (new records)
+      "userFields": { "create": ["loadUser", "trackingInfo.createdBy"], "update": ["trackingInfo.updatedBy"] }
+    },
+    "batches": { "entity": "account-uploads", "timeZone": "America/Chicago" }
+  }
+  ```
+
+  With **`batches`**, every import that changed something is stored as a record of that entity
+  (give it the same `scope`): `{ user, uploadedAt, created: [ids], updated: [{ id, before }] }`.
+  Any endpoint with `batches` can show the latest one through `{{lastImport.today}}` (uploaded today in
+  `timeZone`), `{{lastImport.user}}` and `{{lastImport.time}}` (`YYYY-MM-DDTHH:mm:ss` in `timeZone`).
+- **`operation: "revertLatest"`** (config only, needs `batches`) undoes today's latest import for the
+  scope: records it created are deleted and records it ended get their `before` values back (a
+  `before` with the id field replaces the record, a partial one is merged). Without such an import it
+  returns `404` with `{ "message": "No upload from today found for rebateId X" }`.
+
+  The admin UI keeps `export`, `import` and `batches` when you save the endpoint, but doesn't edit them yet.
 - **`match`** on a scenario maps a dotted path (`request.body.*`, `request.query.*`, `params.*`) to an
   expected value. A scenario whose conditions all match wins over the active scenario, so edge
   cases trigger from the request itself. It is preserved on save but not yet editable in the UI.
@@ -276,19 +362,23 @@ Call `http://localhost:4000` directly (CORS is on by default). For a Vite app, p
 
 ```
 VITE_REBATE_API_BASE=http://localhost:4000/api/rms/crs/rebates             # no trailing slash
-VITE_REBATE_BFF_API_BASE=http://localhost:4000/api/rms/crs/rebates-bff     # customer list/add/delete
+VITE_REBATE_BFF_API_BASE=http://localhost:4000/api/rms/crs/rebates-bff     # customers, uploads, exports, defaults
 VITE_BYPASS_AUTH=true                                                      # skip the auth check
 ```
 
-Without `VITE_REBATE_BFF_API_BASE` the rebate app sends the customer list, add and delete calls to
-`/RebateManagement/rebates-bff/...` on its own dev server (proxied to `localhost:8080`), not to the mock.
-Customer edit uses `VITE_REBATE_API_BASE` (`PUT .../rebates/{rebateId}/accounts/{accountId}`).
+Without `VITE_REBATE_BFF_API_BASE` the rebate app sends the customer list, add, export and upload,
+tier export, group codes and rebate defaults calls to `/RebateManagement/rebates-bff/...` on its own
+dev server (proxied to `localhost:8080`), not to the mock. Customer edit and delete
+(`PUT` / `DELETE .../rebates/{rebateId}/accounts/{accountId}`), revert upload, create rebate and the
+two exclusion lists use `VITE_REBATE_API_BASE`. The config also keeps the older
+`DELETE .../rebates-bff/{rebateId}/accounts/{accountId}`.
 
 `configs/rebate-management.json` mocks the rebate UI's APIs. Rebate IDs to try: `TEST1234` (active),
-`PENDING01` (pending, no notes/customers/tiers), `PENDING02` (pending, with customers and percentage tiers),
+`PENDING01` (pending, no notes/customers/tiers/exclusions), `PENDING02` (pending, with customers and percentage tiers),
 `HISTORY01` (historical, read-only), `EDGECASE1` (boundary values, starts and ends today), `NOEND01`
-(active, no End Date, two open-ended tiers), `ENDALL01` ... `ENDALL11` (End All tiers cases, see below), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
-Other triggers: add a customer `99999` (409) or `88888` (422); save a rebate named `FAIL` (400); add a
+(active, no End Date, two open-ended tiers), `UPLOAD01` ... `UPLOAD03` (customer upload / revert, see
+below), `ENDALL01` ... `ENDALL11` (End All tiers cases, see below), `ERROR500` (500), `GATEWAY504` (504), any other ID (404).
+Other triggers: add a customer `99999` (409) or `88888` (422); save or create a rebate named `FAIL` (400); add a
 note `FAIL` (500); add a tier with percentage `77` (500).
 Rebates carry the tier labels' `salesType` (`net` | `eligible`) and `valueType` (`amount` | `percent`):
 `TEST1234` net/amount, `PENDING01` eligible/amount, `PENDING02` eligible/percent, `HISTORY01` net/percent,
@@ -302,6 +392,65 @@ tomorrow, unknown type and inactive (warning rows), Check without a vendor, a 3-
 Effective, Effective after the rebate end, End after the rebate end, and long values. `PENDING02` adds
 customers that start before the rebate and one exactly on its bounds. Edit with vendor `99999` returns
 422 (plain-string body) and `88888` returns 409; deleting customer `123457` returns 409.
+
+**Customers added today** (PRCREBATE-717 / frontend PR #118): the PO clarified that every customer
+added today is blue on every load (Add, Edit, Upload or refresh), and the API owns ordering.
+The UI's chosen day boundary is browser-local midnight, not UTC midnight. Every customer has
+`trackingInfo.createdAt`. `TEST1234`
+`10014` (standard) and `10015` (unknown type, blue instead of the warning colour), `UPLOAD01` `61003` /
+`61004` and `UPLOAD03` `61021` are created at the reseed time and seeded first, like the backend's
+today-first order; `UPLOAD02` `61012` is a day old and the rest 30 days old. Add and upload stamp
+`createdAt` with the current time, but the mock does not reorder, so new customers come last (the
+backend lists them first). `createdAt` is a UTC `...Z` timestamp, matching the API contract confirmed
+on 2026-11-19. Earlier zone-less Dev responses are not the contract to reproduce in these fixtures.
+The UI parses it directly and checks the user's local day on each load, so a reseed from the
+evening before no longer counts. Reseed on the day you test.
+
+For midnight cases, create local instants and serialize with `toISOString()`; the UTC date before
+`T` (and the mocker's `{{today}}`) can differ from the user's local date. Check both sides of local
+midnight, including blue-over-warning precedence, then reload to evaluate a new day; there is no
+scheduled midnight refresh. The mock's add/upload storage order is a known limitation, not a reason
+to add frontend recency sorting. These checks validate UI behavior under the confirmed contract,
+not whether the BFF timestamp change or backend ordering is deployed in Dev.
+
+After updating the mocker, restart the server and re-import `configs/rebate-management.json` with
+"Reset stored data" ticked. Portable app users must rebuild with `npm run package` before importing;
+the config depends on the new server operations.
+
+**Create rebate** (`POST .../rebates`): `GET .../rebates/config` returns the `saleTypes` /
+`rebateAmountTypes` options and `GET .../rebates-bff/rebate-defaults` returns
+`{ "rebatePastDueMax": 500, "rebateCloseToTarget": 750 }` (its "Empty response" scenario sends no body).
+The new rebate is stored with `salesTargetType` / `rebateAmountType` mapped to `salesType`
+(`NET_SALES` → `net`, `ELIGIBLE_SALES` → `eligible`) and `valueType` (`REBATE_AMOUNT` → `amount`,
+`REBATE_PERCENTAGE` → `percent`) and returned with `201`; open it by the returned `id`.
+This field mapping and the enum codes are mock assumptions until confirmed by the backend.
+
+**Customer list** (`GET .../rebates-bff/{rebateId}/accounts`) returns
+`{ updatedByUploadToday, lastUploadUser, lastUploadTime, accounts }` (the latest upload, time in CST);
+switch to the "Success (plain array, current backend)" scenario for the bare array.
+
+**Exports** (`GET .../rebates-bff/{rebateId}/accounts/export` and `.../tiers/export`) return CSV built
+from the stored data (the BFF's columns; the tier columns follow the rebate's `salesType` / `valueType`),
+and an empty body when there are no rows (e.g. `PENDING01`).
+
+**Customer upload** (`POST .../rebates-bff/{rebateId}/accounts/upload`, `multipart/form-data` with `file`
+and `user`) applies the CSV (`Customer Number, Vendor Number, Payment Type, Effective Date, End Date`)
+like the BFF: new customers are added (name "New Mock Customer"), a row for a customer that is still
+active only sets its End Date, and invalid rows come back as a `201` `text/csv` error file (empty body
+when every row was applied) with the `X-Account-Upload-*-Count` headers. Customer `88888` (does not
+exist) and `77777` (type C) are rejected rows. Each upload that changed something can be reverted the
+same day (`POST .../rebates/{rebateId}/account-uploads/revert-latest`, `204`; `404` when there is no
+upload from today, in CST). Uploads and reverts change the stored customers; reseed `accounts` and
+`account-uploads` (or re-import with "Reset stored data") to start over.
+
+| Rebate     | Upload state (after a reseed)                                                         | Shows                                                    |
+| ---------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `UPLOAD01` | uploaded today by `jdoe`: added `61003`, `61004`, ended `61002`; `61001` still active | Revert Upload enabled; reverting removes / reopens them  |
+| `UPLOAD02` | last upload yesterday by `asmith`                                                     | Revert Upload disabled; revert returns `404`             |
+| `UPLOAD03` | uploaded today by `mjones`                                                            | Revert Upload enabled; revert returns `500`              |
+
+All three run today-30d to today+335d (net/amount). The upload times come from the reseed, so reseed
+on the day you test (a reseed from yesterday makes every upload "yesterday").
 
 **Tiers** hold a `versions` array (one table row per version, deliberately not sorted). `TEST1234`
 uses rebate amounts and `PENDING02` rebate percentages, both increasing with the tier percentage:
@@ -348,6 +497,30 @@ last version removes the tier; a `tierId` / `versionId` pair that doesn't match 
 `effectiveDate` and adds the new version, created by `user`. When the new version starts on or before
 the base version, it replaces the base version (backend behaviour for this case is still open).
 `includeHistorical` is ignored: ended versions are always returned.
+
+**Exclusions** (`GET .../rebates/{rebateId}/exclusions` and `.../customer-exclusions`) return rows of
+`{ id, line, plcd, subc, item, effectiveDate, endDate, trackingInfo, categoryDetails }`, the BFF's
+`ExclusionData` (customer exclusions add `customerNumber` and `customerName`). `TEST1234` has 20
+exclusions, seeded out of order for the Line / PLCD / SUBC sort, and 12 customer exclusions for its
+customers; `HISTORY01` has 4 and 3, some of them ended; every other rebate has none (red `0` badge).
+`includeHistorical` is ignored. The table shows each row's most common category and sub-category (a tie
+keeps the first one), but the search matches all of them. The data also covers rows without PLCD / SUBC /
+Item, a row without categories, future rows, PLCD `0` and two rows with the same codes. The "Not Found"
+scenario (API not deployed) shows an empty tab without a toast; "Server Error" shows the "Failed to load
+..." toast. `GET .../rebates-bff/{rebateId}/exclusions` (PRCREBATE-454) returns the same data and adds a
+"Downstream Failure (502)" scenario; the UI does not call it yet. The exclusion mocks need no server
+change: import the config with **Merge** (untick "Reset stored data" to keep your other data; new
+entities are seeded either way).
+
+| `TEST1234` Exclusions search | Results | Why                                                  |
+| ---------------------------- | ------- | ---------------------------------------------------- |
+| Line `wix`                   | 5       |                                                      |
+| Line `mo`                    | 4       | `MOB` and `MOT`: the search matches part of a value  |
+| Category `fluids`            | 5       | one of them shows Filters                            |
+| Category `filters`           | 8       | one of them shows Fluids & Chemicals                 |
+| Sub-Category `fuel`          | 2       | one of them shows Oil Filters                        |
+| Sub-Category `coil`          | 2       | neither shows Ignition Coils                         |
+| Line `zzz`                   | 0       | "No Results"                                         |
 
 ## Demo data
 

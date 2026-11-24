@@ -1,8 +1,7 @@
 import { nanoid } from "nanoid";
 
 const TOKEN_SOURCE = ":[a-zA-Z_][a-zA-Z0-9_]*|\\{\\{\\s*[^}]+\\s*\\}\\}";
-const QUOTED_TOKEN_PATTERN = new RegExp(`"(${TOKEN_SOURCE})"`, "g");
-const BARE_TOKEN_PATTERN = new RegExp(TOKEN_SOURCE, "g");
+const JSON_TOKEN_PATTERN = new RegExp(`"(${TOKEN_SOURCE})"|(${TOKEN_SOURCE})`, "g");
 
 function getPath(obj, segments) {
   let cur = obj;
@@ -13,20 +12,38 @@ function getPath(obj, segments) {
   return cur;
 }
 
+// key=value pairs of a filter; values with spaces are quoted: map net='Net Sales'
+const FILTER_ARG = /([^\s=]+)=(?:'([^']*)'|"([^"]*)"|(\S*))/g;
+
+function applyFilter(value, filterText) {
+  const m = /^(\w+)\s*([\s\S]*)$/.exec(filterText.trim());
+  if (m?.[1] === "map") {
+    const table = {};
+    for (const [, key, single, double, bare] of m[2].matchAll(FILTER_ARG)) {
+      table[key] = single ?? double ?? bare;
+    }
+    return value != null && Object.hasOwn(table, String(value)) ? table[String(value)] : value;
+  }
+  throw Object.assign(new Error(`Unknown template filter "${filterText.trim()}"`), { status: 500 });
+}
+
 function resolveToken(token, ctx) {
   if (token.startsWith(":")) {
     return ctx.params ? ctx.params[token.slice(1)] : undefined;
   }
-  // {{ ... }}
-  const inner = token.slice(2, -2).trim();
-  const segments = inner.split(".");
+  // {{ path | filter args }}
+  const [path, ...filters] = token.slice(2, -2).split("|");
+  const segments = path.trim().split(".");
   const root = segments[0];
 
-  if (root === "now") return new Date().toISOString();
-  if (root === "uuid") return nanoid(10);
-  if (root === "result") return getPath(ctx.result, segments.slice(1));
-  if (root === "request") return getPath(ctx.request, segments.slice(1));
-  return undefined;
+  let value;
+  if (root === "now") value = new Date().toISOString();
+  else if (root === "uuid") value = nanoid(10);
+  else if (root === "result") value = getPath(ctx.result, segments.slice(1));
+  else if (root === "request") value = getPath(ctx.request, segments.slice(1));
+  else if (root === "lastImport") value = getPath(ctx.lastImport, segments.slice(1));
+  for (const filter of filters) value = applyFilter(value, filter);
+  return value;
 }
 
 /**
@@ -38,6 +55,8 @@ function resolveToken(token, ctx) {
  *   {{result}} / {{result.field}} -> value(s) from an entity operation
  *   {{now}}                       -> current ISO timestamp
  *   {{uuid}}                      -> a generated id
+ *   {{lastImport.today}}          -> latest import batch (entityLink.batches): today / user / time
+ *   {{path | map A=x B='y z'}}    -> replaces a value found in the table, others pass through
  *
  * Tokens are resolved to their JSON representation, so both quoted
  * ("value": ":id") and bare ("value": {{result}}) placeholders work.
@@ -45,21 +64,9 @@ function resolveToken(token, ctx) {
 export function renderTemplate(templateStr, ctx) {
   if (templateStr == null || templateStr === "") return null;
 
-  // Phase 1: tokens written as a quoted JSON string, e.g. "id": ":id" or
-  // "name": "{{request.body.name}}" — replace the whole quoted token
-  // (including its surrounding quotes) with the JSON representation of value.
-  let substituted = templateStr.replace(
-    QUOTED_TOKEN_PATTERN,
-    (_match, token) => {
-      const value = resolveToken(token, ctx);
-      return JSON.stringify(value === undefined ? null : value);
-    },
-  );
-
-  // Phase 2: tokens written bare (unquoted) to splice in a whole object/array,
-  // e.g. "products": {{result}} — replace directly with its JSON form.
-  substituted = substituted.replace(BARE_TOKEN_PATTERN, (token) => {
-    const value = resolveToken(token, ctx);
+  // Resolve quoted and bare tokens together so inserted user data is never evaluated as a template.
+  const substituted = templateStr.replace(JSON_TOKEN_PATTERN, (_match, quoted, bare) => {
+    const value = resolveToken(quoted || bare, ctx);
     return JSON.stringify(value === undefined ? null : value);
   });
 
@@ -72,6 +79,21 @@ export function renderTemplate(templateStr, ctx) {
     err.status = 500;
     throw err;
   }
+}
+
+const TEXT_TOKEN_PATTERN = /\{\{[^}]+\}\}/g;
+
+/**
+ * Renders a plain-text template (non-JSON bodies such as CSV, and header values): only {{...}}
+ * tokens are replaced, strings as-is, null/undefined as "" and objects as JSON.
+ */
+export function renderText(templateStr, ctx) {
+  if (templateStr == null) return "";
+  return String(templateStr).replace(TEXT_TOKEN_PATTERN, (token) => {
+    const value = resolveToken(token, ctx);
+    if (value == null) return "";
+    return typeof value === "object" ? JSON.stringify(value) : String(value);
+  });
 }
 
 /**

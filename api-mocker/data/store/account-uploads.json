@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "rebateId": "UPLOAD01",
+    "user": "jdoe",
+    "uploadedAt": "2026-11-18T17:56:31.069Z",
+    "created": [
+      125003,
+      125004
+    ],
+    "updated": [
+      {
+        "id": 125002,
+        "before": {
+          "endDate": null,
+          "trackingInfo": {
+            "createdBy": "asmith",
+            "createdAt": "2026-10-19T17:56:31.069Z",
+            "updatedBy": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "rebateId": "UPLOAD02",
+    "user": "asmith",
+    "uploadedAt": "2026-11-17T17:56:31.069Z",
+    "created": [
+      125012
+    ],
+    "updated": []
+  },
+  {
+    "id": 3,
+    "rebateId": "UPLOAD03",
+    "user": "mjones",
+    "uploadedAt": "2026-11-18T17:56:31.069Z",
+    "created": [
+      125021
+    ],
+    "updated": []
+  }
+]

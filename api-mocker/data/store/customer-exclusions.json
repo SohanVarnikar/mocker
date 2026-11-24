@@ -1,0 +1,393 @@
+[
+  {
+    "id": 101,
+    "rebateId": "TEST1234",
+    "customerNumber": 10002,
+    "customerName": "Standard R - Already Started (locked, not deletable)",
+    "line": "WIX",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2026-09-24",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2026-09-24T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "rebateId": "TEST1234",
+    "customerNumber": 10006,
+    "customerName": "Starts Today (locked, not deletable)",
+    "line": "ACD",
+    "plcd": 3,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2026-11-23",
+    "endDate": "2027-05-22",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "2026-11-22T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Ignition Coils"
+      },
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "rebateId": "TEST1234",
+    "customerNumber": 10002,
+    "customerName": "Standard R - Already Started (locked, not deletable)",
+    "line": "MOT",
+    "plcd": 2,
+    "subc": 7,
+    "item": "FL820S",
+    "effectiveDate": "2026-10-24",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "2026-10-24T13:53:47.660Z",
+      "updatedBy": "jdoe",
+      "updatedAt": "2026-11-18T13:53:47.660Z"
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "rebateId": "TEST1234",
+    "customerNumber": 10013,
+    "customerName": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+    "line": "VAL",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2027-02-21",
+    "endDate": "2027-02-22",
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "2026-11-20T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Transmission Fluid"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "rebateId": "TEST1234",
+    "customerNumber": 10001,
+    "customerName": "Standard S - Future Start (deletable)",
+    "line": "BOS",
+    "plcd": 15,
+    "subc": 2,
+    "item": null,
+    "effectiveDate": "2026-12-23",
+    "endDate": "2027-07-21",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2026-11-21T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Wipers",
+        "subCategory": "Wiper Blades"
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "rebateId": "TEST1234",
+    "customerNumber": 10014,
+    "customerName": "Added Today - Highlighted Blue",
+    "line": "WIX",
+    "plcd": 0,
+    "subc": 99,
+    "item": "33032",
+    "effectiveDate": "2026-12-07",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2026-11-23T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Fuel Filters"
+      },
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Fuel Additives"
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "rebateId": "TEST1234",
+    "customerNumber": 10006,
+    "customerName": "Starts Today (locked, not deletable)",
+    "line": "CHA",
+    "plcd": 1,
+    "subc": 1,
+    "item": "RC12YC",
+    "effectiveDate": "2026-11-30",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "2026-11-22T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "rebateId": "TEST1234",
+    "customerNumber": 10002,
+    "customerName": "Standard R - Already Started (locked, not deletable)",
+    "line": "STP",
+    "plcd": 6,
+    "subc": 1,
+    "item": "78575",
+    "effectiveDate": "2026-11-03",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "2026-11-03T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": []
+  },
+  {
+    "id": 109,
+    "rebateId": "TEST1234",
+    "customerNumber": 10001,
+    "customerName": "Standard S - Future Start (deletable)",
+    "line": "GAT",
+    "plcd": 21,
+    "subc": 4,
+    "item": null,
+    "effectiveDate": "2026-12-23",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2026-11-21T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Heating, Ventilation & Air Conditioning",
+        "subCategory": "Radiator & Heater Hoses"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "rebateId": "TEST1234",
+    "customerNumber": 10002,
+    "customerName": "Standard R - Already Started (locked, not deletable)",
+    "line": "MOB",
+    "plcd": 4,
+    "subc": 12,
+    "item": null,
+    "effectiveDate": "2026-10-04",
+    "endDate": "2027-03-03",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2026-10-04T13:53:47.660Z",
+      "updatedBy": "mjones",
+      "updatedAt": "2026-11-13T13:53:47.660Z"
+    },
+    "categoryDetails": [
+      {
+        "category": "Fluids & Chemicals",
+        "subCategory": "Motor Oil"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "rebateId": "TEST1234",
+    "customerNumber": 10013,
+    "customerName": "AAAAAAAAA1AAAAAAAAA2AAAAAAAAA3AAAAAAAAA4AAAAAAAAA5AAAAAAAAA6",
+    "line": "ACD",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2027-02-21",
+    "endDate": "2027-02-22",
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "2026-11-20T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Brakes",
+        "subCategory": "Brake Pads"
+      },
+      {
+        "category": "Brakes",
+        "subCategory": "Rotors"
+      },
+      {
+        "category": "Brakes",
+        "subCategory": "Brake Pads"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "rebateId": "TEST1234",
+    "customerNumber": 10007,
+    "customerName": "Starts Tomorrow (editable, deletable)",
+    "line": "WIX",
+    "plcd": 10,
+    "subc": 5,
+    "item": "51515",
+    "effectiveDate": "2026-11-24",
+    "endDate": "2027-08-20",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "2026-11-22T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "rebateId": "HISTORY01",
+    "customerNumber": 20001,
+    "customerName": "Historical Customer",
+    "line": "WIX",
+    "plcd": null,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2025-10-19",
+    "endDate": "2026-10-19",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "2025-10-19T13:53:47.660Z",
+      "updatedBy": "asmith",
+      "updatedAt": "2026-10-19T13:53:47.660Z"
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "rebateId": "HISTORY01",
+    "customerNumber": 20002,
+    "customerName": "Historical Customer - Check",
+    "line": "ACD",
+    "plcd": 3,
+    "subc": 8,
+    "item": "41-110",
+    "effectiveDate": "2026-01-27",
+    "endDate": "2026-08-15",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "2026-01-27T13:53:47.660Z",
+      "updatedBy": "jdoe",
+      "updatedAt": "2026-08-15T13:53:47.660Z"
+    },
+    "categoryDetails": [
+      {
+        "category": "Ignition",
+        "subCategory": "Spark Plugs"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "rebateId": "HISTORY01",
+    "customerNumber": 20001,
+    "customerName": "Historical Customer",
+    "line": "MOT",
+    "plcd": 2,
+    "subc": null,
+    "item": null,
+    "effectiveDate": "2026-05-07",
+    "endDate": null,
+    "trackingInfo": {
+      "createdBy": "mjones",
+      "createdAt": "2026-05-07T13:53:47.660Z",
+      "updatedBy": null,
+      "updatedAt": null
+    },
+    "categoryDetails": [
+      {
+        "category": "Filters",
+        "subCategory": "Oil Filters"
+      },
+      {
+        "category": "Filters",
+        "subCategory": "Air Filters"
+      }
+    ]
+  }
+]

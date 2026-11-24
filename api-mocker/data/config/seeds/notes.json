@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "rebateId": "TEST1234",
+    "note": "Confirmed the annual rebate terms with the customer.",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-30d}}",
+      "updatedBy": "asmith",
+      "updatedAt": "{{now-3d}}"
+    }
+  },
+  {
+    "id": 2,
+    "rebateId": "TEST1234",
+    "note": "Never edited note.",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-10d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  },
+  {
+    "id": 3,
+    "rebateId": "TEST1234",
+    "note": "Very long note: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-5d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  },
+  {
+    "id": 4,
+    "rebateId": "TEST1234",
+    "note": "Special chars: <b>bold</b> & \"quotes\" 'single' \\ backslash\nSecond line éè ✓ 🚀",
+    "trackingInfo": {
+      "createdBy": "jdoe",
+      "createdAt": "{{now-1d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  },
+  {
+    "id": 5,
+    "rebateId": "HISTORY01",
+    "note": "Rebate closed out after final payout.",
+    "trackingInfo": {
+      "createdBy": "asmith",
+      "createdAt": "{{now-40d}}",
+      "updatedBy": null,
+      "updatedAt": null
+    }
+  }
+]

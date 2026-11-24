@@ -1,0 +1,105 @@
+[
+  {
+    "name": "rebates",
+    "idField": "id",
+    "idParam": "rebateId",
+    "idStrategy": "uuid",
+    "defaults": {
+      "shareable": false,
+      "priceMods": false,
+      "outsidePurchases": false,
+      "generalExclusions": false
+    }
+  },
+  {
+    "name": "notes",
+    "idField": "id",
+    "idParam": "noteId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    },
+    "defaults": {
+      "trackingInfo": {
+        "createdBy": "mock-user",
+        "createdAt": "{{now}}",
+        "updatedBy": null,
+        "updatedAt": null
+      }
+    }
+  },
+  {
+    "name": "accounts",
+    "idField": "id",
+    "idParam": "accountId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    },
+    "defaults": {
+      "customerName": "New Mock Customer",
+      "customerType": "S",
+      "inactive": false,
+      "groupCode": "1224",
+      "vendorNumber": null,
+      "parentPortfolioName": null,
+      "parentPortfolio": null,
+      "onChildOrGenericPortfolio": false,
+      "loadUser": "mock-user",
+      "endDate": null,
+      "trackingInfo": {
+        "createdBy": "mock-user",
+        "createdAt": "{{now}}",
+        "updatedBy": null
+      }
+    }
+  },
+  {
+    "name": "account-uploads",
+    "idField": "id",
+    "idParam": "uploadId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    }
+  },
+  {
+    "name": "tiers",
+    "idField": "id",
+    "idParam": "tierId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    }
+  },
+  {
+    "name": "program-types",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment"
+  },
+  {
+    "name": "customer-categories",
+    "idField": "id",
+    "idParam": "id",
+    "idStrategy": "increment"
+  },
+  {
+    "name": "exclusions",
+    "idField": "id",
+    "idParam": "exclusionId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    }
+  },
+  {
+    "name": "customer-exclusions",
+    "idField": "id",
+    "idParam": "customerExclusionId",
+    "idStrategy": "increment",
+    "scope": {
+      "rebateId": "rebateId"
+    }
+  }
+]

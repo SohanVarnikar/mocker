@@ -1,9 +1,10 @@
 import { readEntityRecords, writeEntityRecords, indexBy, nextEntityId, resolveSeedTokens } from "./store.js";
 import { withRelations, validateReferences, deleteRecords } from "./relations.js";
 import { httpError } from "./asyncRouter.js";
+import { performExport, performImport, performRevertLatest } from "./csvOperations.js";
 
 // entity.scope maps record field -> path param, so nested routes only see their parent's records.
-function scopeValues(entity, params) {
+export function scopeValues(entity, params) {
   const values = {};
   for (const [field, param] of Object.entries(entity.scope || {})) {
     if (params[param] !== undefined) values[field] = params[param];
@@ -11,7 +12,7 @@ function scopeValues(entity, params) {
   return values;
 }
 
-function inScope(record, scope) {
+export function inScope(record, scope) {
   return Object.entries(scope).every(
     ([field, value]) => String(record[field]) === String(value),
   );
@@ -32,7 +33,7 @@ export function mergeDeep(target, source) {
 
 const bodyObject = (body) => (isPlainObject(body) ? body : {});
 
-function dateOnly(value) {
+export function dateOnly(value) {
   const text = typeof value === "string" ? value.slice(0, 10) : "";
   return /^\d{4}-\d{2}-\d{2}$/.test(text) && !Number.isNaN(Date.parse(`${text}T00:00:00Z`))
     ? text
@@ -252,6 +253,16 @@ export async function performEntityOperation(
       throw httpError(500, 'The "endAll" operation needs entityLink.nested with the array "field"');
     }
     return performEndAll(entity, options.nested, params, requestBody, scope);
+  }
+
+  if (operation === "export") {
+    return performExport(entity, options.export, params, scope);
+  }
+  if (operation === "import") {
+    return performImport(entity, options.import, params, requestBody, options.files, scope, options.batches);
+  }
+  if (operation === "revertLatest") {
+    return performRevertLatest(entity, options.batches, params, scope);
   }
 
   if (options.nested?.field) {

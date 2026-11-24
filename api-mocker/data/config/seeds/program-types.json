@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Sales Support Rebate"
+  },
+  {
+    "id": 2,
+    "name": "Category Rebate"
+  },
+  {
+    "id": 3,
+    "name": "An Extremely Long Program Type Name To Test Dropdown Overflow And Truncation Behaviour"
+  }
+]
